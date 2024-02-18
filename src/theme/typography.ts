@@ -7,6 +7,7 @@ const typography = {
   fontWeightRegular: 400,
   color: colors.black,
   colorLink: colors.link,
+
   h1: {
     fontSize: '22px',
     fontStyle: 'normal'

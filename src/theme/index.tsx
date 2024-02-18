@@ -8,8 +8,9 @@ import typography from './typography';
 
 import IntrinsicAttributes = JSX.IntrinsicAttributes;
 
-const config: ThemeConfig = {
+export const config: ThemeConfig = {
   token: {
+    orange: colors.accent['800'],
     colorBgBase: colors.white,
 
     colorPrimary: colors.accent['800'],

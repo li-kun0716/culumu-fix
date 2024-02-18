@@ -5,28 +5,25 @@ import { Flex } from 'antd';
 import { useTranslation } from '@/i18n';
 import { LanguageSwitcher } from '@/i18n/LanguageSwitcher';
 
-const Home: React.FC = async () => {
-  const { t } = await useTranslation('translation');
+const Page: React.FC = async () => {
+  const { t } = await useTranslation('second-page');
 
-  const str = t('translation:homePageTest.text');
+  const str = t('second-page:secondPageTest.text');
 
   return (
-    <Flex vertical>
+    <div>
       <h1>{t('title')}</h1>
       <Flex className="bg-amber-200" style={{ width: '500px', height: '100px', padding: '10px' }}>
         {str}
       </Flex>
       <Flex style={{ marginTop: '10px' }}>
-        <Link href={`/second-page`}>{t('to-second-page')}</Link>
-        <Link href={`/client-page`} style={{ marginLeft: '20px' }}>
-          {t('to-client-page')}
-        </Link>
+        <Link href={`/`}>{t('back-to-home')}</Link>
       </Flex>
-      <Flex style={{ marginTop: '40px' }}>
+      <div style={{ marginTop: '40px' }}>
         <LanguageSwitcher />
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 };
 
-export default Home;
+export default Page;

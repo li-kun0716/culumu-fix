@@ -1,11 +1,10 @@
 'use client';
 
-import Link from 'next/link';
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { Flex, Typography } from 'antd';
 
 import { useTranslation } from '@/i18n/client';
-import { LanguageSwitcher } from '@/i18n/LanguageSwitcher';
 import { Button } from '@/components/antd/Button';
 
 const Page: React.FC = () => {
@@ -20,9 +19,9 @@ const Page: React.FC = () => {
       <Flex className="bg-amber-200" style={{ width: '500px', height: '100px', padding: '10px' }}>
         <Typography.Text>{str(1, '11')}</Typography.Text>
       </Flex>
-      <Typography.Text>{t('counter', { count: counter })}</Typography.Text>
-      <Flex>
-        <Button type="test" onClick={() => setCounter(Math.max(0, counter - 1))}>
+      <Flex align="center" style={{ marginTop: '10px' }}>
+        <Typography.Text>{t('counter', { count: counter })}</Typography.Text>
+        <Button type="test" style={{ marginLeft: '5px' }} onClick={() => setCounter(Math.max(0, counter - 1))}>
           -
         </Button>
         <Button type="primary" style={{ marginLeft: '5px' }} onClick={() => setCounter(Math.min(10, counter + 1))}>
@@ -31,9 +30,6 @@ const Page: React.FC = () => {
       </Flex>
       <Flex style={{ marginTop: '20px' }}>
         <Link href={`/`}>{t('back-to-home')}</Link>
-      </Flex>
-      <Flex style={{ marginTop: '30px' }}>
-        <LanguageSwitcher />
       </Flex>
     </Flex>
   );

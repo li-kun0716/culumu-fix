@@ -9,9 +9,9 @@ const clientPageTest = {
 
 export default {
   title: 'Client ページ',
-  counter_one: '1 回選択された。',
-  counter_other: '{{count}} 回クリックされた。',
-  counter_zero: 'クリックされたことない。',
+  counter_one: '1 回クリックされた',
+  counter_other: '{{count}} 回クリックされた',
+  counter_zero: 'クリックされたことない',
   'back-to-home': 'ホームに戻す',
   clientPageFun: (arg1: number, arg2: string) => `Client ページ clientPageFun コールされ arg: ${arg1} - ${arg2}`,
   clientPageTest

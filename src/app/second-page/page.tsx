@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { Flex } from 'antd';
 
 import { useTranslation } from '@/i18n';
-import { LanguageSwitcher } from '@/i18n/LanguageSwitcher';
 
 const Page: React.FC = async () => {
   const { t } = await useTranslation('second-page');
@@ -19,9 +18,6 @@ const Page: React.FC = async () => {
       <Flex style={{ marginTop: '10px' }}>
         <Link href={`/`}>{t('back-to-home')}</Link>
       </Flex>
-      <div style={{ marginTop: '40px' }}>
-        <LanguageSwitcher />
-      </div>
     </div>
   );
 };

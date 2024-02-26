@@ -21,7 +21,7 @@ const Page: React.FC = () => {
       </Flex>
       <Flex align="center" style={{ marginTop: '10px' }}>
         <Typography.Text>{t('counter', { count: counter })}</Typography.Text>
-        <Button type="test" style={{ marginLeft: '5px' }} onClick={() => setCounter(Math.max(0, counter - 1))}>
+        <Button type="outline" style={{ marginLeft: '5px' }} onClick={() => setCounter(Math.max(0, counter - 1))}>
           -
         </Button>
         <Button type="primary" style={{ marginLeft: '5px' }} onClick={() => setCounter(Math.min(10, counter + 1))}>

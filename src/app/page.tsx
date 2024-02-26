@@ -1,17 +1,18 @@
 import React from 'react';
 import Link from 'next/link';
-import { Flex } from 'antd';
+import { Flex, Typography } from 'antd';
 
 import { useTranslation } from '@/i18n';
 
 const Home: React.FC = async () => {
   const { t } = await useTranslation('translation');
+  const { Title } = Typography;
 
   const str = t('translation:homePageTest.text');
 
   return (
     <Flex vertical>
-      <h1>{t('title')}</h1>
+      <Title>{t('title')}</Title>
       <Flex className="bg-amber-200" style={{ width: '500px', height: '100px', padding: '10px' }}>
         {str}
       </Flex>

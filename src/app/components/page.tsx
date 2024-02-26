@@ -4,7 +4,7 @@ import { Flex } from 'antd';
 import Counter from '@/components/Counter';
 import { Button } from '@/components/antd/Button';
 
-const Home: React.FC = () => {
+const Page: React.FC = () => {
   return (
     <Flex className="container" vertical>
       <span>Components</span>
@@ -25,4 +25,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Page;

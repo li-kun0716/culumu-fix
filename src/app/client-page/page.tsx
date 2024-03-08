@@ -11,13 +11,14 @@ const Page: React.FC = () => {
   const { t } = useTranslation('client-page');
   const [counter, setCounter] = useState(0);
 
-  const str = t('client-page:clientPageTest.obj.funObj');
+  const str = t('client-page:clientPageTest.text');
 
   return (
     <Flex vertical>
       <Typography.Title level={2}>{t('title')}</Typography.Title>
       <Flex className="bg-amber-200" style={{ width: '500px', height: '100px', padding: '10px' }}>
-        <Typography.Text>{str(1, '11')}</Typography.Text>
+        {/* <Typography.Text>{str(1, '11')}</Typography.Text> */}
+        {str}
       </Flex>
       <Flex align="center" style={{ marginTop: '10px' }}>
         <Typography.Text>{t('counter', { count: counter })}</Typography.Text>

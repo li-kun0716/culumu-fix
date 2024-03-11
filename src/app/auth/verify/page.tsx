@@ -1,13 +1,15 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { message } from 'antd';
 
 import { getLocalStorageItem, Key, removeLocalStorageItem, setLocalStorageItem } from '@/utils/localStorage';
 import { login } from '@/api/login';
 
-const Page: React.FC = () => {
+import Loading from './loading';
+
+const Verify: React.FC = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [messageApi, contextHolder] = message.useMessage();
@@ -47,6 +49,14 @@ const Page: React.FC = () => {
   }, [messageApi, router, searchParams]);
 
   return <>{contextHolder}</>;
+};
+
+const Page: React.FC = () => {
+  return (
+    <Suspense fallback={<Loading />}>
+      <Verify />
+    </Suspense>
+  );
 };
 
 export default Page;

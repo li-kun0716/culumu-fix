@@ -17,7 +17,7 @@ export default function Page() {
               onClick={() => setSelected(index)}
               key={index}
               className="h-[61px] pl-5 pr-5 flex items-center 
-              justify-between text-[16px] font-[300] leading-6
+              justify-between text-[16px] font-[300] leading-6 box-border cursor-pointer  
                tracking-[0.48px] border-0 text-[#212121]  border-solid border-b-[1px] border-[#eee]"
             >
               <span>{item}</span>

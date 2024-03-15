@@ -1,6 +1,4 @@
-const SignUp = {
-  text: 'asdasdjkaskl'
-};
+const SignUp = {};
 
 export default {
   SignUp

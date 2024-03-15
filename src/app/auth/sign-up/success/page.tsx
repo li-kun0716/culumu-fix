@@ -14,7 +14,7 @@ const Page: React.FC = () => {
         <Typography.Title
           style={{
             fontSize: '22px',
-            marginTop: '64px'
+            margin: '64px 0 16px'
           }}
         >
           {t('signUp.success.title')}
@@ -22,7 +22,8 @@ const Page: React.FC = () => {
         <Typography.Text
           style={{
             whiteSpace: 'pre-wrap',
-            textAlign: 'center'
+            textAlign: 'center',
+            fontSize: '16px'
           }}
         >
           {t('signUp.success.description')}

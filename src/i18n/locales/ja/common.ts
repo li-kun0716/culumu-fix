@@ -1,5 +1,6 @@
 export default {
   next: '次へ進む',
+  skip: 'スキップする',
   return: '戻る',
   year: '年',
   month: '月',

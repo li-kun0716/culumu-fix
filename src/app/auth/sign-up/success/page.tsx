@@ -4,9 +4,11 @@ import { Flex, Typography, Image } from 'antd';
 import { Button } from '@/components/antd';
 import colors from '@/theme/colors';
 import { useTranslation } from '@/i18n/client';
+import { useRouter } from 'next/navigation';
 
 const Page: React.FC = () => {
   const { t } = useTranslation('auth-page');
+  const router = useRouter();
 
   return (
     <>
@@ -49,7 +51,9 @@ const Page: React.FC = () => {
         }}
       >
         <Button
+          onClick={() => router.push('/auth/sign-up/introduce')}
           type="outline"
+          onClick={() => router.replace('/auth/sign-up/introduce')}
           style={{
             height: '64px',
             width: '100%',

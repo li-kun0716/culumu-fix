@@ -36,6 +36,23 @@ const signUp = {
     returnToLine: 'LINEに戻る',
   },
   complete: '登録を完了する',
+  capability: {
+    title: 'お話できること・紹介できる人を入力しましょう',
+    subTitle: 'お話できること・紹介できる人',
+    talkAbout: 'お話できることを教えてください',
+    talkAboutPlaceholder:
+      '・認知症の家族の悩みが話せます\n・車いす利用の当事者\n・理学療法士として高齢者の生活全般について話せます',
+    introduceTo: '紹介できる人を教えてください',
+    introduceToTip: '※紹介できるひとがいない場合は「なし」と入力してください。',
+    introduceToPlaceholder: '・認知症の家族を持つ仲間を紹介できます',
+    approveRule: 'メッセージ送信前に承諾確認が必要です。'
+  },
+  occupation: {
+    title: 'あなたのご職業・状況\nを入力しましょう',
+    subTitle: '所属情報',
+    subTitleTip: '複数ある場合は「＋職業を追加」を選び、追加してください。',
+    add: '職業を追加する'
+  }
 };
 
 export default {

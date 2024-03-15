@@ -10,7 +10,7 @@ const Page: React.FC = () => {
   const { t } = useTranslation('auth-page');
   const router = useRouter();
 
-  const itemList = [
+  const itemList: { image: string; title: number; description: string }[] = [
     {
       image: '/images/myself-to-articipate.png',
       title: t('signUp.topSecondTitle'),
@@ -87,7 +87,15 @@ const Page: React.FC = () => {
                 boxSizing: 'border-box'
               }}
             >
-              <Image src={item.image} alt={''} width={126} height={106} />
+              <Image
+                src={item.image}
+                alt={''}
+                width={126}
+                height={106}
+                style={{
+                  minWidth: 126
+                }}
+              />
               <Flex
                 style={{
                   flexDirection: 'column'

@@ -24,7 +24,8 @@ const StepController: React.FC<PropsType> = ({ onReturn, onNext }) => {
         padding: '16px 20px',
         boxSizing: 'border-box',
         backgroundColor: colors.white,
-        gap: 20
+        gap: 20,
+        zIndex: 9999
       }}
     >
       <Button

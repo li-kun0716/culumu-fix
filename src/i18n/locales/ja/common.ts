@@ -6,6 +6,7 @@ export default {
   month: '月',
   day: '日',
   select: '選択する',
+  any: '任意',
   placeholder: {
     name: '山田太郎',
     kanaName: 'ヤマダタロウ'

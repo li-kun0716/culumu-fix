@@ -2,7 +2,7 @@
 
 import { Flex, Form, Input, Typography, Select } from 'antd';
 import { useTranslation } from '@/i18n/client';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import FlowStepBar from '@/app/components/auth/FlowStepBar';
 import StepController from '@/app/components/auth/StepController';
 import { useRouter } from 'next/navigation';
@@ -35,6 +35,7 @@ const Page: React.FC = () => {
 
   const handleSubmit = useCallback(() => {
     console.log(form.getFieldsValue());
+    router.push('/auth/sign-up/occupation');
   }, []);
 
   useEffect(() => {
@@ -156,7 +157,8 @@ const Page: React.FC = () => {
                 <Select
                   placeholder="2000"
                   style={{
-                    width: 91
+                    width: 91,
+                    height: 48
                   }}
                 >
                   {yearOptions().map((year) => (
@@ -177,7 +179,8 @@ const Page: React.FC = () => {
                 <Select
                   placeholder="1"
                   style={{
-                    width: 91
+                    width: 91,
+                    height: 48
                   }}
                 >
                   {monthOptions().map((year) => (
@@ -199,7 +202,8 @@ const Page: React.FC = () => {
                   disabled={selectDayDisabled}
                   placeholder="1"
                   style={{
-                    width: 91
+                    width: 91,
+                    height: 48
                   }}
                 >
                   {dayOptions.map((day) => (

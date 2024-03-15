@@ -4,10 +4,12 @@ import { useTranslation } from '@/i18n/client';
 import colors from '@/theme/colors';
 import { Flex, Typography, Input } from 'antd';
 import { Button } from '@/components/antd';
+import { useRouter } from 'next/navigation';
 
 const Page: React.FC = () => {
   const { t } = useTranslation('auth-page');
   const { TextArea } = Input;
+  const router = useRouter();
 
   return (
     <>
@@ -73,6 +75,7 @@ const Page: React.FC = () => {
           </Button>
           <Button
             type="outline"
+            onClick={() => router.push('/auth/sign-up/introduce-success')}
             style={{
               height: '64px',
               width: '65%',

@@ -1,3 +1,5 @@
+import { describe } from "node:test";
+
 const signUp = {
   title: 'CULUMUリサーチから２パターンの依頼が届きます！会員登録して、好きな依頼に参加しましょう！',
   success: {
@@ -27,6 +29,11 @@ const signUp = {
     title: '自己紹介文を入力しましょう!',
     description: '自己紹介を書くと依頼が届きやすくなります。\nあなたの声を届ける機会を増やしましょう！',
     tip: '・20年間理学療法士をしており、高齢に伴う身体機能の低下についてお話しできます\n・発達障害の子どもがおり、特別支援学校に通っています。親としての立場でお話しできます\n・発達障害の親同士でつながりがあるので、ご紹介できます'
+  },
+  introduceSuccess: {
+    title: '自己紹介入力が完了しました！',
+    description: '案件の依頼はLINEで届きます。\nご依頼までお待ちください',
+    returnToLine: 'LINEに戻る',
   },
   complete: '登録を完了する',
 };

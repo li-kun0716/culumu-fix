@@ -1,23 +1,25 @@
 'use client';
-import Image from 'next/image';
-import { Flex, Typography } from 'antd';
-import colors from '@/theme/colors';
+
+import { Flex, Typography, Image } from 'antd';
 import { Button } from '@/components/antd';
+import colors from '@/theme/colors';
 import { useTranslation } from '@/i18n/client';
+import { useRouter } from 'next/navigation';
 
 const Page: React.FC = () => {
   const { t } = useTranslation('auth-page');
+  const router = useRouter();
 
   const itemList = [
     {
       image: '/images/myself-to-articipate.png',
-      title: '自分が参加する',
-      description: '企業のインタビューやワークショップにあなた自身が参加します。'
+      title: t('signUp.topSecondTitle'),
+      description: t('authPage.signUp.topSecondText')
     },
     {
       image: '/images/introduce-someone.png',
-      title: '人を紹介する',
-      description: '企業のインタビューやワークショップに参加してくれる友人・知人を紹介します。'
+      title: t('authPage.signUp.bottomSecondTitle'),
+      description: t('authPage.signUp.bottomSecondText')
     }
   ];
 
@@ -28,7 +30,6 @@ const Page: React.FC = () => {
       align="center"
       style={{
         overflow: 'hidden',
-        minHeight: '100vh',
         backgroundImage: 'url(/images/auth-top-icon.png),url(/images/auth-bottom-icon.png)',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'right -68px, left bottom',
@@ -46,7 +47,7 @@ const Page: React.FC = () => {
         }}
       >
         <Image
-          src="/logo.png"
+          src="/images/logo.png"
           alt="logo"
           width={306}
           height={34.3}
@@ -64,7 +65,7 @@ const Page: React.FC = () => {
             letterSpacing: '.48px'
           }}
         >
-          {t('signUp.title')}
+          {t('authPage.signUp.title')}
         </Typography>
         <Flex
           gap="20px"
@@ -129,7 +130,7 @@ const Page: React.FC = () => {
             fontSize: '16px',
             fontWeight: 600
           }}
-          onClick={() => {}}
+          onClick={() => router.push('/auth/sign-up/about')}
         >
           登録を開始する
         </Button>

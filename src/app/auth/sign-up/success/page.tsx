@@ -58,7 +58,7 @@ const Page: React.FC = () => {
             color: colors.white
           }}
         >
-          {t('signUp.success.next')}
+          {t('common:next')}
         </Button>
       </Flex>
     </>

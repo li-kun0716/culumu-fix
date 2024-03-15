@@ -22,7 +22,7 @@ const RootLayout: React.FC<Readonly<{ children: React.ReactNode; params: { lng?:
     <body>
       <div
         style={{
-          height: '100vh',
+          minHeight: '100vh',
           backgroundColor: colors.gray[100]
         }}
       >

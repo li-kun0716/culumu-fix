@@ -1,4 +1,9 @@
 import clientPage from './client-page';
+import backPage from './back-page';
+import notifyPage from './notify-page';
+import setupPage from './setup-page';
+import myPage from './my-page';
+import greetingPage from './greeting-page';
 
 const homePageTest = {
   text: 'ホームページテストテキスト',
@@ -16,5 +21,10 @@ export default {
   languageSwitcher: 'Switch from <1>{{lng}}</1> to: ',
   homeFun: (arg1: number, arg2: string) => `homeFun がコールされ arg: ${arg1} - ${arg2}`,
   homePageTest,
-  clientPage
+  clientPage,
+  backPage,
+  notifyPage,
+  setupPage,
+  myPage,
+  greetingPage
 };

@@ -1,38 +1,45 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import Image from 'next/image';
-
-// eslint-disable-next-line import/no-unused-modules
+import { useTranslation } from '@/i18n/client';
 export default function Page() {
+  const { t } = useTranslation();
   const navList = [
     {
       icon: '/Person.svg',
-      title: 'プロフィール設定'
+      title: t('myPage.info')
     },
     {
       icon: '/Person.svg',
-      title: '通知設定'
+      title: t('myPage.notify')
     },
     {
       icon: '/Dicussion.svg',
-      title: 'お問い合わせ'
+      title: t('myPage.query')
     },
     {
       icon: '/Shield.svg',
-      title: '利用規約・プライバシーポリシー'
+      title: t('myPage.policy')
     }
   ] as const;
-  const footBar = [
-    {
-      icon: '/Memo.svg',
-      title: '案件管理'
-    },
-    {
-      icon: '/PersonRed.svg',
-      title: 'マイページ'
-    }
-  ] as const;
+  const barList = t('myPage.barList').split('|');
+  const [navIndex, setNavIndex] = useState(1);
   return (
     <div className="my bg-[#FBFAF8] w-[100%] min-h-[100vh] relative">
+      <nav className=" bg-white h-[51px] border-0 border-b border-solid border-[#E0E0E0]">
+        <ul className="flex list-none h-[100%] items-center">
+          {barList.map((item, index) => (
+            <li
+              onClick={() => setNavIndex(index)}
+              key={item}
+              className="flex h-[48px]  w-1/2 justify-center items-center text-[#9E9E9E] border-0 border-b-[3px] border-transparent border-solid "
+              style={index === navIndex ? { borderColor: '#ED7B01', color: '#ED7B01' } : {}}
+            >
+              <span className="text-[15px]">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </nav>
       <header className="flex items-center h-[97px] pl-[24px]">
         <h1 className="text-[22px] tracking-[0.66px]">マイページ</h1>
       </header>
@@ -50,20 +57,9 @@ export default function Page() {
         </ul>
       </main>
       <div className="bg-[#fff] mt-6 back h-[61px] flex items-center text-[#E76B00] pl-[24px] font-[300]">
-        <span>退会する</span>
+        <span>{t('myPage.back')}</span>
       </div>
-      <footer className="bg-[#fff] pt-1 pb-1 absolute bottom-0 w-[100%]">
-        <nav>
-          <ul className="flex list-none ">
-            {footBar.map((item) => (
-              <li key={item.title} className="flex flex-col w-1/2 justify-center items-center">
-                <Image src={item.icon} alt="icon" width={28} height={28} />
-                <span className="text-[15px] text-[#9E9E9E]">{item.title}</span>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </footer>
+      <footer className="bg-[#fff] pt-1 pb-1 absolute bottom-0 w-[100%]"></footer>
     </div>
   );
 }

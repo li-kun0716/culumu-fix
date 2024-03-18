@@ -1,13 +1,15 @@
 'use client';
 
 import { Flex, Form, Input, Typography, Select } from 'antd';
-import { useTranslation } from '@/i18n/client';
 import { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { getDaysInMonth } from 'date-fns';
+import styled from 'styled-components';
+
+import { useTranslation } from '@/i18n/client';
 import FlowStepBar from '@/app/components/auth/FlowStepBar';
 import StepController from '@/app/components/auth/StepController';
-import { useRouter } from 'next/navigation';
 import { monthOptions, yearOptions } from '@/utils/common';
-import { getDaysInMonth } from 'date-fns';
 
 type FieldType = {
   name: string;
@@ -21,6 +23,15 @@ type FieldType = {
   day: string;
   birth?: string;
 };
+
+const StyledForm = styled(Form)`
+  .ant-form-item {
+    margin-bottom: 0px;
+  }
+  .ant-form-item-label > .ant-form-item-required::before {
+    content: '' !important;
+  }
+`;
 
 const Page: React.FC = () => {
   const { t } = useTranslation('auth-page');
@@ -36,7 +47,7 @@ const Page: React.FC = () => {
   const handleSubmit = useCallback(() => {
     console.log(form.getFieldsValue());
     router.push('/auth/sign-up/occupation');
-  }, []);
+  }, [form, router]);
 
   useEffect(() => {
     if (yearValue && monthValue) {
@@ -56,8 +67,7 @@ const Page: React.FC = () => {
   return (
     <div
       style={{
-        padding: '32px 24px 144px',
-        textAlign: 'center'
+        padding: '32px 24px 144px'
       }}
     >
       <FlowStepBar curStep={1} />
@@ -70,14 +80,15 @@ const Page: React.FC = () => {
           style={{
             fontSize: 22,
             fontWeight: 600,
-            marginBottom: '6px'
+            marginBottom: '6px',
+            textAlign: 'center'
           }}
         >
           {t('signUp.about.title')}
         </Typography>
         <Typography>{t('signUp.about.tip')}</Typography>
       </div>
-      <Form
+      <StyledForm
         layout="vertical"
         style={{
           paddingTop: '40px',
@@ -115,10 +126,13 @@ const Page: React.FC = () => {
         <Form.Item<FieldType>
           label={t('signUp.about.kanaName')}
           name="kanaName"
-          rules={[{ required: true, message: t('common:rule.fullWidthKatakana') }]}
-          style={{
-            marginBottom: '0px'
-          }}
+          rules={[
+            { required: true, message: t('common:rule.required') },
+            {
+              pattern: /^[ァ-ヴー]+$/,
+              message: t('common:rule.fullWidthKatakana')
+            }
+          ]}
         >
           <Input
             placeholder={t('common:placeholder.kanaName')}
@@ -134,7 +148,7 @@ const Page: React.FC = () => {
           rules={[
             { required: true, message: '' },
             ({ getFieldValue }) => ({
-              validator(_, value) {
+              validator() {
                 if (getFieldValue('year') && getFieldValue('month') && getFieldValue('day')) {
                   form.setFieldValue(
                     'birth',
@@ -174,7 +188,7 @@ const Page: React.FC = () => {
               <Form.Item<FieldType>
                 name="month"
                 rules={[{ required: true, message: '' }]}
-                style={{ display: 'inline-block', marginBottom: '0px' }}
+                style={{ display: 'inline-block' }}
               >
                 <Select
                   placeholder="1"
@@ -196,7 +210,7 @@ const Page: React.FC = () => {
               <Form.Item<FieldType>
                 name="day"
                 rules={[{ required: true, message: '' }]}
-                style={{ display: 'inline-block', marginBottom: '0' }}
+                style={{ display: 'inline-block' }}
               >
                 <Select
                   disabled={selectDayDisabled}
@@ -221,9 +235,6 @@ const Page: React.FC = () => {
           label={t('signUp.about.gender')}
           name="gender"
           rules={[{ required: true, message: t('common:rule.required') }]}
-          style={{
-            marginBottom: '0px'
-          }}
         >
           <Select
             placeholder={t('common:select')}
@@ -248,10 +259,13 @@ const Page: React.FC = () => {
         <Form.Item<FieldType>
           label={t('signUp.about.tel')}
           name="tel"
-          rules={[{ required: true, message: t('common:rule.halfWidthNumber') }]}
-          style={{
-            marginBottom: '0px'
-          }}
+          rules={[
+            { required: true, message: t('common:rule.required') },
+            {
+              pattern: /^[0-9]+$/,
+              message: t('common:rule.halfWidthNumber')
+            }
+          ]}
         >
           <Input
             placeholder="12345678900"
@@ -263,10 +277,14 @@ const Page: React.FC = () => {
         <Form.Item<FieldType>
           label={t('signUp.about.email')}
           name="email"
-          rules={[{ required: true, message: t('common:rule.halfWidthAlphanumeric') }]}
-          style={{
-            marginBottom: '0px'
-          }}
+          rules={[
+            { required: true, message: t('common:rule.required') },
+            {
+              pattern:
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              message: t('common:rule.halfWidthAlphanumeric')
+            }
+          ]}
         >
           <Input
             placeholder="contact@xxx.com"
@@ -288,10 +306,13 @@ const Page: React.FC = () => {
         <Form.Item<FieldType>
           label={t('signUp.about.zipCode')}
           name="zipCode"
-          rules={[{ required: true, message: t('common:rule.required') }]}
-          style={{
-            marginBottom: '0px'
-          }}
+          rules={[
+            { required: true, message: t('common:rule.required') },
+            {
+              pattern: /^\d{7}$/,
+              message: t('common:rule.required')
+            }
+          ]}
         >
           <Input
             placeholder="1234567"
@@ -300,7 +321,7 @@ const Page: React.FC = () => {
             }}
           />
         </Form.Item>
-      </Form>
+      </StyledForm>
       <StepController onReturn={() => router.replace('/auth/sign-up')} onNext={() => form.submit()} />
     </div>
   );

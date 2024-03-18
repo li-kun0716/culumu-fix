@@ -1,4 +1,4 @@
-const occupationList = [
+export const occupationList = [
   '会社員',
   '公務員（教職員除く）',
   '教職員',
@@ -12,7 +12,18 @@ const occupationList = [
   'パート・アルバイト',
   '定年退職',
   'ボランティア',
-  '無職'
+  '無職',
+  'その他'
+];
+
+export const managerialPositionList = [
+  '経営者・代表',
+  '役員',
+  '一般社員（正社員）',
+  '契約社員',
+  '派遣社員',
+  'パート・アルバイト',
+  'その他（自由記述）'
 ];
 
 const yearOptions = () => {
@@ -36,12 +47,4 @@ const monthOptions = () => {
   return options;
 };
 
-const occupationOptions = () => {
-  const options: { label: string; value: string }[] = [];
-
-  return occupationList.map((item) => {
-    return { label: item.toString(), value: item.toString() };
-  });
-};
-
-export { yearOptions, monthOptions, occupationOptions };
+export { yearOptions, monthOptions };

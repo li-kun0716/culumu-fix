@@ -1,10 +1,12 @@
 'use client';
 
+import { Flex, Typography, Input } from 'antd';
+import { useRouter } from 'next/navigation';
+
 import { useTranslation } from '@/i18n/client';
 import colors from '@/theme/colors';
-import { Flex, Typography, Input } from 'antd';
 import { Button } from '@/components/antd';
-import { useRouter } from 'next/navigation';
+
 
 const Page: React.FC = () => {
   const { t } = useTranslation('auth-page');
@@ -45,7 +47,14 @@ const Page: React.FC = () => {
             width: '100%'
           }}
         >
-          <TextArea rows={6} placeholder={t('signUp.introduce.tip')} />
+          <TextArea
+            rows={6}
+            placeholder={t('signUp.introduce.tip')}
+            style={{
+              padding: '12px 16px'
+            }}
+            maxLength={500}
+          />
         </div>
 
         <Flex

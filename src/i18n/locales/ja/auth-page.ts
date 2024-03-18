@@ -1,5 +1,3 @@
-import { describe } from "node:test";
-
 const signUp = {
   title: 'CULUMUリサーチから２パターンの依頼が届きます！会員登録して、好きな依頼に参加しましょう！',
   success: {
@@ -33,7 +31,7 @@ const signUp = {
   introduceSuccess: {
     title: '自己紹介入力が完了しました！',
     description: '案件の依頼はLINEで届きます。\nご依頼までお待ちください',
-    returnToLine: 'LINEに戻る',
+    returnToLine: 'LINEに戻る'
   },
   complete: '登録を完了する',
   capability: {
@@ -51,7 +49,11 @@ const signUp = {
     title: 'あなたのご職業・状況\nを入力しましょう',
     subTitle: '所属情報',
     subTitleTip: '複数ある場合は「＋職業を追加」を選び、追加してください。',
-    add: '職業を追加する'
+    add: '職業を追加する',
+    occupation: '職業{{number}}',
+    occupationTip: '※選択肢に当てはまらない場合は「その他」を選び、記入してください。',
+    organizationName: '組織名',
+    managerialPosition: '役職'
   }
 };
 

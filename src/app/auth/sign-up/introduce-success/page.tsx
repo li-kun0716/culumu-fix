@@ -1,12 +1,15 @@
 'use client';
 
 import { Flex, Typography, Image } from 'antd';
+import { useRouter } from 'next/navigation';
+
 import { Button } from '@/components/antd';
 import colors from '@/theme/colors';
 import { useTranslation } from '@/i18n/client';
 
 const Page: React.FC = () => {
   const { t } = useTranslation('auth-page');
+  const router = useRouter();
 
   return (
     <>
@@ -50,6 +53,7 @@ const Page: React.FC = () => {
       >
         <Button
           type="outline"
+          onClick={() => router.push('/')}
           style={{
             height: '64px',
             width: '100%',

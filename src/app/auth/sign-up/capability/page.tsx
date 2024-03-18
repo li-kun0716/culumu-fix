@@ -1,12 +1,14 @@
 'use client';
 
 import { Typography, Form, Input, Checkbox } from 'antd';
+import { useRouter } from 'next/navigation';
+import { useCallback } from 'react';
+
 import colors from '@/theme/colors';
 import { useTranslation } from '@/i18n/client';
 import FlowStepBar from '@/app/components/auth/FlowStepBar';
 import StepController from '@/app/components/auth/StepController';
-import { useRouter } from 'next/navigation';
-import { useCallback } from 'react';
+import InputBadge from '@/app/components/auth/InputBadge';
 
 type FieldType = {
   talkAbout?: string;
@@ -26,8 +28,7 @@ const Page: React.FC = () => {
   return (
     <div
       style={{
-        padding: '32px 24px 144px',
-        textAlign: 'center'
+        padding: '32px 24px 144px'
       }}
     >
       <FlowStepBar curStep={3} />
@@ -40,7 +41,8 @@ const Page: React.FC = () => {
           style={{
             fontSize: 22,
             fontWeight: 600,
-            marginBottom: '6px'
+            marginBottom: '6px',
+            textAlign: 'center'
           }}
         >
           {t('signUp.capability.title')}
@@ -60,14 +62,18 @@ const Page: React.FC = () => {
         <Typography.Text
           style={{
             fontSize: '19px',
-            fontWeight: '600',
-            textAlign: 'left'
+            fontWeight: '600'
           }}
         >
           {t('signUp.capability.subTitle')}
         </Typography.Text>
         <Form.Item<FieldType>
-          label={t('signUp.capability.talkAbout')}
+          label={
+            <>
+              {t('signUp.capability.talkAbout')}
+              <InputBadge />
+            </>
+          }
           name="talkAbout"
           rules={[{ required: false }]}
           style={{
@@ -82,6 +88,7 @@ const Page: React.FC = () => {
               padding: '12px 16px',
               fontSize: 12
             }}
+            maxLength={500}
           />
         </Form.Item>
         <Form.Item<FieldType>
@@ -114,6 +121,7 @@ const Page: React.FC = () => {
                 padding: '12px 16px',
                 fontSize: 12
               }}
+              maxLength={500}
             />
           </div>
         </Form.Item>
@@ -146,7 +154,7 @@ const Page: React.FC = () => {
           </div>
         </Form.Item>
       </Form>
-      <StepController onReturn={() => router.replace('/auth/sign-up')} onNext={() => form.submit()} />
+      <StepController onReturn={() => router.replace('/auth/sign-up/occupation')} onNext={() => form.submit()} />
     </div>
   );
 };

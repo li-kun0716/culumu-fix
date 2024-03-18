@@ -1,33 +1,41 @@
 'use client';
 
-import { Typography, Form, Select } from 'antd';
+import { Typography, Form, Select, Input } from 'antd';
+import { useRouter } from 'next/navigation';
+import { useCallback } from 'react';
+
 import colors from '@/theme/colors';
 import { useTranslation } from '@/i18n/client';
 import FlowStepBar from '@/app/components/auth/FlowStepBar';
 import StepController from '@/app/components/auth/StepController';
-import { useRouter } from 'next/navigation';
-import { useCallback } from 'react';
-import { yearOptions, occupationOptions } from '@/utils/common';
-
-type FieldType = {
-  occupations: string[];
-};
+import { occupationList, managerialPositionList } from '@/utils/common';
+import InputBadge from '@/app/components/auth/InputBadge';
 
 const Page: React.FC = () => {
   const { t } = useTranslation('auth-page');
   const router = useRouter();
   const [form] = Form.useForm();
   const { Option } = Select;
+  const occupation = Form.useWatch('items', form);
+
+  const showAdditionalFields = (idx: number) => {
+    const list = occupationList.filter((occupation, index) => [0, 1, 2, 3, 6, 10].includes(index));
+
+    return occupation?.length && list.includes(occupation[idx]?.occupation);
+  };
+
+  const showOccupationInput = (idx: number) =>
+    occupation?.length && occupationList[occupationList.length - 1] === occupation[idx]?.occupation;
 
   const handleSubmit = useCallback(async () => {
-    router.replace('/auth/sign-up/capability');
+    console.log(form.getFieldsValue());
+    router.push('/auth/sign-up/capability');
   }, [router]);
 
   return (
     <div
       style={{
-        padding: '32px 24px 144px',
-        textAlign: 'center'
+        padding: '32px 24px 144px'
       }}
     >
       <FlowStepBar curStep={2} />
@@ -41,7 +49,8 @@ const Page: React.FC = () => {
             fontSize: 22,
             fontWeight: 600,
             marginBottom: '6px',
-            whiteSpace: 'pre-wrap'
+            whiteSpace: 'pre-wrap',
+            textAlign: 'center'
           }}
         >
           {t('signUp.occupation.title')}
@@ -87,35 +96,119 @@ const Page: React.FC = () => {
         onFinish={handleSubmit}
       >
         <Form.List name="items">
-          {(fields, { add, remove }) => (
+          {(fields, { add }) => (
             <div style={{ display: 'flex', rowGap: 16, flexDirection: 'column' }}>
-              {fields.map((field) => (
-                <Form.Item<FieldType>
-                  key={field.key}
-                  name="occupations"
-                  rules={[{ required: true, message: '' }]}
-                  style={{ display: 'inline-block', marginBottom: '0px' }}
-                >
-                  <Select
-                    placeholder={t('common:select')}
+              {fields.map((field, idx) => (
+                <div key={field.key}>
+                  <Typography.Text
                     style={{
-                      height: 48,
-                      textAlign: 'left'
+                      display: 'block',
+                      fontSize: 14,
+                      fontWeight: 600
                     }}
                   >
-                    {occupationOptions().map((year) => (
-                      <Option value={year.label} key={year.value}>
-                        {year.value}
-                      </Option>
-                    ))}
-                  </Select>
-                </Form.Item>
+                    {t('signUp.occupation.occupation', { number: idx > 0 ? idx : '' })}
+                  </Typography.Text>
+                  <Typography.Text
+                    style={{
+                      display: 'block',
+                      fontSize: 11,
+                      fontWeight: 300,
+                      marginBottom: 8
+                    }}
+                  >
+                    {t('signUp.occupation.occupationTip')}
+                  </Typography.Text>
+                  <Form.Item
+                    key={field.key}
+                    name={[field.name, 'occupation']}
+                    rules={[{ required: true, message: t('common:rule.required') }]}
+                    style={{ marginBottom: '0px' }}
+                  >
+                    <Select
+                      placeholder={t('common:select')}
+                      style={{
+                        height: 48
+                      }}
+                    >
+                      {occupationList.map((occupation) => (
+                        <Option value={occupation} key={occupation}>
+                          {occupation}
+                        </Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+                  {showOccupationInput(idx) && (
+                    <Form.Item
+                      name={[field.name, 'occupationInput']}
+                      rules={[{ required: true, message: t('common:rule.required') }]}
+                      style={{
+                        marginTop: 12
+                      }}
+                    >
+                      <Input
+                        placeholder={t('common:other')}
+                        style={{
+                          height: 48
+                        }}
+                      />
+                    </Form.Item>
+                  )}
+                  {showAdditionalFields(idx) && (
+                    <div
+                      style={{
+                        paddingTop: 18
+                      }}
+                    >
+                      <Form.Item
+                        label={
+                          <>
+                            {t('signUp.occupation.organizationName')}
+                            <InputBadge />
+                          </>
+                        }
+                        name={[field.name, 'organizationName']}
+                      >
+                        <Input
+                          placeholder={t('common:placeholder.company')}
+                          style={{
+                            height: 48
+                          }}
+                          maxLength={100}
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        label={
+                          <>
+                            {t('signUp.occupation.managerialPosition')}
+                            <InputBadge />
+                          </>
+                        }
+                        name={[field.name, 'managerialPosition']}
+                      >
+                        <Select
+                          placeholder={t('common:select')}
+                          style={{
+                            height: 48
+                          }}
+                        >
+                          {managerialPositionList.map((occupation) => (
+                            <Option value={occupation} key={occupation}>
+                              {occupation}
+                            </Option>
+                          ))}
+                        </Select>
+                      </Form.Item>
+                    </div>
+                  )}
+                </div>
               ))}
-
               <div
                 onClick={() => add()}
                 style={{
-                  color: colors.accent[700]
+                  color: colors.accent[700],
+                  width: 124,
+                  margin: '0 auto'
                 }}
               >
                 + {t('signUp.occupation.add')}

@@ -1,7 +1,8 @@
 'use client';
 
-import colors from '@/theme/colors';
 import { Flex } from 'antd';
+
+import colors from '@/theme/colors';
 
 type PropsType = {
   curStep: 1 | 2 | 3;

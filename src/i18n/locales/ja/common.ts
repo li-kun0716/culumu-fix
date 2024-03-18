@@ -7,9 +7,11 @@ export default {
   day: '日',
   select: '選択する',
   any: '任意',
+  other: 'その他',
   placeholder: {
     name: '山田太郎',
-    kanaName: 'ヤマダタロウ'
+    kanaName: 'ヤマダタロウ',
+    company: '株式会社STYZ'
   },
   rule: {
     required: 'こちらは必須項目になります',

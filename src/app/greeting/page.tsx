@@ -9,22 +9,22 @@ export default function Greeting() {
     {
       name: t('greetingPage.manage.title'),
       intro: t('greetingPage.manage.text'),
-      icon: '/Asset71.png'
+      icon: '/images/Asset71.png'
     },
     {
       name: t('greetingPage.problem.title'),
       intro: t('greetingPage.problem.text'),
-      icon: '/Asset72.png'
+      icon: '/images/Asset72.png'
     },
     {
       name: t('greetingPage.myHome.title'),
       intro: t('greetingPage.myHome.text'),
-      icon: '/Asset74.png'
+      icon: '/images/Asset74.png'
     },
     {
       name: t('greetingPage.firstCome.title'),
       intro: t('greetingPage.firstCome.text'),
-      icon: '/Asset73.png'
+      icon: '/images/Asset73.png'
     }
   ] as const;
 

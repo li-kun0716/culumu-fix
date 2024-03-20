@@ -17,7 +17,6 @@ const myInfo = {
   occupationAttention: '※選択肢に当てはまらない場合は「その他」を選び、記入してください。',
   organizationName: '組織名',
   post: '役職',
-  occupation2: '職業',
   occupation2Attention: '※選択肢に当てはまらない場合は「その他」を選び、記入してください。',
   add: '職業を追加する',
   talkAbout: 'お話できることを教えてください',
@@ -32,6 +31,19 @@ const myInfo = {
     singleByteNum: '半角数字のみで入力してください。',
     singleByteEN: '半角英数字のみで入力してください。',
     noContact: 'xハイフン無しで入力してください',
+  },
+  input: {
+    fullNamePlaceHolder: '山田太郎',
+    namePlaceHolder: 'ヤマダタロウ',
+    tellPlaceHolder: '12345678900',
+    emailPlaceHolder: 'contact@xxx.com',
+    postalCodePlaceHolder: '1234567',
+    organizationNamePlaceHolder: '株式会社STYZ'
+  },
+  textArea: {
+    talkAboutPlaceHolder: `・認知症の家族の悩みが話せます\n・車いす利用の当事者\n・理学療法士として高齢者の生活全般について話せます`,
+    referPlaceHolder: '・認知症の家族を持つ仲間を紹介できます',
+    introductionPlaceHolder: `・20年間理学療法士をしており、高齢に伴う身体機能の低下についてお話しできます\n・発達障害の子どもがおり、特別支援学校に通っています。親としての立場でお話しできます\n・発達障害の親同士でつながりがあるので、ご紹介できます`
   },
   select: {
     placeHolder: '選択する',
@@ -50,7 +62,7 @@ const myInfo = {
         label: '会社員',
         value: '会社員',
       }, {
-        label: '公務員',
+        label: '公務員（教職員除く）',
         value: '公務員',
       },
       {
@@ -58,16 +70,48 @@ const myInfo = {
         value: '教職員',
       },
       {
-        label: '経営者',
-        value: '経営者',
+        label: '経営者・役員',
+        value: '経営者・役員',
+      },
+      {
+        label: '専業主婦',
+        value: '専業主婦',
+      },
+      {
+        label: '自営業・自由業',
+        value: '自営業・自由業',
       },
       {
         label: 'NPO・NGO',
         value: 'NPO・NGO',
       },
       {
+        label: '学生',
+        value: '学生',
+      },
+      {
+        label: '士業（公認会計士・弁護士・税理士・司法書士）',
+        value: '士業',
+      },
+      {
+        label: '医療従事者',
+        value: '医療従事者',
+      },
+      {
+        label: 'パート・アルバイト',
+        value: 'パート・アルバイト',
+      },
+      {
+        label: '定年退職',
+        value: '定年退職',
+      },
+      {
         label: 'ボランティア',
         value: 'ボランティア',
+      },
+      {
+        label: '無職',
+        value: '無職',
       },
     ],
     postSelect: [{
@@ -79,16 +123,16 @@ const myInfo = {
       value: '役員'
     },
     {
-      label: '会社員（正社員）',
-      value: '会社員（正社員）'
+      label: '一般社員（正社員）',
+      value: '一般社員（正社員）'
     },
     {
-      label: '会社員（契約社員）',
-      value: '会社員（契約社員）'
+      label: '契約社員',
+      value: '契約社員'
     },
     {
-      label: '会社員（派遣社員）',
-      value: '会社員（派遣社員）'
+      label: '派遣社員',
+      value: '派遣社員'
     },
     {
       label: 'パート・アルバイト',
@@ -97,7 +141,8 @@ const myInfo = {
     {
       label: 'その他（自由記述）',
       value: 'その他（自由記述）'
-    }]
+    }],
+    specialList: ['会社員', '公務員', '教職員', '経営者・役員', 'NPO・NGO', 'ボランティア']
   }
 }
 

@@ -9,7 +9,6 @@ import { useTranslation } from '@/i18n/client';
 const Home: React.FC = () => {
   const { t } = useTranslation('translation');
   const { Title } = Typography;
-
   const str = t('translation:homePageTest.text');
 
   return (

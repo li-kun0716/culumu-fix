@@ -9,17 +9,17 @@ export default function Empty() {
     {
       name: t('greetingPage.empty.firstCome.title'),
       intro: t('greetingPage.empty.firstCome.text'),
-      icon: '/empty01.png'
+      icon: '/images/empty01.png'
     },
     {
       name: t('greetingPage.empty.myHome.title'),
       intro: t('greetingPage.empty.myHome.text'),
-      icon: '/empty03.png'
+      icon: '/images/empty03.png'
     },
     {
       name: t('greetingPage.empty.manage.title'),
       intro: t('greetingPage.empty.manage.text'),
-      icon: '/empty02.png'
+      icon: '/images/empty02.png'
     }
   ] as const;
 

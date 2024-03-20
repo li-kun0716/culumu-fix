@@ -1,4 +1,5 @@
 'use client';
+
 import React from 'react';
 import Image from 'next/image';
 import { useTranslation } from '@/i18n/client';
@@ -15,7 +16,7 @@ export default function Page() {
           {t('setupPage.text')}
         </p>
         <div className="relative h-[141px] w-[140px] mr-auto ml-auto">
-          <Image src="/Group627725.png" width={140} height={170} alt="icon"></Image>
+          <Image src="/images/Group627725.png" width={140} height={170} alt="icon"></Image>
         </div>
 
         <div className="p-5 mt-[28px]">

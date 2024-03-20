@@ -22,41 +22,43 @@ const Verify: React.FC = () => {
     const errorDescription = searchParams.get('error_description');
 
     if (state && state !== getLocalStorageItem<string>(Key.lineLoginTempToken)) {
-      messageApi.open({ type: 'error', content: 'state: ' + state });
+      messageApi.open({ type: 'error', content: 'bad request' });
       removeLocalStorageItem(Key.lineLoginTempToken);
       router.replace('/auth/login');
       return;
     }
 
-    if (code) {
-      login({ code, state: state ?? '' })
-        .then((r) => {
-          setLocalStorageItem(Key.authorization, r.data.credential);
-          removeLocalStorageItem(Key.lineLoginTempToken);
-          messageApi.open({ type: 'success', content: 'logined' });
-          router.replace('/');
-        })
-        .catch((reason) => {
-          console.log(reason);
-          removeLocalStorageItem(Key.lineLoginTempToken);
-          messageApi.open({ type: 'error', content: 'login error' });
-        });
-    }
-
     if (error) {
       messageApi.open({ type: 'error', content: errorDescription });
+      return;
     }
+
+    if (!code) {
+      messageApi.open({ type: 'error', content: 'empty authorization code.' });
+      return;
+    }
+
+    login({ code, state: state ?? '' })
+      .then((r) => {
+        setLocalStorageItem(Key.authorization, r.data.credential);
+        messageApi.open({ type: 'success', content: 'logined' });
+        router.replace('/');
+      })
+      .catch(() => {
+        messageApi.open({ type: 'error', content: 'login error' });
+        router.replace('/auth/login');
+      })
+      .finally(() => removeLocalStorageItem(Key.lineLoginTempToken));
   }, [messageApi, router, searchParams]);
 
   return <>{contextHolder}</>;
 };
 
-const Page: React.FC = () => {
-  return (
-    <Suspense fallback={<Loading />}>
-      <Verify />
-    </Suspense>
-  );
-};
+const Page: React.FC = () => (
+  <Suspense fallback={<Loading />}>
+    <Verify />
+  </Suspense>
+);
 
+// eslint-disable-next-line import/no-unused-modules
 export default Page;

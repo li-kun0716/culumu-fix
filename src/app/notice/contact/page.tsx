@@ -12,7 +12,7 @@ export default function Page() {
           <div className="card rounded-[10px] overflow-hidden w-[84%] bg-white ml-5">
             <div className="header flex items-center h-[72px] bg-[#1891F7]/20 gap-2 box-border pl-[14px] pt-[15px] pr-[49px] pb-[9px]">
               <div className="bg-white rounded-full size-[49px] flex items-center justify-center shrink-0 ">
-                <Image src="/laba.svg" width={21} height={24.69} alt="icon" />
+                <Image src="/images/horn.svg" width={21} height={24.69} alt="icon" />
               </div>
 
               <p className="text-[#1767A2] font-[600] leading-6 tracking-[0.48px] text-[16px]">
@@ -30,15 +30,17 @@ export default function Page() {
               </div>
               <div className="text-[13px] font-[300] leading-[19.5px] tracking-[0.39px] text-[#000] mt-[12px]">
                 <p className="flex items-center gap-[3px]">
-                  <Image src={'/Calender.svg'} alt="icon" width={24} height={24} /> <span>回答期限</span> <span>:</span>
+                  <Image src={'/images/Calender.svg'} alt="icon" width={24} height={24} /> <span>回答期限</span>
+                  <span>:</span>
                   <span className="font-[600]">11月15日（火）</span>
                 </p>
                 <p className="flex items-center gap-[3px]">
-                  <Image src={'/Yen.svg'} alt="icon" width={24} height={24} /> <span>回答期限</span> <span>:</span>
+                  <Image src={'/images/Yen.svg'} alt="icon" width={24} height={24} /> <span>回答期限</span>
+                  <span>:</span>
                   <span className="font-[600]">11月15日（火）</span>
                 </p>
                 <p className="flex items-center  gap-[3px]">
-                  <Image src={'/Pie chart.svg'} alt="icon" width={24} height={24} /> <span>回答期限</span>{' '}
+                  <Image src={'/images/piechart.svg'} alt="icon" width={24} height={24} /> <span>回答期限</span>
                   <span>:</span>
                   <span className="font-[600]">11月15日（火）</span>
                 </p>
@@ -53,18 +55,18 @@ export default function Page() {
       <div className="p-[8px]">
         <ul className="flex list-none gap-[8px] ">
           <li className="flex-1 bg-white rounded-[4px] flex flex-col items-center">
-            <Image src={'/1.png'} width={56} height={55} alt="icon" />
-            <p className="text-[15px] font-[600] leading-[22.5px] tracking-[0.45px]">初めての方へ</p>{' '}
+            <Image src={'/images/Asset72.png'} width={56} height={55} alt="icon" />
+            <p className="text-[15px] font-[600] leading-[22.5px] tracking-[0.45px]">初めての方へ</p>
             <p className="text-[12px] font-[300] tracking-[0.36px] leading-[18px] text-[#757575]">初めての方はこちら</p>
           </li>
           <li className="flex-1 bg-white rounded-[4px] flex flex-col items-center">
-            <Image src={'/Group.png'} width={45} height={53} alt="icon" />
-            <p className="text-[15px] font-[600] leading-[22.5px] tracking-[0.45px]">マイページ</p>{' '}
+            <Image src={'/images/Group.png'} width={45} height={53} alt="icon" />
+            <p className="text-[15px] font-[600] leading-[22.5px] tracking-[0.45px]">マイページ</p>
             <p className="text-[12px] font-[300] tracking-[0.36px] leading-[18px] text-[#757575]">会員情報・履歴など</p>
           </li>
           <li className="flex-1 bg-white rounded-[4px] flex flex-col items-center">
-            <Image src={'/Asset7.png'} width={54} height={54} alt="icon" />
-            <p className="text-[15px] font-[600] leading-[22.5px] tracking-[0.45px]">案件の管理</p>{' '}
+            <Image src={'/images/Asset7.png'} width={54} height={54} alt="icon" />
+            <p className="text-[15px] font-[600] leading-[22.5px] tracking-[0.45px]">案件の管理</p>
             <p className="text-[12px] font-[300] tracking-[0.36px] leading-[18px] text-[#757575]">案件の確認はこちら</p>
           </li>
         </ul>

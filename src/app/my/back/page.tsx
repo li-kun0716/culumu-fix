@@ -1,13 +1,14 @@
 'use client';
+
 import React, { useState } from 'react';
 import TextArea from 'antd/es/input/TextArea';
 import { useTranslation } from '@/i18n/client';
 
-// eslint-disable-next-line import/no-unused-modules
 export default function Page() {
   // const barList = ['案件管理', 'マイページ'];
   const [activeIndex, setActiveIndex] = useState(1);
   const { t } = useTranslation();
+
   return (
     <div className=" relative text-[19px] font-[600] tracking-[0.57px] leading-[28.5px] text-[#212121] bg-[#FBF9F6] min-h-screen">
       <header className="pt-8 pb-8 pl-6 pr-6 h-[29px] ">
@@ -19,7 +20,7 @@ export default function Page() {
           <p className="mt-[30px] mb-[10px] text-[#616161] text-[11px] leading-[16.5px] tracking-[0.33px]">
             {t('backPage.p2')}
           </p>
-          <TextArea placeholder={t('backPage.placeholder')} style={{ minHeight: '69px' }}></TextArea>
+          <TextArea placeholder={t('backPage.placeholder')} style={{ minHeight: '69px' }} autoSize={true}></TextArea>
         </div>
 
         {/* <footer className="absolute bottom-5 w-full border-0 border-b-[1px] border-solid border-[#eee]">

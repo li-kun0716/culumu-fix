@@ -3,31 +3,71 @@
 import React from 'react';
 import Image from 'next/image';
 import { useTranslation } from '@/i18n/client';
+import { Button, Card, Flex, Typography } from 'antd';
+const { Text } = Typography;
 
 export default function Page() {
   const { t } = useTranslation();
-  return (
-    <div className="min-h-screen bg-[#424242]/70 relative ">
-      <div
-        className="card absolute top-1/2 left-1/2 translate-x-[-50%] 
-      translate-y-[-50%] w-[78%] box-border opacity-1 bg-white pt-8 pb-6 pl-[10px] pr-[10px] rounded-[16px] "
-      >
-        <p className="text-[22px] font-[600] pl-3 pr-3 leading-[33px] tracking-[0.66px] text-center ">
-          {t('setupPage.text')}
-        </p>
-        <div className="relative h-[141px] w-[140px] mr-auto ml-auto">
-          <Image src="/images/Group627725.png" width={140} height={170} alt="icon"></Image>
-        </div>
 
-        <div className="p-5 mt-[28px]">
-          <div
-            className="button h-[64px] flex justify-center items-center active:opacity-75
-           text-[16px] font-[600] leading-6 text-[#fff] bg-[#E76B00] rounded-[10px] "
+  return (
+    <div
+      style={{
+        minHeight: '100vh',
+        backgroundColor: 'rgb(66 66 66 / 0.7)',
+        position: 'relative'
+      }}
+    >
+      <Card
+        styles={{
+          body: {
+            padding: '0'
+          }
+        }}
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '78%',
+          boxSizing: 'border-box',
+          padding: '32px 10px 24px 10px',
+          borderRadius: '16px'
+        }}
+      >
+        <Text
+          strong
+          style={{
+            fontSize: '22px',
+            lineHeight: '33px',
+            padding: '0 12px',
+            letterSpacing: '0.66px',
+            textAlign: 'center',
+            display: 'inline-block'
+          }}
+        >
+          {t('setupPage.text')}
+        </Text>
+
+        <Flex justify="center">
+          <Image src="/images/Group627725.png" width={140} height={169} alt="icon" />
+        </Flex>
+
+        <Flex style={{ padding: '20px' }}>
+          <Button
+            style={{
+              fontWeight: 600,
+              fontSize: '16px',
+              width: '100%',
+              height: '64px',
+              borderRadius: '10px',
+              backgroundColor: '#E76B00',
+              color: '#fff'
+            }}
           >
             {t('setupPage.button')}
-          </div>
-        </div>
-      </div>
+          </Button>
+        </Flex>
+      </Card>
     </div>
   );
 }

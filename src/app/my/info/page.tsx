@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState, useImperativeHandle, useRef } from 'react';
-import { Form, Select, SelectProps, Input, Button } from 'antd';
+import { Form, Select, SelectProps, Input, Button, Flex, Space } from 'antd';
 import Image from 'next/image';
 import TextArea from 'antd/es/input/TextArea';
 import { getDaysInMonth } from '@/utils/day';
@@ -49,33 +49,62 @@ export default function Information() {
   };
 
   return (
-    <div className="information bg-[#FBFAF8] relative pb-[100px]">
-      <header className="h-[56px] flex items-center pl-[24px] pr-[24px] border-b-[1px] border-[#fff] border-solid">
-        <h1 className="text-[22px] font-[600] tracking-[0.66px]">{t('myPage.myInfo.title')}</h1>
-      </header>
+    <div className="information" style={{ backgroundColor: '#FBFAF8', position: 'relative', paddingBottom: '100px' }}>
+      <Flex align="center" style={{ height: '56px', padding: '0 24px', borderBottom: '1px solid #F0F0F0' }}>
+        <h1
+          style={{
+            fontSize: '22px',
+            fontWeight: '600',
+            letterSpacing: '0.66px'
+          }}
+        >
+          {t('myPage.myInfo.title')}
+        </h1>
+      </Flex>
       <Form requiredMark={false} form={form} onValuesChange={formHandleChange} onFinish={submitHandle}>
-        <main className="pl-6 pt-6 pr-6 pb-8">
+        <main style={{ padding: '24px 24px 32px 24px' }}>
           <BasicInformation basRef={basRef} />
-          <Contact />
           <Place />
+          <Contact />
           <Paragraph />
           {occupationCount.map((item) => (
             <Occupation index={item} key={item} />
           ))}
           <section>
-            <div
-              className="mt-[30px] mb-[40px] flex items-center justify-center gap-[2px]"
+            <Flex
+              align="center"
+              justify="center"
+              gap={2}
+              style={{ margin: '20px 0 40px 0' }}
               onClick={() => setOccupationCount((count) => [...count, count.length + 1])}
             >
               <Image src="/images/Add.svg" width={13.3} height={13.3} alt="add" />
-              <span className="text-[14px] font-[300] leading-[21px] tracking-[0.42px] text-[#ED7B01]">
+              <span
+                style={{
+                  fontSize: '14px',
+                  fontWeight: '300',
+                  lineHeight: '21px',
+                  letterSpacing: '0.42px',
+                  color: '#ED7B01'
+                }}
+              >
                 {t('myPage.myInfo.add')}
               </span>
-            </div>
+            </Flex>
           </section>
           <BasInfoAndIntro />
         </main>
-        <footer className=" bg-white pt-4 pb-4 pl-5 pr-5 fixed bottom-0 left-0 w-full box-border">
+        <footer
+          style={{
+            backgroundColor: '#fff',
+            padding: '16px 20px',
+            position: 'fixed',
+            bottom: '0',
+            left: '0',
+            width: '100%',
+            boxSizing: 'border-box'
+          }}
+        >
           <Button
             htmlType="submit"
             style={{ height: '64px', width: '100%', fontSize: '16px', color: '#fff', backgroundColor: '#E76B00' }}
@@ -89,20 +118,42 @@ export default function Information() {
 }
 
 function Label({ children }: { children: React.ReactNode }) {
-  return <span className="text-[14px] font-[600] tracking-[0.42px] leading-[21px]">{children}</span>;
+  return (
+    <span style={{ fontSize: '14px', fontWeight: 600, letterSpacing: '0.42px', lineHeight: '21px' }}>{children}</span>
+  );
 }
-
 function AnyIcon() {
   const { t } = useTranslation();
 
   return (
-    <span className="text-[12px] font-[600] tracking-[0.33px] text-white bg-[#9E9E9E] rounded-[6px] pl-[6px] pt-[2px] pr-[6px] pb-[2px] ">
+    <span
+      style={{
+        fontSize: '12px',
+        fontWeight: 600,
+        letterSpacing: '0.33px',
+        color: '#fff',
+        backgroundColor: '#9E9E9E',
+        borderRadius: '6px',
+        padding: '2px 6px'
+      }}
+    >
       {t('myPage.myInfo.any')}
     </span>
   );
 }
 function SessionTitle({ title }: { title: string }) {
-  return <p className="text-[19px] font-[600] tracking-[0.57px] mb-[20px]">{title}</p>;
+  return (
+    <p
+      style={{
+        fontSize: '19px',
+        fontWeight: 600,
+        letterSpacing: '0.57px',
+        marginBottom: '20px'
+      }}
+    >
+      {title}
+    </p>
+  );
 }
 
 function Occupation({ index }: { index: number }) {
@@ -117,9 +168,16 @@ function Occupation({ index }: { index: number }) {
           name={`occupation${index}`}
           rules={[{ required: true, message: t('myPage.myInfo.validation.required') }]}
           label={
-            <div className="mb-[10px]">
+            <div style={{ marginBottom: '10px' }}>
               <Label>{t('myPage.myInfo.occupation') + (index === 1 ? '' : index)}</Label>
-              <p className="text-[#616161] text-[11px] font-[300] tracking-[0.33px] p-0 m-0">
+              <p
+                style={{
+                  fontSize: '11px',
+                  color: '#616161',
+                  fontWeight: 300,
+                  letterSpacing: '0.33px'
+                }}
+              >
                 {t('myPage.myInfo.occupationAttention')}
               </p>
             </div>
@@ -134,10 +192,10 @@ function Occupation({ index }: { index: number }) {
         <Form.Item
           name={`organizationName${index}`}
           label={
-            <div className="flex gap-[8px]">
+            <Flex gap={8} align="center">
               <Label>{t('myPage.myInfo.organizationName')}</Label>
               <AnyIcon />
-            </div>
+            </Flex>
           }
         >
           <Input
@@ -149,10 +207,10 @@ function Occupation({ index }: { index: number }) {
         <Form.Item
           name={`post${index}`}
           label={
-            <div className="flex gap-[8px]">
+            <Flex gap={8} align="center">
               <Label>{t('myPage.myInfo.post')}</Label>
               <AnyIcon />
-            </div>
+            </Flex>
           }
         >
           <Select
@@ -213,9 +271,13 @@ function BasicInformation({ basRef }: { basRef: any }) {
         >
           <Input style={inputStyle} placeholder={t('myPage.myInfo.input.namePlaceHolder')} />
         </Form.Item>
-        <div className="mb-[18px]">
+        <div style={{ marginBottom: '18px' }}>
           <Label>{t('myPage.myInfo.birthday')}</Label>
-          <div className="flex items-center gap-[3px] w-full mt-3 ">
+          <Flex
+            align="center"
+            gap={3}
+            style={{ width: '100%', marginTop: '12px', fontSize: '15px', letterSpacing: '0.45px' }}
+          >
             <Form.Item
               style={{ flex: 1, marginBottom: 0 }}
               name="year"
@@ -224,7 +286,7 @@ function BasicInformation({ basRef }: { basRef: any }) {
             >
               <Select options={years} style={{ height: '48px' }} />
             </Form.Item>
-            <span className="text-[15px] tracking-[0.45px] font-[600]">年</span>
+            <span style={{ fontWeight: 600 }}>年</span>
             <Form.Item
               style={{ flex: 1, marginBottom: 0 }}
               name={'month'}
@@ -233,7 +295,7 @@ function BasicInformation({ basRef }: { basRef: any }) {
             >
               <Select options={months} style={{ height: '48px' }} />
             </Form.Item>
-            <span className="text-[15px] tracking-[0.45px] font-[600]">月</span>
+            <span style={{ fontWeight: 600 }}>月</span>
             <Form.Item
               style={{ flex: 1, marginBottom: 0 }}
               name={'day'}
@@ -242,8 +304,8 @@ function BasicInformation({ basRef }: { basRef: any }) {
             >
               <Select options={days} style={{ height: '48px' }} />
             </Form.Item>
-            <span className="text-[15px] tracking-[0.45px] font-[600]">日</span>
-          </div>
+            <span style={{ fontWeight: 600 }}>日</span>
+          </Flex>
         </div>
         <Form.Item
           label={<Label>{t('myPage.myInfo.gender')}</Label>}
@@ -293,7 +355,7 @@ function Place() {
 
   return (
     <>
-      <section>
+      <section style={{ marginTop: '40px' }}>
         <SessionTitle title={t('myPage.myInfo.place')} />
         <Form.Item
           style={{ marginBottom: '18px' }}
@@ -309,7 +371,14 @@ function Place() {
           label={
             <div>
               <Label>{t('myPage.myInfo.postalCode')}</Label>
-              <p className="text-[#616161] text-[11px] font-[300] tracking-[0.33px] p-0 m-0">
+              <p
+                style={{
+                  color: '#616161',
+                  fontSize: '11px',
+                  fontWeight: '300',
+                  letterSpacing: '0.33px'
+                }}
+              >
                 {t('myPage.myInfo.postalCodeAttention')}
               </p>
             </div>
@@ -328,11 +397,27 @@ function Paragraph() {
   return (
     <>
       <section>
-        <div className="mb-[32px]">
-          <p className="text-[19px] font-[600] tracking-[0.57px] leading-[28.5px] mb-[6px] m-0">
+        <div style={{ marginBottom: '40px' }}>
+          <p
+            style={{
+              fontSize: '19px',
+              fontWeight: '600',
+              letterSpacing: '0.57px',
+              lineHeight: '28.5px',
+              marginBottom: '6px'
+            }}
+          >
             {t('myPage.myInfo.p1')}
           </p>
-          <p className="text-[12px] font-[300] tracking-[0.36px] leading-[18px] text-center m-0 p-0">
+          <p
+            style={{
+              fontSize: '12px',
+              fontWeight: '300',
+              letterSpacing: '0.36px',
+              lineHeight: '18px',
+              textAlign: 'center'
+            }}
+          >
             {t('myPage.myInfo.p2')}
           </p>
         </div>
@@ -343,32 +428,50 @@ function Paragraph() {
 
 function BasInfoAndIntro() {
   const { t } = useTranslation();
+  const style: React.CSSProperties = {
+    backgroundColor: 'white',
+    marginBottom: '10px',
+    fontSize: '12px',
+    fontWeight: '300',
+    letterSpacing: '0.36px',
+    lineHeight: '18px',
+    borderRadius: '10px'
+  };
 
   return (
     <>
       <section>
         <SessionTitle title={t('myPage.myInfo.basicInformation')} />
-        <div>
-          <div className="flex gap-[6px] items-center">
-            <Label>{t('myPage.myInfo.talkAbout')}</Label>
-            <AnyIcon />
-          </div>
-          <Form.Item name={'talk'}>
-            <div className="bg-white mt-[10px] text-[12px] font-[300] tracking-[0.36px leading-[18px] rounded-[10px]">
-              <TextArea
-                autoSize={{ minRows: 3 }}
-                style={{ padding: '12px 16px' }}
-                placeholder={t('myPage.myInfo.textArea.talkAboutPlaceHolder')}
-              />
-            </div>
-          </Form.Item>
-        </div>
 
-        <div className="mt-[18px]">
+        <Flex gap={6} align="center">
+          <Label>{t('myPage.myInfo.talkAbout')}</Label>
+          <AnyIcon />
+        </Flex>
+        <Form.Item name={'talk'} style={{ marginTop: '10px' }}>
+          <div style={style}>
+            <TextArea
+              autoSize={{ minRows: 3 }}
+              style={{ padding: '12px 16px' }}
+              placeholder={t('myPage.myInfo.textArea.talkAboutPlaceHolder')}
+            />
+          </div>
+        </Form.Item>
+
+        <div style={{ marginBottom: '18px' }}>
           <Label>{t('myPage.myInfo.refer')}</Label>
-          <p className="text-[#616161] text-[11px] font-[300] tracking-[0.33px]">{t('myPage.myInfo.referAttention')}</p>
+          <p
+            style={{
+              color: '#616161',
+              fontSize: '11px',
+              fontWeight: '300',
+              letterSpacing: '0.33px',
+              marginBottom: '10px'
+            }}
+          >
+            {t('myPage.myInfo.referAttention')}
+          </p>
           <Form.Item name="introduce" rules={[{ required: true, message: t('myPage.myInfo.validation.required') }]}>
-            <div className="bg-white mt-[10px] text-[12px] font-[300] tracking-[0.36px leading-[18px]   rounded-[10px]">
+            <div style={style}>
               <TextArea
                 autoSize={{ minRows: 2 }}
                 style={{ padding: '12px 16px' }}
@@ -378,7 +481,7 @@ function BasInfoAndIntro() {
           </Form.Item>
         </div>
       </section>
-      <section className="mt-10">
+      <section style={{ marginTop: '10px' }}>
         <Form.Item
           name="selfIntroduce"
           rules={[
@@ -390,7 +493,7 @@ function BasInfoAndIntro() {
         >
           <div>
             <SessionTitle title={t('myPage.myInfo.introduction')} />
-            <div className="bg-white mt-[10px] text-[12px] font-[300] tracking-[0.36px leading-[18px]   rounded-[10px]">
+            <div style={style}>
               <TextArea
                 autoSize={{ minRows: 4 }}
                 style={{ padding: '12px 16px' }}

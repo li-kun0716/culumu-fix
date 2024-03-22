@@ -3,27 +3,39 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { useTranslation } from '@/i18n/client';
-
+import { Flex, Typography, List, Button } from 'antd';
+const { Text } = Typography;
 export default function Page() {
   const { t } = useTranslation();
   const [navIndex, setNavIndex] = useState(1);
   const barList = t('myPage.barList').split('|');
 
+  const computedStyle = (index: number) => {
+    const style: React.CSSProperties = {
+      height: '48px',
+      flex: '1',
+      color: index === navIndex ? '#ED7B01' : '#9E9E9E',
+      borderBottom: index === navIndex ? '3px solid #ED7B01' : '3px solid transparent'
+    };
+    return style;
+  };
+
   return (
-    <div className="my bg-[#FBFAF8] w-[100%] min-h-[100vh] relative">
-      <nav className=" bg-white h-[51px] border-0 border-b border-solid border-[#E0E0E0]">
-        <ul className="flex list-none h-[100%] items-center">
+    <div style={{ backgroundColor: '#FBFAF8', minHeight: '100vh', position: 'relative' }}>
+      <nav style={{ backgroundColor: '#fff', height: '51px', borderBottom: '1px solid #E0E0E0' }}>
+        <Flex align="center" style={{ height: '100%' }}>
           {barList.map((item, index) => (
-            <li
+            <Flex
+              align="center"
+              justify="center"
               onClick={() => setNavIndex(index)}
               key={item}
-              className="flex h-[48px]  w-1/2 justify-center items-center text-[#9E9E9E] border-0 border-b-[3px] border-transparent border-solid "
-              style={index === navIndex ? { borderColor: '#ED7B01', color: '#ED7B01' } : {}}
+              style={computedStyle(index)}
             >
-              <span className="text-[15px]">{item}</span>
-            </li>
+              <Text style={{ fontSize: '15px' }}>{item}</Text>
+            </Flex>
           ))}
-        </ul>
+        </Flex>
       </nav>
       {navIndex === 1 ? <Manager /> : <MyPage />}
     </div>
@@ -53,26 +65,46 @@ function Manager() {
 
   return (
     <>
-      <header className="flex items-center h-[97px] pl-[24px]">
-        <h1 className="text-[22px] tracking-[0.66px]">マイページ</h1>
-      </header>
+      <Flex align="center" style={{ height: '97px', paddingLeft: '24px' }}>
+        <Text strong style={{ fontSize: '22px', letterSpacing: '0.66px' }}>
+          マイページ
+        </Text>
+      </Flex>
       <main>
-        <ul className="list-none p-0 m-0 font-[300]">
-          {navList.map((item) => (
-            <li
-              key={item.title}
-              className="mb-[2px] gap-4 bg-[#fff]  pl-[24px] pr-[24px] min-h-[61px] flex items-center"
-            >
-              <Image src={item.icon} alt="icon" width={18} height={20} /> <span>{item.title}</span>
-              <Image className="ml-auto" src={'/images/Chevron_Right_Off.svg'} alt="right-cion" width={8} height={14} />
-            </li>
-          ))}
-        </ul>
+        <List
+          style={{ backgroundColor: '#fff' }}
+          dataSource={navList}
+          renderItem={(item) => (
+            <List.Item style={{ height: '61px' }}>
+              <Flex align="center" gap={16} style={{ width: '100%', boxSizing: 'border-box', padding: '0  24px' }}>
+                <Image src={item.icon} alt="icon" width={18} height={20} />
+                <Text style={{ fontSize: '16px', fontWeight: '300', letterSpacing: '0.48px' }}>{item.title}</Text>
+                <Image
+                  style={{ marginLeft: 'auto' }}
+                  src={'/images/Chevron_Right_Off.svg'}
+                  alt="right-cion"
+                  width={8}
+                  height={14}
+                />
+              </Flex>
+            </List.Item>
+          )}
+        />
       </main>
-      <div className="bg-[#fff] mt-6 back h-[61px] flex items-center text-[#E76B00] pl-[24px] font-[300]">
-        <span>{t('myPage.back')}</span>
-      </div>
-      <footer className="bg-[#fff] pt-1 pb-1 absolute bottom-0 w-[100%]"></footer>
+      <Button
+        style={{
+          width: '100%',
+          borderRadius: '0',
+          height: '61px',
+          border: 'none',
+          backgroundColor: '#FFF',
+          marginTop: '28px',
+          textAlign: 'left',
+          paddingLeft: '20px'
+        }}
+      >
+        <Text style={{ color: '#E76B00', fontWeight: '300' }}>{t('myPage.back')}</Text>
+      </Button>
     </>
   );
 }

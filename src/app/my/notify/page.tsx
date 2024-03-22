@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Switch } from 'antd';
+import { Flex, Switch } from 'antd';
 import { useTranslation } from '@/i18n/client';
 
 export default function Page() {
@@ -15,24 +15,50 @@ export default function Page() {
   };
 
   return (
-    <div className="bg-[#FBFAF8] min-h-screen">
-      <header className="pl-6 pr-6 pt-8 pb-8 text-[22px] font-[600] leading-[33px] tracking-[0.66px]">
+    <div
+      style={{
+        backgroundColor: '#FBFAF8',
+        minHeight: '100vh'
+      }}
+    >
+      <header
+        style={{
+          padding: '32px 24px',
+          fontSize: '22px',
+          fontWeight: '600',
+          lineHeight: '33px',
+          letterSpacing: '0.66px'
+        }}
+      >
         <p>{t('notifyPage.title')}</p>
       </header>
       <main>
-        <div className="switch flex items-center bg-white h-[61px] pr-5 pl-5 justify-between mb-[28px]">
-          <span className="text-[16px] font-[300] leading-[24px] tracking-[0.48px] text-[#212121]">通知</span>
+        <Flex
+          align="center"
+          justify="space-between"
+          style={{ backgroundColor: '#FFFFFF', padding: '0 20px', marginBottom: '28px', height: '61px' }}
+        >
+          <span style={{ fontSize: '16px', letterSpacing: '0.48px', lineHeight: '24px', color: '#212121' }}>通知</span>
           <Switch defaultChecked={isOpen} onChange={switchChangeHandle} />
-        </div>
+        </Flex>
         {isOpen && (
-          <ul className="list-none bg-white">
+          <div style={{ listStyle: 'none', backgroundColor: '#FFFFFF' }}>
             {navList.map((item, index) => (
-              <li
+              <Flex
+                align="center"
+                justify="space-between"
+                style={{
+                  height: '61px',
+                  padding: '0 20px',
+                  borderBottom: '1px solid #eee',
+                  letterSpacing: '0.48px',
+                  fontWeight: '300',
+                  lineHeight: '24px',
+                  boxSizing: 'border-box',
+                  fontSize: '16px'
+                }}
                 onClick={() => setSelected(index)}
                 key={index}
-                className="h-[61px] pl-5 pr-5 flex items-center 
-              justify-between text-[16px] font-[300] leading-6 box-border cursor-pointer  
-               tracking-[0.48px] border-0 text-[#212121]  border-solid border-b-[1px] border-[#eee]"
               >
                 <span>{item}</span>
                 <Image
@@ -42,9 +68,9 @@ export default function Page() {
                   alt="done-icon"
                   style={{ display: index === selected ? '' : 'none' }}
                 />
-              </li>
+              </Flex>
             ))}
-          </ul>
+          </div>
         )}
       </main>
     </div>

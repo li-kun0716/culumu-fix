@@ -2,6 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { useTranslation } from '@/i18n/client';
+import { Flex } from 'antd';
 
 export default function Empty() {
   const { t } = useTranslation();
@@ -24,26 +25,70 @@ export default function Empty() {
   ] as const;
 
   return (
-    <div className="relative bg-[#8DABD8] pt-[20px] min-h-screen flex flex-col box-border">
-      <div className="dot size-[27px] bg-[#D9D9D9] rounded-full absolute left-[18px]"></div>
-
-      <div className="list flex-1"></div>
-      <div className="bar"></div>
-      <div className="bg-[#FBF7F0] p-[8px]">
-        <ul className="list-none flex gap-[8px] ">
+    <Flex
+      vertical
+      style={{
+        position: 'relative',
+        backgroundColor: '#8DABD8',
+        paddingTop: '20px',
+        minHeight: '100vh',
+        boxSizing: 'border-box'
+      }}
+    >
+      <div
+        style={{
+          width: '27px',
+          height: '27px',
+          backgroundColor: '#D9D9D9',
+          borderRadius: '50%',
+          position: 'absolute',
+          left: '18px'
+        }}
+      ></div>
+      <div className="list" style={{ flex: 1 }}></div>
+      <div style={{ backgroundColor: '#FBF7F0', padding: '8px' }}>
+        <Flex gap={8}>
           {bar.map((item) => (
-            <li
+            <Flex
+              vertical
+              align="center"
+              justify="center"
               key={item.name}
-              className="flex-1 h-[120px]  bg-white flex flex-col items-center 
-              justify-center rounded-[6px] shadow-[1px_1px_3px_0px_rgba(0,0,0,0.25)]"
+              style={{
+                flex: 1,
+                height: '120px',
+                backgroundColor: '#fff',
+                borderRadius: '6px',
+                boxShadow: '1px 1px 3px 0px rgba(0,0,0,0.25)'
+              }}
             >
               <Image src={item.icon} alt={item.name} width={54.6} height={54.6} />
-              <p className="font-[600] leading-[22.5px] tracking-[0.45px] text-[15px] text-[#000]">{item.name}</p>
-              <p className="font-[300] leading-[18px] tracking-[0.36px] text-[12px] text-[#757575]">{item.intro}</p>
-            </li>
+              <p
+                style={{
+                  fontWeight: 600,
+                  fontSize: '15px',
+                  lineHeight: '22.5px',
+                  color: '#000',
+                  letterSpacing: '0.45px'
+                }}
+              >
+                {item.name}
+              </p>
+              <p
+                style={{
+                  fontWeight: 300,
+                  fontSize: '12px',
+                  lineHeight: '18px',
+                  color: '#757575',
+                  letterSpacing: '0.36px'
+                }}
+              >
+                {item.intro}
+              </p>
+            </Flex>
           ))}
-        </ul>
+        </Flex>
       </div>
-    </div>
+    </Flex>
   );
 }

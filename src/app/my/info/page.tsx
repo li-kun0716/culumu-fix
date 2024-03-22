@@ -39,6 +39,7 @@ export default function Information() {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [occupationCount, setOccupationCount] = useState([1, 2]);
+
   const basRef = useRef<{ computedDays: (changeValues: any, values: any, form: FormInstance) => void }>(null);
 
   const formHandleChange = (changeValues: any, values: any) => {
@@ -160,7 +161,8 @@ function Occupation({ index }: { index: number }) {
   const { t } = useTranslation();
   const occupationSelect = t('myPage.myInfo.select.occupationSelect', { returnObjects: true });
   const postSelect = t('myPage.myInfo.select.postSelect', { returnObjects: true });
-
+  const specialOccupationSelect = t('myPage.myInfo.select.specialList', { returnObjects: true });
+  const [occSelect, setOccupationSelect] = useState('');
   return (
     <>
       <section>
@@ -187,38 +189,43 @@ function Occupation({ index }: { index: number }) {
             options={occupationSelect}
             style={{ height: '47px' }}
             placeholder={t('myPage.myInfo.select.placeHolder')}
+            onChange={(value) => setOccupationSelect(value)}
           />
         </Form.Item>
-        <Form.Item
-          name={`organizationName${index}`}
-          label={
-            <Flex gap={8} align="center">
-              <Label>{t('myPage.myInfo.organizationName')}</Label>
-              <AnyIcon />
-            </Flex>
-          }
-        >
-          <Input
-            style={inputStyle}
-            placeholder={t('myPage.myInfo.input.organizationNamePlaceHolder')}
-            maxLength={100}
-          />
-        </Form.Item>
-        <Form.Item
-          name={`post${index}`}
-          label={
-            <Flex gap={8} align="center">
-              <Label>{t('myPage.myInfo.post')}</Label>
-              <AnyIcon />
-            </Flex>
-          }
-        >
-          <Select
-            options={postSelect}
-            style={{ height: '47px' }}
-            placeholder={t('myPage.myInfo.select.placeHolder')}
-          ></Select>
-        </Form.Item>
+        {specialOccupationSelect.indexOf(occSelect) > -1 && (
+          <>
+            <Form.Item
+              name={`organizationName${index}`}
+              label={
+                <Flex gap={8} align="center">
+                  <Label>{t('myPage.myInfo.organizationName')}</Label>
+                  <AnyIcon />
+                </Flex>
+              }
+            >
+              <Input
+                style={inputStyle}
+                placeholder={t('myPage.myInfo.input.organizationNamePlaceHolder')}
+                maxLength={100}
+              />
+            </Form.Item>
+            <Form.Item
+              name={`post${index}`}
+              label={
+                <Flex gap={8} align="center">
+                  <Label>{t('myPage.myInfo.post')}</Label>
+                  <AnyIcon />
+                </Flex>
+              }
+            >
+              <Select
+                options={postSelect}
+                style={{ height: '47px' }}
+                placeholder={t('myPage.myInfo.select.placeHolder')}
+              ></Select>
+            </Form.Item>
+          </>
+        )}
       </section>
     </>
   );

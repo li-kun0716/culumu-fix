@@ -1,8 +1,13 @@
-.information .css-dev-only-do-not-override-1dxapr .ant-input-outlined.ant-input-status-error:not(.ant-input-disabled)
-, .information .ant-select-status-error
-{
-background-color:rgba(190, 1, 35, 0.16);
+.information .css-dev-only-do-not-override-1dxapr .ant-input-outlined.ant-input-status-error:not(.ant-input-disabled),
+.information .ant-select-status-error {
+  background-color: rgba(190, 1, 35, 0.16);
 }
-.information .ant-select.ant-select-status-error .ant-select-selector{
- background-color: transparent !important;
+
+.information .ant-select.ant-select-status-error .ant-select-selector {
+  background-color: transparent !important;
+}
+
+.ant-input-status-error,
+.ant-select-status-error .ant-select-selector {
+  background-color: rgba(190, 1, 35, 0.16) !important;
 }

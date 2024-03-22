@@ -20,12 +20,7 @@ const RootLayout: React.FC<Readonly<{ children: React.ReactNode; params: { lng?:
 }) => (
   <html lang={lng} dir={dir(lng)}>
     <body>
-      <div
-        style={{
-          minHeight: '100vh',
-          backgroundColor: colors.gray[100]
-        }}
-      >
+      <div style={{ minHeight: '100vh', backgroundColor: colors.gray[100] }}>
         <AntdRegistry>
           <ThemeProvider>{children}</ThemeProvider>
         </AntdRegistry>

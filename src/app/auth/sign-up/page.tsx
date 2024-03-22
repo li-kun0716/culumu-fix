@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { Flex, Typography, Image } from 'antd';
 import { useRouter } from 'next/navigation';
 
@@ -39,23 +40,8 @@ const Page: React.FC = () => {
         backgroundColor: colors.gray[100]
       }}
     >
-      <Flex
-        align="center"
-        style={{
-          flexDirection: 'column',
-          height: 'calc(100vh - 80px)',
-          paddingTop: '8px'
-        }}
-      >
-        <Image
-          src="/images/logo.png"
-          alt="logo"
-          width={306}
-          height={34.3}
-          style={{
-            backgroundSize: 'contain'
-          }}
-        />
+      <Flex align="center" style={{ flexDirection: 'column', height: 'calc(100vh - 80px)', paddingTop: '8px' }}>
+        <Image src="/images/logo.png" alt="logo" width={306} height={34.3} style={{ backgroundSize: 'contain' }} />
         <Typography
           style={{
             textAlign: 'center',
@@ -68,14 +54,7 @@ const Page: React.FC = () => {
         >
           {t('authPage.signUp.title')}
         </Typography>
-        <Flex
-          gap="20px"
-          style={{
-            flexDirection: 'column',
-            width: '100%',
-            flexWrap: 'wrap'
-          }}
-        >
+        <Flex gap="20px" style={{ flexDirection: 'column', width: '100%', flexWrap: 'wrap' }}>
           {itemList.map((item) => (
             <Flex
               key={item.title}
@@ -88,20 +67,8 @@ const Page: React.FC = () => {
                 boxSizing: 'border-box'
               }}
             >
-              <Image
-                src={item.image}
-                alt={''}
-                width={126}
-                height={106}
-                style={{
-                  minWidth: 126
-                }}
-              />
-              <Flex
-                style={{
-                  flexDirection: 'column'
-                }}
-              >
+              <Image src={item.image} alt={''} width={126} height={106} style={{ minWidth: 126 }} />
+              <Flex style={{ flexDirection: 'column' }}>
                 <Typography
                   style={{
                     fontSize: '19px',

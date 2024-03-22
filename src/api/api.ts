@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { getLocalStorageItem, Key } from '@/utils/localStorage';
+import { CustomError } from '@/api/error';
 
 const API_METHOD = { GET: 'get', POST: 'post', PUT: 'put', PATCH: 'patch', DELETE: 'delete' };
 
@@ -26,16 +27,25 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => response,
-  (error) => Promise.reject(error)
+  (error) => Promise.reject<CustomError>(error)
 );
 
-const api = {
-  get: async <R>(config: AxiosRequestConfig) => {
-    return await axiosInstance.request<R, AxiosResponse<R>, object>({ ...config, method: API_METHOD.GET });
-  },
-  post: async <R, Data>(config: AxiosRequestConfig) => {
-    return await axiosInstance.request<R, AxiosResponse<R>, Data>({ ...config, method: API_METHOD.POST });
-  }
+const get = async <R>(config: AxiosRequestConfig) => {
+  return await axiosInstance.request<R, AxiosResponse<R>>({ ...config, method: API_METHOD.GET });
 };
+
+const post = async <R, Data>(config: AxiosRequestConfig) => {
+  return await axiosInstance.request<R, AxiosResponse<R> & CustomError, Data>({ ...config, method: API_METHOD.POST });
+};
+
+const put = async <R, Data>(config: AxiosRequestConfig) => {
+  return await axiosInstance.request<R, AxiosResponse<R> & CustomError, Data>({ ...config, method: API_METHOD.PUT });
+};
+
+const patch = async <R, Data>(config: AxiosRequestConfig) => {
+  return await axiosInstance.request<R, AxiosResponse<R> & CustomError, Data>({ ...config, method: API_METHOD.PATCH });
+};
+
+const api = { get, post, put, patch };
 
 export default api;

@@ -1,14 +1,15 @@
 'use client';
 
-import { Typography, Form, Input, Checkbox } from 'antd';
+import { Typography, Form, Input, Checkbox, message } from 'antd';
 import { useRouter } from 'next/navigation';
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 
 import colors from '@/theme/colors';
 import { useTranslation } from '@/i18n/client';
 import FlowStepBar from '@/app/components/auth/FlowStepBar';
 import StepController from '@/app/components/auth/StepController';
 import InputBadge from '@/app/components/auth/InputBadge';
+import { useSetUserSurveyMutation } from '@/api';
 
 type FieldType = {
   talkAbout?: string;
@@ -19,52 +20,41 @@ type FieldType = {
 const Page: React.FC = () => {
   const { t } = useTranslation('auth-page');
   const router = useRouter();
+  const { setUserSurvey, loading } = useSetUserSurveyMutation();
+  const [messageApi] = message.useMessage();
+
   const [form] = Form.useForm();
 
-  const handleSubmit = useCallback(async () => {
-    router.replace('/auth/sign-up/success');
-  }, [router]);
+  const handleSubmit = useCallback(
+    (values: FieldType) => {
+      if (!values.isAccepted) {
+        messageApi.open({ type: 'error', content: '利用規約・プライバシーポリシーに同意してください。' });
+        return;
+      }
+
+      setUserSurvey({ discussionTopics: values.talkAbout, potentialReferrals: values.introduction }).then(() => {
+        messageApi.open({ type: 'success', content: '更新しました。' });
+        router.replace('/auth/sign-up/success');
+      });
+    },
+    [messageApi, router, setUserSurvey]
+  );
 
   return (
-    <div
-      style={{
-        padding: '32px 24px 144px'
-      }}
-    >
+    <div style={{ padding: '32px 24px 144px' }}>
       <FlowStepBar curStep={3} />
-      <div
-        style={{
-          padding: '16px 0'
-        }}
-      >
-        <Typography
-          style={{
-            fontSize: 22,
-            fontWeight: 600,
-            marginBottom: '6px',
-            textAlign: 'center'
-          }}
-        >
+      <div style={{ padding: '16px 0' }}>
+        <Typography style={{ fontSize: 22, fontWeight: 600, marginBottom: '6px', textAlign: 'center' }}>
           {t('signUp.capability.title')}
         </Typography>
       </div>
       <Form
         layout="vertical"
-        style={{
-          paddingTop: '40px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '18px'
-        }}
+        style={{ paddingTop: '40px', display: 'flex', flexDirection: 'column', gap: '18px' }}
         form={form}
         onFinish={handleSubmit}
       >
-        <Typography.Text
-          style={{
-            fontSize: '19px',
-            fontWeight: '600'
-          }}
-        >
+        <Typography.Text style={{ fontSize: '19px', fontWeight: '600' }}>
           {t('signUp.capability.subTitle')}
         </Typography.Text>
         <Form.Item<FieldType>
@@ -76,18 +66,12 @@ const Page: React.FC = () => {
           }
           name="talkAbout"
           rules={[{ required: false }]}
-          style={{
-            marginBottom: '0px'
-          }}
+          style={{ marginBottom: '0px' }}
         >
           <Input.TextArea
             placeholder={t('signUp.capability.talkAboutPlaceholder')}
             autoSize
-            style={{
-              whiteSpace: 'pre-wrap',
-              padding: '12px 16px',
-              fontSize: 12
-            }}
+            style={{ whiteSpace: 'pre-wrap', padding: '12px 16px', fontSize: 12 }}
             maxLength={500}
           />
         </Form.Item>
@@ -95,9 +79,7 @@ const Page: React.FC = () => {
           label={t('signUp.capability.introduceTo')}
           name="introduction"
           rules={[{ required: true, message: t('common:rule.required') }]}
-          style={{
-            marginBottom: '0px'
-          }}
+          style={{ marginBottom: '0px' }}
         >
           <div>
             <Typography.Text
@@ -116,11 +98,7 @@ const Page: React.FC = () => {
             <Input.TextArea
               placeholder={t('signUp.capability.introduceToPlaceholder')}
               autoSize
-              style={{
-                whiteSpace: 'pre-wrap',
-                padding: '12px 16px',
-                fontSize: 12
-              }}
+              style={{ whiteSpace: 'pre-wrap', padding: '12px 16px', fontSize: 12 }}
               maxLength={500}
             />
           </div>
@@ -142,19 +120,17 @@ const Page: React.FC = () => {
         >
           <div>
             <Checkbox />
-            <Typography.Link
-              style={{
-                marginLeft: 6
-              }}
-            >
-              利用規約
-            </Typography.Link>
-            ・<Typography.Link>プライバシーポリシー</Typography.Link>
+            <Typography.Link style={{ marginLeft: 6 }}>利用規約</Typography.Link>・
+            <Typography.Link>プライバシーポリシー</Typography.Link>
             に同意します
           </div>
         </Form.Item>
       </Form>
-      <StepController onReturn={() => router.replace('/auth/sign-up/occupation')} onNext={() => form.submit()} />
+      <StepController
+        loading={loading}
+        onReturn={() => router.replace('/auth/sign-up/occupation')}
+        onNext={() => form.submit()}
+      />
     </div>
   );
 };

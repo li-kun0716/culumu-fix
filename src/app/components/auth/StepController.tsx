@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { Flex } from 'antd';
 
 import { Button } from '@/components/antd';
@@ -7,11 +8,12 @@ import colors from '@/theme/colors';
 import { useTranslation } from '@/i18n/client';
 
 type PropsType = {
+  loading: boolean;
   onReturn: () => void;
   onNext: () => void;
 };
 
-const StepController: React.FC<PropsType> = ({ onReturn, onNext }) => {
+const StepController: React.FC<PropsType> = ({ onReturn, onNext, loading }) => {
   const { t } = useTranslation();
 
   return (
@@ -55,6 +57,7 @@ const StepController: React.FC<PropsType> = ({ onReturn, onNext }) => {
           color: colors.white
         }}
         onClick={onNext}
+        loading={loading}
       >
         {t('common:next')}
       </Button>

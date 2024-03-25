@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState, useImperativeHandle, useRef } from 'react';
-import { Form, Select, SelectProps, Input, Button, Flex, Space } from 'antd';
+import { Form, Select, SelectProps, Input, Button, Flex } from 'antd';
 import Image from 'next/image';
 import TextArea from 'antd/es/input/TextArea';
 import { getDaysInMonth } from '@/utils/day';
@@ -39,9 +39,7 @@ export default function Information() {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [occupationCount, setOccupationCount] = useState([1, 2]);
-
   const basRef = useRef<{ computedDays: (changeValues: any, values: any, form: FormInstance) => void }>(null);
-
   const formHandleChange = (changeValues: any, values: any) => {
     basRef.current?.computedDays(changeValues, values, form);
   };
@@ -63,7 +61,7 @@ export default function Information() {
         </h1>
       </Flex>
       <Form requiredMark={false} form={form} onValuesChange={formHandleChange} onFinish={submitHandle}>
-        <main style={{ padding: '24px 24px 32px 24px' }}>
+        <main style={{ padding: '24px 20px 32px 20px' }}>
           <BasicInformation basRef={basRef} />
           <Place />
           <Contact />
@@ -421,8 +419,7 @@ function Paragraph() {
               fontSize: '12px',
               fontWeight: '300',
               letterSpacing: '0.36px',
-              lineHeight: '18px',
-              textAlign: 'center'
+              lineHeight: '18px'
             }}
           >
             {t('myPage.myInfo.p2')}
@@ -444,6 +441,13 @@ function BasInfoAndIntro() {
     lineHeight: '18px',
     borderRadius: '10px'
   };
+  const textAreaStyle: React.CSSProperties = {
+    padding: '12px 16px',
+    fontSize: '12px',
+    fontWeight: 300,
+    letterSpacing: '0.36px',
+    lineHeight: '18px'
+  };
 
   return (
     <>
@@ -458,7 +462,7 @@ function BasInfoAndIntro() {
           <div style={style}>
             <TextArea
               autoSize={{ minRows: 3 }}
-              style={{ padding: '12px 16px' }}
+              style={textAreaStyle}
               placeholder={t('myPage.myInfo.textArea.talkAboutPlaceHolder')}
             />
           </div>
@@ -481,7 +485,7 @@ function BasInfoAndIntro() {
             <div style={style}>
               <TextArea
                 autoSize={{ minRows: 2 }}
-                style={{ padding: '12px 16px' }}
+                style={textAreaStyle}
                 placeholder={t('myPage.myInfo.textArea.referPlaceHolder')}
               />
             </div>
@@ -503,7 +507,7 @@ function BasInfoAndIntro() {
             <div style={style}>
               <TextArea
                 autoSize={{ minRows: 4 }}
-                style={{ padding: '12px 16px' }}
+                style={textAreaStyle}
                 maxLength={500}
                 placeholder={t('myPage.myInfo.textArea.introductionPlaceHolder')}
               />

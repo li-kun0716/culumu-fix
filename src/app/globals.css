@@ -26,6 +26,11 @@ body {
   background: rgb(var(--background-rgb));
 }
 
+.ant-input-status-error,
+.ant-select-status-error .ant-select-selector {
+  background-color: rgba(190, 1, 35, 0.16) !important;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

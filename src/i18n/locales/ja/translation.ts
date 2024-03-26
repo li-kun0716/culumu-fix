@@ -4,6 +4,7 @@ import notifyPage from './notify-page';
 import setupPage from './setup-page';
 import myPage from './my-page';
 import greetingPage from './greeting-page';
+import authPage from './auth-page';
 
 const homePageTest = {
   text: 'ホームページテストテキスト',
@@ -26,5 +27,6 @@ export default {
   notifyPage,
   setupPage,
   myPage,
-  greetingPage
+  greetingPage,
+  authPage
 };

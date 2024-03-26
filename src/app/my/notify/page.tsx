@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Flex, Switch } from 'antd';
+
 import { useTranslation } from '@/i18n/client';
 
 export default function Page() {

@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import TextArea from 'antd/es/input/TextArea';
-import { useTranslation } from '@/i18n/client';
 import { Typography, Space } from 'antd';
+
+import { useTranslation } from '@/i18n/client';
 const { Text } = Typography;
 
 export default function Page() {
-  const [activeIndex, setActiveIndex] = useState(1);
   const { t } = useTranslation();
 
   return (

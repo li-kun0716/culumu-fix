@@ -2,8 +2,9 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { useTranslation } from '@/i18n/client';
 import { Flex, Typography, List, Button } from 'antd';
+
+import { useTranslation } from '@/i18n/client';
 const { Text } = Typography;
 export default function Page() {
   const { t } = useTranslation();

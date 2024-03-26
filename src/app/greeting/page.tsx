@@ -1,8 +1,9 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import { useTranslation } from '@/i18n/client';
 import { Flex } from 'antd';
+
+import { useTranslation } from '@/i18n/client';
 
 export default function Greeting() {
   const { t } = useTranslation();

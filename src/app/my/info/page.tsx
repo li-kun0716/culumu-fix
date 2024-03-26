@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useEffect, useState, useImperativeHandle, useRef } from 'react';
-import { Form, Select, SelectProps, Input, Button, Flex } from 'antd';
+import { Form, Select, SelectProps, Input, Button, Flex, FormInstance } from 'antd';
 import Image from 'next/image';
 import TextArea from 'antd/es/input/TextArea';
-import { getDaysInMonth } from '@/utils/day';
+import { ValidatorRule } from 'rc-field-form/lib/interface';
+
 import { useTranslation } from '@/i18n/client';
-import type { FormInstance } from 'antd';
+import { getDaysInMonth } from '@/utils/day';
 import './information.css';
 
 const inputStyle: React.CSSProperties = {
@@ -25,26 +26,44 @@ const months: SelectProps['options'] = new Array(12)
   .fill(0)
   .map((_, index) => ({ label: index + 1, value: index + 1 }));
 const checkInput = (message: string) => {
-  return (a: any, value: any) => {
+  return ((a: { field: string }, value: string) => {
     let reg;
     if (a.field === 'tell') reg = /^[0-9]{6,}$/;
     if (a.field === 'post') reg = /^[0-9]{6,}$/;
     if (a.field === 'email') reg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (reg && reg.test(value)) return Promise.resolve(true);
     return Promise.reject(message);
-  };
+  }) as unknown as ValidatorRule['validator'];
 };
+
+interface FieldType {
+  fullName: string;
+  name: string;
+  year: number;
+  month: number;
+  day: number;
+  gender: 'male' | 'female';
+  post: string;
+  tell: string;
+  email: string;
+  talk: string;
+  refer: string;
+  selfIntroduce: string;
+  [key: string]: string | number;
+}
 
 export default function Information() {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [occupationCount, setOccupationCount] = useState([1, 2]);
-  const basRef = useRef<{ computedDays: (changeValues: any, values: any, form: FormInstance) => void }>(null);
-  const formHandleChange = (changeValues: any, values: any) => {
+  const basRef = useRef<{ computedDays: (changeValues: FieldType, values: FieldType, form: FormInstance) => void }>(
+    null
+  );
+  const formHandleChange = (changeValues: FieldType, values: FieldType) => {
     basRef.current?.computedDays(changeValues, values, form);
   };
-  const submitHandle = (values: any) => {
-    console.log(values);
+  const submitHandle = (_value: FieldType) => {
+    console.log(_value);
   };
 
   return (
@@ -229,11 +248,15 @@ function Occupation({ index }: { index: number }) {
   );
 }
 
-function BasicInformation({ basRef }: { basRef: any }) {
+function BasicInformation({
+  basRef
+}: {
+  basRef: React.RefObject<{ computedDays: (changeValues: FieldType, values: FieldType, form: FormInstance) => void }>;
+}) {
   const { t } = useTranslation();
   const [days, setDays] = useState<Array<{ label: number; value: number }>>([]);
   const genderSelect = t('myPage.myInfo.select.genderSelect', { returnObjects: true });
-  const computedDays = (changeValues: any, values: any, form: FormInstance) => {
+  const computedDays = (changeValues: FieldType, values: FieldType, form: FormInstance) => {
     if (changeValues['year'] || changeValues['month']) {
       const year = values['year'];
       const month = values['month'];
@@ -481,7 +504,7 @@ function BasInfoAndIntro() {
           >
             {t('myPage.myInfo.referAttention')}
           </p>
-          <Form.Item name="introduce" rules={[{ required: true, message: t('myPage.myInfo.validation.required') }]}>
+          <Form.Item name="refer" rules={[{ required: true, message: t('myPage.myInfo.validation.required') }]}>
             <div style={style}>
               <TextArea
                 autoSize={{ minRows: 2 }}

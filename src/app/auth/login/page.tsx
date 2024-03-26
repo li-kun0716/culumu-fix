@@ -45,7 +45,18 @@ const Page: React.FC = () => {
   }, [generateToken]);
 
   if (!state) {
-    return <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />;
+    return (
+      <Spin
+        indicator={
+          <LoadingOutlined
+            style={{ fontSize: 24 }}
+            spin
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          />
+        }
+      />
+    );
   }
 
   return <a href={authURL}>LINE LOGIN</a>;

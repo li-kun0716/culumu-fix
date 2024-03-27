@@ -36,21 +36,33 @@ export type OccupationInput = {
   position?: string;
 };
 
-export const setUserOccupations = (data: OccupationInput[]) =>
-  apiClient.patch<SuccessResponse, OccupationInput[]>({ url: API_URL.USER_ME, data });
+export const setUserOccupations = (data: { occupations: OccupationInput[] }) =>
+  apiClient.post<SuccessResponse, OccupationInput[]>({ url: API_URL.OCCUPATION, data });
 
 export const useSetUserOccupationsMutation = () => {
-  const mutation = useMutation({ mutationFn: (occupations: OccupationInput[]) => setUserOccupations(occupations) });
+  const mutation = useMutation({
+    mutationFn: (occupations: { occupations: OccupationInput[] }) => setUserOccupations(occupations)
+  });
   return { setUserOccupations: mutation.mutateAsync, loading: mutation.isPending, isError: mutation.isError };
 };
 
-// setUserSerey
+// setUserSurvey
 export type SurveyInput = { discussionTopics?: string; potentialReferrals: string };
 
 export const setUserSurvey = (data: SurveyInput) =>
-  apiClient.patch<SuccessResponse, SurveyInput>({ url: API_URL.USER_ME, data });
+  apiClient.post<SuccessResponse, SurveyInput>({ url: API_URL.SURVEY, data });
 
 export const useSetUserSurveyMutation = () => {
   const mutation = useMutation({ mutationFn: (survey: SurveyInput) => setUserSurvey(survey) });
   return { setUserSurvey: mutation.mutateAsync, loading: mutation.isPending, isError: mutation.isError };
+};
+
+// setUserBio
+export type BIoInput = { bio?: string };
+
+export const setUserBio = (data: BIoInput) => apiClient.post<SuccessResponse, BIoInput>({ url: API_URL.BIO, data });
+
+export const useSetUserBioMutation = () => {
+  const mutation = useMutation({ mutationFn: (bio: BIoInput) => setUserBio(bio) });
+  return { setUserBio: mutation.mutateAsync, loading: mutation.isPending, isError: mutation.isError };
 };

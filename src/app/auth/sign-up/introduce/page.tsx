@@ -1,19 +1,32 @@
 'use client';
 
-import React from 'react';
-import { Flex, Typography, Input } from 'antd';
+import React, { useCallback, useState } from 'react';
+import { Flex, Typography, Input, App } from 'antd';
 import { useRouter } from 'next/navigation';
-
 import { useTranslation } from '@/i18n/client';
 import colors from '@/theme/colors';
 import { Button } from '@/components/antd';
+import { useSetUserBioMutation } from '@/api';
 
 const Page: React.FC = () => {
   const { t } = useTranslation('auth-page');
   const { TextArea } = Input;
   const router = useRouter();
+  const [bio, setBio] = useState('');
+  const { setUserBio, loading } = useSetUserBioMutation();
+  const { message } = App.useApp();
 
   const buttonStyle = { height: '64px', fontSize: '16px', fontWeight: 600 };
+
+  const submit = useCallback(() => {
+    if (!bio) return;
+    setUserBio({
+      bio
+    }).then(() => {
+      message.success('更新しました。!');
+      router.push('/auth/sign-up/introduce-success');
+    });
+  }, [router, bio, setUserBio]);
 
   return (
     <Flex vertical justify="center" align="center" style={{ padding: '0 20px' }}>
@@ -24,7 +37,13 @@ const Page: React.FC = () => {
         {t('signUp.introduce.description')}
       </Typography.Text>
       <div style={{ margin: '100px 0', width: '100%' }}>
-        <TextArea rows={6} placeholder={t('signUp.introduce.tip')} style={{ padding: '12px 16px' }} maxLength={500} />
+        <TextArea
+          rows={6}
+          placeholder={t('signUp.introduce.tip')}
+          style={{ padding: '12px 16px' }}
+          maxLength={500}
+          onChange={(e) => setBio(e.target.value)}
+        />
       </div>
       <Flex
         style={{
@@ -45,7 +64,8 @@ const Page: React.FC = () => {
         </Button>
         <Button
           type="outline"
-          onClick={() => router.push('/auth/sign-up/introduce-success')}
+          onClick={submit}
+          loading={loading}
           style={{ ...buttonStyle, width: '65%', backgroundColor: colors.accent[800], color: colors.white }}
         >
           {t('signUp.complete')}

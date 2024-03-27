@@ -1,5 +1,5 @@
 const API_URL = {
-  LOGIN: '/auth/login',
+  LOGIN: '/auth/line_login',
   USER_ME: '/user/me'
 };
 

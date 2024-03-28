@@ -115,8 +115,8 @@ const Page: React.FC = () => {
         >
           <div>
             <Checkbox />
-            <Typography.Link style={{ marginLeft: 6 }}>{t('signUp.capability.termsOfUse')}</Typography.Link>・
-            <Typography.Link>{t('signUp.capability.privacyPolicy')}</Typography.Link>
+            <Typography.Link style={{ marginLeft: 6 }}>{t('common:termsOfUse')}</Typography.Link>・
+            <Typography.Link>{t('common:privacyPolicy')}</Typography.Link>
             {t('signUp.capability.agreeTo')}
           </div>
         </Form.Item>

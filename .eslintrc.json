@@ -13,13 +13,26 @@
     },
     // https://github.com/import-js/eslint-import-resolver-typescript
     "import/resolver": {
-      "typescript": { "alwaysTryTypes": true, "project": "." }
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "."
+      }
     }
   },
   "rules": {
-    "no-duplicate-imports": ["error", { "includeExports": true }],
+    "no-duplicate-imports": [
+      "error",
+      {
+        "includeExports": true
+      }
+    ],
     "import/no-unresolved": "error",
-    "import/no-unused-modules": [1, { "unusedExports": true }],
+    "import/no-unused-modules": [
+      0,
+      {
+        "unusedExports": true
+      }
+    ],
     "import/order": [
       "error",
       {
@@ -29,8 +42,12 @@
     ],
     "@typescript-eslint/no-unused-vars": [
       "error",
-      { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
+      {
+        "vars": "all",
+        "args": "after-used",
+        "ignoreRestSiblings": false
+      }
     ],
-    "no-console": "warn"
+    "no-console": "off"
   }
 }

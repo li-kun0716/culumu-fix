@@ -44,8 +44,6 @@ const signUp = {
     introduceToTip: '※紹介できるひとがいない場合は「なし」と入力してください。',
     introduceToPlaceholder: '・認知症の家族を持つ仲間を紹介できます',
     approveRule: 'メッセージ送信前に承諾確認が必要です。',
-    termsOfUse: '利用規約',
-    privacyPolicy: 'プライバシーポリシー',
     agreeTo: 'に同意します'
   },
   occupation: {

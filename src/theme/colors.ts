@@ -26,6 +26,7 @@ const colors = {
   status: {
     danger: '#BE0123',
     danger01: '#FFEBEE',
+    danger02: '#E03151',
     warning: '#D28484',
     success: '#34C759'
   },

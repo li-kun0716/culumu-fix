@@ -5,17 +5,17 @@ import { Form, Select, SelectProps, Input, Button, Flex, FormInstance } from 'an
 import Image from 'next/image';
 import TextArea from 'antd/es/input/TextArea';
 import { ValidatorRule } from 'rc-field-form/lib/interface';
-
 import { useTranslation } from '@/i18n/client';
 import { getDaysInMonth } from '@/utils/day';
 import './information.css';
+import colors from '@/theme/colors';
 
 const inputStyle: React.CSSProperties = {
   fontSize: '15px',
   padding: '12px 16px',
   height: '47px',
   fontWeight: 300,
-  color: '#212121',
+  color: colors.gray[900],
   letterSpacing: '0.45px'
 };
 const [initYear, initMonth, initDay] = [2000, 1, 1];
@@ -150,7 +150,7 @@ function AnyIcon() {
         fontWeight: 600,
         letterSpacing: '0.33px',
         color: '#fff',
-        backgroundColor: '#9E9E9E',
+        backgroundColor: colors.gray[500],
         borderRadius: '6px',
         padding: '2px 6px'
       }}
@@ -192,7 +192,7 @@ function Occupation({ index }: { index: number }) {
               <p
                 style={{
                   fontSize: '11px',
-                  color: '#616161',
+                  color: colors.gray[700],
                   fontWeight: 300,
                   letterSpacing: '0.33px'
                 }}
@@ -401,7 +401,7 @@ function Place() {
               <Label>{t('myPage.myInfo.postalCode')}</Label>
               <p
                 style={{
-                  color: '#616161',
+                  color: colors.gray[700],
                   fontSize: '11px',
                   fontWeight: '300',
                   letterSpacing: '0.33px'
@@ -495,7 +495,7 @@ function BasInfoAndIntro() {
           <Label>{t('myPage.myInfo.refer')}</Label>
           <p
             style={{
-              color: '#616161',
+              color: colors.gray[700],
               fontSize: '11px',
               fontWeight: '300',
               letterSpacing: '0.33px',

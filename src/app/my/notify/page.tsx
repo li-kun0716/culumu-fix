@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Flex, Switch } from 'antd';
 
 import { useTranslation } from '@/i18n/client';
+import colors from '@/theme/colors';
 
 export default function Page() {
   const { t } = useTranslation();
@@ -39,7 +40,9 @@ export default function Page() {
           justify="space-between"
           style={{ backgroundColor: '#FFFFFF', padding: '0 20px', marginBottom: '28px', height: '61px' }}
         >
-          <span style={{ fontSize: '16px', letterSpacing: '0.48px', lineHeight: '24px', color: '#212121' }}>通知</span>
+          <span style={{ fontSize: '16px', letterSpacing: '0.48px', lineHeight: '24px', color: colors.gray[900] }}>
+            通知
+          </span>
           <Switch defaultChecked={isOpen} onChange={switchChangeHandle} />
         </Flex>
         {isOpen && (

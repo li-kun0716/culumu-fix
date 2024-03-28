@@ -8,6 +8,9 @@ export default {
   select: '選択する',
   any: '任意',
   other: 'その他',
+  termsOfUse: '利用規約',
+  privacyPolicy: 'プライバシーポリシー',
+  updateSuccess: '更新しました',
   placeholder: {
     name: '山田太郎',
     kanaName: 'ヤマダタロウ',

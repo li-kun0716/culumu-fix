@@ -20,7 +20,7 @@ const InputBadge: React.FC = () => {
         fontWeight: 600
       }}
     >
-      {t('common:other')}
+      {t('common:any')}
     </Flex>
   );
 };

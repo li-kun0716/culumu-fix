@@ -1,9 +1,8 @@
 'use client';
 
-import { Typography, Form, Input, Checkbox, message } from 'antd';
+import { Typography, Form, Input, Checkbox, App } from 'antd';
 import { useRouter } from 'next/navigation';
 import React, { useCallback } from 'react';
-
 import colors from '@/theme/colors';
 import { useTranslation } from '@/i18n/client';
 import FlowStepBar from '@/app/components/auth/FlowStepBar';
@@ -21,23 +20,19 @@ const Page: React.FC = () => {
   const { t } = useTranslation('auth-page');
   const router = useRouter();
   const { setUserSurvey, loading } = useSetUserSurveyMutation();
-  const [messageApi] = message.useMessage();
+
+  const { message } = App.useApp();
 
   const [form] = Form.useForm();
 
   const handleSubmit = useCallback(
     (values: FieldType) => {
-      if (!values.isAccepted) {
-        messageApi.open({ type: 'error', content: '利用規約・プライバシーポリシーに同意してください。' });
-        return;
-      }
-
-      setUserSurvey({ discussionTopics: values.talkAbout, potentialReferrals: values.introduction }).then(() => {
-        messageApi.open({ type: 'success', content: '更新しました。' });
+      setUserSurvey({ discussionTopics: values.talkAbout ?? '', potentialReferrals: values.introduction }).then(() => {
+        message.success(t('common:updateSuccess'));
         router.replace('/auth/sign-up/success');
       });
     },
-    [messageApi, router, setUserSurvey]
+    [router, setUserSurvey]
   );
 
   return (
@@ -71,7 +66,7 @@ const Page: React.FC = () => {
           <Input.TextArea
             placeholder={t('signUp.capability.talkAboutPlaceholder')}
             autoSize
-            style={{ whiteSpace: 'pre-wrap', padding: '12px 16px', fontSize: 12 }}
+            style={{ whiteSpace: 'pre-wrap', padding: '12px 16px', fontSize: 12, minHeight: 83 }}
             maxLength={500}
           />
         </Form.Item>
@@ -120,9 +115,9 @@ const Page: React.FC = () => {
         >
           <div>
             <Checkbox />
-            <Typography.Link style={{ marginLeft: 6 }}>利用規約</Typography.Link>・
-            <Typography.Link>プライバシーポリシー</Typography.Link>
-            に同意します
+            <Typography.Link style={{ marginLeft: 6 }}>{t('common:termsOfUse')}</Typography.Link>・
+            <Typography.Link>{t('common:privacyPolicy')}</Typography.Link>
+            {t('signUp.capability.agreeTo')}
           </div>
         </Form.Item>
       </Form>

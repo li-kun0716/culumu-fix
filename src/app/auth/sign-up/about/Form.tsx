@@ -1,15 +1,14 @@
 'use client';
 
 import React from 'react';
-import { Form as AntdForm, Input, Typography, Select, message } from 'antd';
+import { Form as AntdForm, Input, Typography, Select, App } from 'antd';
 import styled from 'styled-components';
 import { useRouter } from 'next/navigation';
-import moment from 'moment';
-
+import { format, parseISO } from 'date-fns';
 import { useTranslation } from '@/i18n/client';
 import StepController from '@/app/components/auth/StepController';
 import { BirthInput } from '@/app/auth/sign-up/about/BirthInput';
-import { UserInput, useUpdateMeMutation } from '@/api';
+import { useUpdateMeMutation } from '@/api';
 
 type FieldType = Record<'name' | 'nameKana' | 'tel' | 'email' | 'postalCode' | 'year' | 'month' | 'day', string> & {
   gender: 'male' | 'female';
@@ -28,7 +27,7 @@ const StyledForm = styled(AntdForm)`
 export const Form: React.FC = () => {
   const { t } = useTranslation('auth-page');
   const router = useRouter();
-  const [messageApi] = message.useMessage();
+  const { message } = App.useApp();
   const [form] = AntdForm.useForm<FieldType>();
 
   const { updateMe, loading } = useUpdateMeMutation();
@@ -38,12 +37,14 @@ export const Form: React.FC = () => {
       name: values.name,
       nameKana: values.nameKana,
       email: values.email,
-      birthday: moment(values.birth).format('YYYY-MM-DD'),
+      birthday: values.birth
+        ? format(parseISO(format(values.birth, 'yyyy-MM-dd') ?? ''), "yyyy-MM-dd'T'HH:mm:ssXXX")
+        : '',
       gender: values.gender,
-      phone: values.tel,
+      phone: `+81${values.tel}`,
       postalCode: values.postalCode
     }).then(() => {
-      messageApi.open({ type: 'success', content: '更新しました。' });
+      message.success(t('common:updateSuccess'));
       router.push('/auth/sign-up/occupation');
     });
   };
@@ -79,7 +80,6 @@ export const Form: React.FC = () => {
       <AntdForm.Item<FieldType>
         label={t('signUp.about.birth')}
         name={'birth'}
-        // dependencies={['year', 'month', 'day']}
         rules={[{ required: true, message: t('common:rule.halfWidthNumber') }]}
       >
         <BirthInput onChange={(date) => form.setFieldValue('birth', date)} />
@@ -102,7 +102,7 @@ export const Form: React.FC = () => {
         name="tel"
         rules={[
           { required: true, message: t('common:rule.required') },
-          { pattern: /^[0-9]+$/, message: t('common:rule.halfWidthNumber') }
+          { pattern: /^(\+?81|0)\d{1,4}[ \-]?\d{1,4}[ \-]?\d{4}$/, message: t('common:rule.halfWidthNumber') }
         ]}
       >
         <Input placeholder="12345678900" style={{ height: '47px' }} />

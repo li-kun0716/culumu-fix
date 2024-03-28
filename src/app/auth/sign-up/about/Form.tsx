@@ -44,7 +44,7 @@ export const Form: React.FC = () => {
       phone: `+81${values.tel}`,
       postalCode: values.postalCode
     }).then(() => {
-      message.success('更新しました。!');
+      message.success(t('common:updateSuccess'));
       router.push('/auth/sign-up/occupation');
     });
   };

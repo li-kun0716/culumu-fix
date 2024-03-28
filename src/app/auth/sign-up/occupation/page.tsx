@@ -54,7 +54,7 @@ const Page: React.FC = () => {
     setUserOccupations({
       occupations: inputs
     }).then(() => {
-      message.success('更新しました。');
+      message.success(t('common:updateSuccess'));
       router.push('/auth/sign-up/capability');
     });
   }, [router, setUserOccupations, showOccupationInput, showPositionInput]);

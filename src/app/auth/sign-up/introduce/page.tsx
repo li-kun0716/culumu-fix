@@ -23,7 +23,7 @@ const Page: React.FC = () => {
     setUserBio({
       bio
     }).then(() => {
-      message.success('更新しました。!');
+      message.success(t('common:updateSuccess'));
       router.push('/auth/sign-up/introduce-success');
     });
   }, [router, bio, setUserBio]);

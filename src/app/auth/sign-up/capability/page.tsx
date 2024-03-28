@@ -28,7 +28,7 @@ const Page: React.FC = () => {
   const handleSubmit = useCallback(
     (values: FieldType) => {
       setUserSurvey({ discussionTopics: values.talkAbout ?? '', potentialReferrals: values.introduction }).then(() => {
-        message.success('更新しました。!');
+        message.success(t('common:updateSuccess'));
         router.replace('/auth/sign-up/success');
       });
     },

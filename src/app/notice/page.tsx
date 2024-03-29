@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Button, Flex } from 'antd';
+import colors from '@/theme/colors';
 
 const navbar = [
   {
@@ -61,7 +62,7 @@ export default function Page() {
                 fontWeight: '300',
                 lineHeight: '18px',
                 letterSpacing: '0.36px',
-                color: '#757575'
+                color: colors.gray[600]
               }}
             >
               {item.intro}
@@ -125,7 +126,7 @@ function Card() {
           </p>
           <p
             style={{
-              color: '#616161',
+              color: colors.gray[700],
               fontWeight: 300,
               fontSize: '12px',
               letterSpacing: '0.36px',

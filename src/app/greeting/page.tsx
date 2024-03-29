@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Flex } from 'antd';
 
 import { useTranslation } from '@/i18n/client';
+import colors from '@/theme/colors';
 
 export default function Greeting() {
   const { t } = useTranslation();
@@ -53,7 +54,7 @@ export default function Greeting() {
         }}
       ></div>
       <div className="list" style={{ flex: 1 }}>
-        <Flex vertical align="center" gap={10} style={{ fontWeight: 400, fontSize: '12px', color: '#212121' }}>
+        <Flex vertical align="center" gap={10} style={{ fontWeight: 400, fontSize: '12px', color: colors.gray[900] }}>
           <div
             style={{
               backgroundColor: '#fff',
@@ -120,7 +121,7 @@ export default function Greeting() {
                   fontWeight: 300,
                   fontSize: '12px',
                   lineHeight: '18px',
-                  color: '#757575',
+                  color: colors.gray[600],
                   letterSpacing: '0.36px'
                 }}
               >

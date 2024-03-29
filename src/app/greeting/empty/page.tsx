@@ -81,7 +81,7 @@ export default function Empty() {
                   fontWeight: 300,
                   fontSize: '12px',
                   lineHeight: '18px',
-                  color: '#757575',
+                  color: colors.gray[600],
                   letterSpacing: '0.36px'
                 }}
               >

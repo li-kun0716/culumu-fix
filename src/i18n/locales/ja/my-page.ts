@@ -30,7 +30,7 @@ const myInfo = {
     fullWidth: '全角カタカナで入力してください。',
     singleByteNum: '半角数字のみで入力してください。',
     singleByteEN: '半角英数字のみで入力してください。',
-    noContact: 'xハイフン無しで入力してください',
+    noContact: 'xハイフン無しで入力してください'
   },
   input: {
     fullNamePlaceHolder: '山田太郎',
@@ -39,7 +39,7 @@ const myInfo = {
     emailPlaceHolder: 'contact@xxx.com',
     postalCodePlaceHolder: '1234567',
     organizationNamePlaceHolder: '株式会社STYZ',
-    otherPlaceHolder: 'その他',
+    otherPlaceHolder: 'その他'
   },
   textArea: {
     talkAboutPlaceHolder: `・認知症の家族の悩みが話せます\n・車いす利用の当事者\n・理学療法士として高齢者の生活全般について話せます`,
@@ -62,97 +62,100 @@ const myInfo = {
     occupationSelect: [
       {
         label: '会社員',
-        value: '会社員',
-      }, {
+        value: '会社員'
+      },
+      {
         label: '公務員（教職員除く）',
-        value: '公務員',
+        value: '公務員'
       },
       {
         label: '教職員',
-        value: '教職員',
+        value: '教職員'
       },
       {
         label: '経営者・役員',
-        value: '経営者・役員',
+        value: '経営者・役員'
       },
       {
         label: '専業主婦',
-        value: '専業主婦',
+        value: '専業主婦'
       },
       {
         label: '自営業・自由業',
-        value: '自営業・自由業',
+        value: '自営業・自由業'
       },
       {
         label: 'NPO・NGO',
-        value: 'NPO・NGO',
+        value: 'NPO・NGO'
       },
       {
         label: '学生',
-        value: '学生',
+        value: '学生'
       },
       {
         label: '士業（公認会計士・弁護士・税理士・司法書士）',
-        value: '士業',
+        value: '士業'
       },
       {
         label: '医療従事者',
-        value: '医療従事者',
+        value: '医療従事者'
       },
       {
         label: 'パート・アルバイト',
-        value: 'パート・アルバイト',
+        value: 'パート・アルバイト'
       },
       {
         label: '定年退職',
-        value: '定年退職',
+        value: '定年退職'
       },
       {
         label: 'ボランティア',
-        value: 'ボランティア',
+        value: 'ボランティア'
       },
       {
         label: '無職',
-        value: '無職',
+        value: '無職'
       },
       {
         label: 'その他',
         value: 'other'
       }
     ],
-    postSelect: [{
-      label: '経営者・代表',
-      value: '経営者・代表'
-    },
-    {
-      label: '役員',
-      value: '役員'
-    },
-    {
-      label: '一般社員（正社員）',
-      value: '一般社員（正社員）'
-    },
-    {
-      label: '契約社員',
-      value: '契約社員'
-    },
-    {
-      label: '派遣社員',
-      value: '派遣社員'
-    },
-    {
-      label: 'パート・アルバイト',
-      value: 'パート・アルバイト'
-    },
-    {
-      label: 'その他（自由記述）',
-      value: 'other'
-    }],
+    postSelect: [
+      {
+        label: '経営者・代表',
+        value: '経営者・代表'
+      },
+      {
+        label: '役員',
+        value: '役員'
+      },
+      {
+        label: '一般社員（正社員）',
+        value: '一般社員（正社員）'
+      },
+      {
+        label: '契約社員',
+        value: '契約社員'
+      },
+      {
+        label: '派遣社員',
+        value: '派遣社員'
+      },
+      {
+        label: 'パート・アルバイト',
+        value: 'パート・アルバイト'
+      },
+      {
+        label: 'その他（自由記述）',
+        value: 'other'
+      }
+    ],
     specialList: ['会社員', '公務員', '教職員', '経営者・役員', 'NPO・NGO', 'ボランティア']
   },
   updateSuccess: ' アップデートに成功',
-  updateFail: ' アップデートに失敗',
-}
+  updateFail: ' アップデートに失敗'
+};
 
 const myPageInfo = {
   title: 'マイページ',
@@ -161,8 +164,7 @@ const myPageInfo = {
   query: 'お問い合わせ',
   policy: '利用規約・プライバシーポリシー',
   back: '退会する',
-  barList: '案件管理|マイページ',
   myInfo
-}
+};
 
-export default myPageInfo
+export default myPageInfo;

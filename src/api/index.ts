@@ -55,21 +55,19 @@ export const useSetUserSurveyMutation = () => {
   return { setUserSurvey: mutation.mutateAsync, loading: mutation.isPending, isError: mutation.isError };
 };
 
-
-const Authorization = "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnQiOiJ6YWFnaE1MOVZIamJFdUFjUVdZN0E4IiwiZXhwaXJ5IjoxNzE0MTE5NjE2LCJ0b2tlbiI6InV1UDliQTRvbTd3dnNjNzVMN1NXZ0oiLCJ1aWQiOiJVMjM3ZDA2NDc1MGRhOWY2NWJhZmRkZTRhOWViYjNlMDIifQ.mOFdZZZVbM-UhoAyQEks3_z4Tv0uRB-SQ43ufNjJDbE"
-
 // get user profile
 
-const getUserInfo = () => apiClient.get<UserInfo>({ url: API_URL.USER_UPDATE, headers: { Authorization } });
+const getUserInfo = () => apiClient.get<UserInfo>({ url: API_URL.USER_PROFILE });
 
 export const useGetUserInfoQuery = () => {
-  const query = useQuery({ queryKey: ["userInfo"], queryFn: () => getUserInfo() });
+  const query = useQuery({ queryKey: ['userInfo'], queryFn: () => getUserInfo() });
   return { userInfo: query.data?.data, isLoading: query.isLoading, isError: query.isError, refetch: query.refetch };
-}
+};
 
 //set user profile
-const updateUserInfo = (data: UserInfo) => apiClient.patch<SuccessResponse, UserInfo>({ url: API_URL.USER_UPDATE, data, headers: { Authorization } });
+const updateUserInfo = (data: UserInfo) =>
+  apiClient.post<SuccessResponse, UserInfo>({ url: API_URL.USER_PROFILE, data });
 export const useUpdateUserInfoMutation = () => {
-  const mutation = useMutation({ mutationFn: (data: UserInfo) => updateUserInfo(data) })
-  return { updateUserInfo: mutation.mutateAsync, loading: mutation.isPending, isError: mutation.isError }
-}
+  const mutation = useMutation({ mutationFn: (data: UserInfo) => updateUserInfo(data) });
+  return { updateUserInfo: mutation.mutateAsync, loading: mutation.isPending, isError: mutation.isError };
+};

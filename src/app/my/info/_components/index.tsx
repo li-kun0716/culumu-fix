@@ -294,7 +294,10 @@ export function Contact({ userInfo }: { userInfo: UserInfo }) {
         <Form.Item
           name="phone"
           label={<Label>{t('myPage.myInfo.tell')}</Label>}
-          rules={[{ required: true }, { validator: checkInput(t('myPage.myInfo.validation.singleByteNum')) }]}
+          rules={[
+            { required: true, message: '' },
+            { validator: checkInput(t('myPage.myInfo.validation.singleByteNum')) }
+          ]}
           initialValue={userInfo?.phone.replace(/^\+[0-9]{2}/, '')}
         >
           <Input style={inputStyle} placeholder={t('myPage.myInfo.input.tellPlaceHolder')} />

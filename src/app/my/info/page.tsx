@@ -73,7 +73,6 @@ export default function Page() {
       bio: _value.bio,
       occupations: newOccupations
     };
-    console.log(uploadData);
     updateUserInfo(uploadData)
       .then(() => {
         message.success(t('myPage.myInfo.updateSuccess'));

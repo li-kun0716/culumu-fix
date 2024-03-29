@@ -14,7 +14,7 @@ const baseConfig = {
   timeout: 5000
 };
 
-export const axiosInstance = axios.create(baseConfig);
+const axiosInstance = axios.create(baseConfig);
 
 axiosInstance.interceptors.request.use(
   (config) => {

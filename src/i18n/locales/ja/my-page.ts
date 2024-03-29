@@ -38,7 +38,8 @@ const myInfo = {
     tellPlaceHolder: '12345678900',
     emailPlaceHolder: 'contact@xxx.com',
     postalCodePlaceHolder: '1234567',
-    organizationNamePlaceHolder: '株式会社STYZ'
+    organizationNamePlaceHolder: '株式会社STYZ',
+    otherPlaceHolder: 'その他'
   },
   textArea: {
     talkAboutPlaceHolder: `・認知症の家族の悩みが話せます\n・車いす利用の当事者\n・理学療法士として高齢者の生活全般について話せます`,
@@ -47,6 +48,7 @@ const myInfo = {
   },
   select: {
     placeHolder: '選択する',
+
     genderSelect: [
       {
         label: '男性',
@@ -113,6 +115,10 @@ const myInfo = {
       {
         label: '無職',
         value: '無職'
+      },
+      {
+        label: 'その他',
+        value: 'other'
       }
     ],
     postSelect: [
@@ -142,14 +148,16 @@ const myInfo = {
       },
       {
         label: 'その他（自由記述）',
-        value: 'その他（自由記述）'
+        value: 'other'
       }
     ],
     specialList: ['会社員', '公務員', '教職員', '経営者・役員', 'NPO・NGO', 'ボランティア']
-  }
+  },
+  updateSuccess: ' アップデートに成功',
+  updateFail: ' アップデートに失敗'
 };
 
-export default {
+const myPageInfo = {
   title: 'マイページ',
   info: 'プロフィール設定',
   notify: '通知設定',
@@ -158,3 +166,5 @@ export default {
   back: '退会する',
   myInfo
 };
+
+export default myPageInfo;

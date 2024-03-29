@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 import apiClient from '@/api/apiClient';
 import API_URL from '@/api/url';
@@ -55,6 +55,22 @@ export const setUserSurvey = (data: SurveyInput) =>
 export const useSetUserSurveyMutation = () => {
   const mutation = useMutation({ mutationFn: (survey: SurveyInput) => setUserSurvey(survey) });
   return { setUserSurvey: mutation.mutateAsync, loading: mutation.isPending, isError: mutation.isError };
+};
+
+// get user profile
+const getUserInfo = () => apiClient.get<UserInfo>({ url: API_URL.USER_PROFILE });
+
+export const useGetUserInfoQuery = () => {
+  const query = useQuery({ queryKey: ['userInfo'], queryFn: () => getUserInfo() });
+  return { userInfo: query.data?.data, isLoading: query.isLoading, isError: query.isError, refetch: query.refetch };
+};
+
+//set user profile
+const updateUserInfo = (data: UserInfo) =>
+  apiClient.post<SuccessResponse, UserInfo>({ url: API_URL.USER_PROFILE, data });
+export const useUpdateUserInfoMutation = () => {
+  const mutation = useMutation({ mutationFn: (data: UserInfo) => updateUserInfo(data) });
+  return { updateUserInfo: mutation.mutateAsync, loading: mutation.isPending, isError: mutation.isError };
 };
 
 // setUserBio

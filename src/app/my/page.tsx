@@ -1,66 +1,37 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { Flex, Typography, List, Button } from 'antd';
-
 import { useTranslation } from '@/i18n/client';
-const { Text } = Typography;
+import Link from 'next/link';
+import colors from '@/theme/colors';
+
 export default function Page() {
-  const { t } = useTranslation();
-  const [navIndex, setNavIndex] = useState(1);
-  const barList = t('myPage.barList').split('|');
-
-  const computedStyle = (index: number) => {
-    const style: React.CSSProperties = {
-      height: '48px',
-      flex: '1',
-      color: index === navIndex ? '#ED7B01' : '#9E9E9E',
-      borderBottom: index === navIndex ? '3px solid #ED7B01' : '3px solid transparent'
-    };
-    return style;
-  };
-
   return (
     <div style={{ backgroundColor: '#FBFAF8', minHeight: '100vh', position: 'relative' }}>
-      <nav style={{ backgroundColor: '#fff', height: '51px', borderBottom: '1px solid #E0E0E0' }}>
-        <Flex align="center" style={{ height: '100%' }}>
-          {barList.map((item, index) => (
-            <Flex
-              align="center"
-              justify="center"
-              onClick={() => setNavIndex(index)}
-              key={item}
-              style={computedStyle(index)}
-            >
-              <Text style={{ fontSize: '15px' }}>{item}</Text>
-            </Flex>
-          ))}
-        </Flex>
-      </nav>
-      {navIndex === 1 ? <Manager /> : <MyPage />}
+      <Manager />
     </div>
   );
 }
 
 function Manager() {
   const { t } = useTranslation();
+  const { Text } = Typography;
+
   const navList = [
     {
       icon: '/images/Person.svg',
       title: t('myPage.info')
     },
     {
-      icon: '/images/Person.svg',
-      title: t('myPage.notify')
-    },
-    {
-      icon: '/images/Dicussion.svg',
-      title: t('myPage.query')
+      icon: '/images/CheckList.svg',
+      title: t('common:termsOfUse')
     },
     {
       icon: '/images/Shield.svg',
-      title: t('myPage.policy')
+      title: t('common:privacyPolicy'),
+      link: 'https://culumu.com/privacy_policy'
     }
   ];
 
@@ -77,13 +48,27 @@ function Manager() {
           dataSource={navList}
           renderItem={(item) => (
             <List.Item style={{ height: '61px' }}>
-              <Flex align="center" gap={16} style={{ width: '100%', boxSizing: 'border-box', padding: '0  24px' }}>
-                <Image src={item.icon} alt="icon" width={18} height={20} />
+              <Flex
+                align="center"
+                gap={16}
+                style={{ width: '100%', boxSizing: 'border-box', padding: '0  24px' }}
+                onClick={() => {
+                  if (!item.link) return;
+
+                  let a = document.createElement('a');
+                  a.href = item.link;
+                  a.style.display = 'none';
+                  document.body.appendChild(a);
+                  a.click();
+                  a.remove();
+                }}
+              >
+                <Image src={item.icon} alt="icon" width={24} height={24} />
                 <Text style={{ fontSize: '16px', fontWeight: '300', letterSpacing: '0.48px' }}>{item.title}</Text>
                 <Image
                   style={{ marginLeft: 'auto' }}
                   src={'/images/Chevron_Right_Off.svg'}
-                  alt="right-cion"
+                  alt="right-icon"
                   width={8}
                   height={14}
                 />
@@ -104,11 +89,12 @@ function Manager() {
           paddingLeft: '20px'
         }}
       >
-        <Text style={{ color: '#E76B00', fontWeight: '300' }}>{t('myPage.back')}</Text>
+        <Link
+          href={'https://docs.google.com/forms/d/e/1FAIpQLSdl9LQnIl4GCS0TRVwX0iWVmi-AWEacwl276_bADmIfB1J_iA/viewform'}
+        >
+          <Text style={{ color: colors.status.danger02, fontWeight: '300' }}>{t('myPage.back')}</Text>
+        </Link>
       </Button>
     </>
   );
-}
-function MyPage() {
-  return <></>;
 }

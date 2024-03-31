@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { message } from 'antd';
 
 import { getLocalStorageItem, Key, removeLocalStorageItem, setLocalStorageItem } from '@/utils/localStorage';
-import { login } from '@/api/login';
+import { login } from '@/api';
 
 import Loading from './loading';
 

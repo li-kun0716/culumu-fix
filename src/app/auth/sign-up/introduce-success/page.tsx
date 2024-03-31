@@ -2,7 +2,7 @@
 
 import { Flex, Typography, Image } from 'antd';
 import { useRouter } from 'next/navigation';
-
+import React from 'react';
 import { Button } from '@/components/antd';
 import colors from '@/theme/colors';
 import { useTranslation } from '@/i18n/client';
@@ -14,32 +14,14 @@ const Page: React.FC = () => {
   return (
     <>
       <Flex vertical justify="center" align="center">
-        <Typography.Title
-          style={{
-            fontSize: '22px',
-            margin: '64px 0 16px'
-          }}
-        >
+        <Typography.Title style={{ fontSize: '22px', margin: '64px 0 16px' }}>
           {t('signUp.introduceSuccess.title')}
         </Typography.Title>
-        <Typography.Text
-          style={{
-            whiteSpace: 'pre-wrap',
-            textAlign: 'center',
-            fontSize: '16px'
-          }}
-        >
+        <Typography.Text style={{ whiteSpace: 'pre-wrap', textAlign: 'center', fontSize: '16px' }}>
           {t('signUp.introduceSuccess.description')}
         </Typography.Text>
-        <Image
-          src="/images/badge.png"
-          style={{
-            marginLeft: '-10%',
-            marginTop: '62px'
-          }}
-        />
+        <Image src="/images/badge.png" style={{ marginLeft: '-10%', marginTop: '62px' }} alt={''} />
       </Flex>
-
       <Flex
         style={{
           position: 'fixed',
@@ -70,4 +52,5 @@ const Page: React.FC = () => {
   );
 };
 
+// eslint-disable-next-line import/no-unused-modules
 export default Page;

@@ -8,7 +8,7 @@ acceptLanguage.languages(languages);
 // eslint-disable-next-line import/no-unused-modules
 export const config = {
   // matcher: '/:lng*'
-  matcher: ['/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js).*)']
+  matcher: ['/((?!apiClient|_next/static|_next/image|assets|favicon.ico|sw.js).*)']
 };
 
 // eslint-disable-next-line import/no-unused-modules

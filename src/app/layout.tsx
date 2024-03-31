@@ -7,6 +7,7 @@ import { ThemeProvider } from '@/theme';
 import { fallbackLng } from '@/i18n/settings';
 import './globals.css';
 import colors from '@/theme/colors';
+import { App } from 'antd';
 
 // TODO
 export const metadata: Metadata = {
@@ -20,14 +21,11 @@ const RootLayout: React.FC<Readonly<{ children: React.ReactNode; params: { lng?:
 }) => (
   <html lang={lng} dir={dir(lng)}>
     <body>
-      <div
-        style={{
-          minHeight: '100vh',
-          backgroundColor: colors.gray[100]
-        }}
-      >
+      <div style={{ minHeight: '100vh', backgroundColor: colors.gray[100] }}>
         <AntdRegistry>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            <App>{children}</App>
+          </ThemeProvider>
         </AntdRegistry>
       </div>
     </body>

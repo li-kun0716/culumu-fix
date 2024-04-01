@@ -104,8 +104,8 @@ export const Form: React.FC = () => {
         label={t('signUp.about.tel')}
         name="tel"
         rules={[
-          { required: true, message: t('common:rule.required') }
-          // { pattern: /^\d{1,4}[ \-]?\d{1,4}[ \-]?\d{4}$/, message: t('common:rule.halfWidthNumber') }
+          { required: true, message: t('common:rule.required') },
+          { pattern: /^\d+$/, message: t('common:rule.halfWidthNumber') }
         ]}
       >
         <Input placeholder="12345678900" style={{ height: '47px' }} />

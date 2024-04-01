@@ -62,7 +62,7 @@ const getUserInfo = () => apiClient.get<UserInfo>({ url: API_URL.USER_PROFILE })
 
 export const useGetUserInfoQuery = () => {
   const query = useQuery({ queryKey: ['userInfo'], queryFn: () => getUserInfo() });
-  return { getUserInfo: query.data?.data, isLoading: query.isLoading, isError: query.isError, refetch: query.refetch };
+  return { userInfo: query.data?.data, isLoading: query.isLoading, isError: query.isError, refetch: query.refetch };
 };
 
 //set user profile

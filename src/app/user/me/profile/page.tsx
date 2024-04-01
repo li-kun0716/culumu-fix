@@ -23,7 +23,7 @@ export default function Page() {
   const { t } = useTranslation();
   const [form] = Form.useForm<FieldType>();
   const [occupations, setOccupations] = useState<Array<Occupation>>([]);
-  const { getUserInfo, refetch } = useGetUserInfoQuery();
+  const { userInfo, refetch } = useGetUserInfoQuery();
   const { updateUserInfo } = useUpdateUserInfoMutation();
 
   const basRef = useRef<{ computedDays: (changeValues: FieldType, values: FieldType, form: FormInstance) => void }>(
@@ -84,12 +84,12 @@ export default function Page() {
   };
 
   useEffect(() => {
-    if (getUserInfo && getUserInfo.occupations) {
-      setOccupations(getUserInfo.occupations);
+    if (userInfo && userInfo.occupations) {
+      setOccupations(userInfo.occupations);
     }
-  }, [getUserInfo]);
+  }, [userInfo]);
 
-  if (!getUserInfo) {
+  if (!userInfo) {
     return <Loading />;
   }
 
@@ -108,9 +108,9 @@ export default function Page() {
       </Flex>
       <Form requiredMark={false} form={form} onValuesChange={formHandleChange} onFinish={submitHandle}>
         <main style={{ padding: '24px 20px 32px 20px' }}>
-          <BasicInformation basRef={basRef} userInfo={getUserInfo} />
-          <Place userInfo={getUserInfo} />
-          <Contact userInfo={getUserInfo} />
+          <BasicInformation basRef={basRef} userInfo={userInfo} />
+          <Place userInfo={userInfo} />
+          <Contact userInfo={userInfo} />
           <Paragraph />
           {occupations.map((item, index) => (
             <Occupation index={index} key={item.name + index} occupation={item} />
@@ -137,7 +137,7 @@ export default function Page() {
               </span>
             </Flex>
           </section>
-          <BasInfoAndIntro userInfo={getUserInfo} />
+          <BasInfoAndIntro userInfo={userInfo} />
         </main>
         <footer
           style={{

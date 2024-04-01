@@ -3,8 +3,10 @@
 import React from 'react';
 import Image from 'next/image';
 import { Flex, Typography, List, Button } from 'antd';
-import { useTranslation } from '@/i18n/client';
 import Link from 'next/link';
+import { router } from 'next/client';
+
+import { useTranslation } from '@/i18n/client';
 import colors from '@/theme/colors';
 
 export default function Page() {
@@ -15,20 +17,15 @@ export default function Page() {
   );
 }
 
-function Manager() {
+const Manager: React.FC = () => {
   const { t } = useTranslation();
   const { Text } = Typography;
 
   const navList = [
+    { key: 'profile', icon: '/images/Person.svg', title: t('myPage.title'), link: '/me/profile' },
+    { key: 'terms', icon: '/images/CheckList.svg', title: t('common:termsOfUse') },
     {
-      icon: '/images/Person.svg',
-      title: t('myPage.info')
-    },
-    {
-      icon: '/images/CheckList.svg',
-      title: t('common:termsOfUse')
-    },
-    {
+      key: 'privacy-policy',
       icon: '/images/Shield.svg',
       title: t('common:privacyPolicy'),
       link: 'https://culumu.com/privacy_policy'
@@ -39,7 +36,7 @@ function Manager() {
     <>
       <Flex align="center" style={{ height: '97px', paddingLeft: '24px' }}>
         <Text strong style={{ fontSize: '22px', letterSpacing: '0.66px' }}>
-          マイページ
+          {t('myPage.title')}
         </Text>
       </Flex>
       <main>
@@ -55,12 +52,16 @@ function Manager() {
                 onClick={() => {
                   if (!item.link) return;
 
-                  let a = document.createElement('a');
-                  a.href = item.link;
-                  a.style.display = 'none';
-                  document.body.appendChild(a);
-                  a.click();
-                  a.remove();
+                  if (item.key == 'privacy-policy') {
+                    const a = document.createElement('a');
+                    a.href = item.link;
+                    a.style.display = 'none';
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                  } else {
+                    router.push(item.link);
+                  }
                 }}
               >
                 <Image src={item.icon} alt="icon" width={24} height={24} />
@@ -97,4 +98,4 @@ function Manager() {
       </Button>
     </>
   );
-}
+};

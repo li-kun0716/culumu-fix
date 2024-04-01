@@ -5,6 +5,7 @@ import { Form as AntdForm, Input, Typography, Select, App } from 'antd';
 import styled from 'styled-components';
 import { useRouter } from 'next/navigation';
 import { format, parseISO } from 'date-fns';
+
 import { useTranslation } from '@/i18n/client';
 import StepController from '@/app/components/auth/StepController';
 import { BirthInput } from '@/app/auth/sign-up/about/BirthInput';
@@ -41,7 +42,7 @@ export const Form: React.FC = () => {
         ? format(parseISO(format(values.birth, 'yyyy-MM-dd') ?? ''), "yyyy-MM-dd'T'HH:mm:ssXXX")
         : '',
       gender: values.gender,
-      phone: `+81${values.tel}`,
+      phone: values.tel,
       postalCode: values.postalCode
     }).then(() => {
       message.success(t('common:updateSuccess'));
@@ -80,7 +81,7 @@ export const Form: React.FC = () => {
       <AntdForm.Item<FieldType>
         label={t('signUp.about.birth')}
         name={'birth'}
-        rules={[{ required: true, message: t('common:rule.halfWidthNumber') }]}
+        rules={[{ required: true, message: t('common:rule.required') }]}
       >
         <BirthInput onChange={(date) => form.setFieldValue('birth', date)} />
       </AntdForm.Item>
@@ -101,8 +102,8 @@ export const Form: React.FC = () => {
         label={t('signUp.about.tel')}
         name="tel"
         rules={[
-          { required: true, message: t('common:rule.required') },
-          { pattern: /^(\+?81|0)\d{1,4}[ \-]?\d{1,4}[ \-]?\d{4}$/, message: t('common:rule.halfWidthNumber') }
+          { required: true, message: t('common:rule.required') }
+          // { pattern: /^\d{1,4}[ \-]?\d{1,4}[ \-]?\d{4}$/, message: t('common:rule.halfWidthNumber') }
         ]}
       >
         <Input placeholder="12345678900" style={{ height: '47px' }} />
@@ -127,10 +128,7 @@ export const Form: React.FC = () => {
       <AntdForm.Item<FieldType>
         label={t('signUp.about.zipCode')}
         name="postalCode"
-        rules={[
-          { required: true, message: t('common:rule.required') },
-          { pattern: /^\d{7}$/, message: t('common:rule.required') }
-        ]}
+        rules={[{ required: true, message: t('common:rule.required') }]}
       >
         <Input placeholder="1234567" style={{ height: '47px' }} />
       </AntdForm.Item>

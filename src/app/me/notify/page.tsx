@@ -9,7 +9,7 @@ import colors from '@/theme/colors';
 
 export default function Page() {
   const { t } = useTranslation();
-  const navList = t('notifyPage.navList').split('|');
+  const navList = t('translation:notifyPage.navList').split('|');
   const [selected, setSelected] = React.useState(0);
   const [isOpen, setIsOpen] = React.useState(false);
   const switchChangeHandle = (checked: boolean) => {

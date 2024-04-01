@@ -5,7 +5,7 @@ import { Form, Button, Flex, FormInstance, message } from 'antd';
 import Image from 'next/image';
 import { parseISO, format } from 'date-fns';
 
-import Loading from '@/components/Loading';
+import Loading from '@/app/components/Loading';
 import { useTranslation } from '@/i18n/client';
 import { useGetUserInfoQuery, useUpdateUserInfoMutation } from '@/api';
 
@@ -23,7 +23,7 @@ export default function Page() {
   const { t } = useTranslation();
   const [form] = Form.useForm<FieldType>();
   const [occupations, setOccupations] = useState<Array<Occupation>>([]);
-  const { userInfo, refetch } = useGetUserInfoQuery();
+  const { getUserInfo, refetch } = useGetUserInfoQuery();
   const { updateUserInfo } = useUpdateUserInfoMutation();
 
   const basRef = useRef<{ computedDays: (changeValues: FieldType, values: FieldType, form: FormInstance) => void }>(
@@ -84,12 +84,12 @@ export default function Page() {
   };
 
   useEffect(() => {
-    if (userInfo && userInfo.occupations) {
-      setOccupations(userInfo.occupations);
+    if (getUserInfo && getUserInfo.occupations) {
+      setOccupations(getUserInfo.occupations);
     }
-  }, [userInfo]);
+  }, [getUserInfo]);
 
-  if (!userInfo) {
+  if (!getUserInfo) {
     return <Loading />;
   }
 
@@ -108,9 +108,9 @@ export default function Page() {
       </Flex>
       <Form requiredMark={false} form={form} onValuesChange={formHandleChange} onFinish={submitHandle}>
         <main style={{ padding: '24px 20px 32px 20px' }}>
-          <BasicInformation basRef={basRef} userInfo={userInfo} />
-          <Place userInfo={userInfo} />
-          <Contact userInfo={userInfo} />
+          <BasicInformation basRef={basRef} userInfo={getUserInfo} />
+          <Place userInfo={getUserInfo} />
+          <Contact userInfo={getUserInfo} />
           <Paragraph />
           {occupations.map((item, index) => (
             <Occupation index={index} key={item.name + index} occupation={item} />
@@ -137,7 +137,7 @@ export default function Page() {
               </span>
             </Flex>
           </section>
-          <BasInfoAndIntro userInfo={userInfo} />
+          <BasInfoAndIntro userInfo={getUserInfo} />
         </main>
         <footer
           style={{

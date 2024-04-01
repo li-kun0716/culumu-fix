@@ -4,8 +4,8 @@ import React from 'react';
 import { Typography } from 'antd';
 
 import { useTranslation } from '@/i18n/client';
-import FlowStepBar from '@/app/components/auth/FlowStepBar';
-import { Form } from '@/app/auth/sign-up/about/Form';
+import FlowStepBar from '@/app/components/sign-up/FlowStepBar';
+import { Form } from '@/app/user/sign-up/about/Form';
 
 const Page: React.FC = () => {
   const { t } = useTranslation('auth-page');

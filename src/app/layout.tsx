@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import { App } from 'antd';
 import { dir } from 'i18next';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 
@@ -7,7 +8,6 @@ import { ThemeProvider } from '@/theme';
 import { fallbackLng } from '@/i18n/settings';
 import './globals.css';
 import colors from '@/theme/colors';
-import { App } from 'antd';
 
 // TODO
 export const metadata: Metadata = {

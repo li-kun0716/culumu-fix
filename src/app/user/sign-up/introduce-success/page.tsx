@@ -3,9 +3,11 @@
 import { Flex, Typography, Image } from 'antd';
 import { useRouter } from 'next/navigation';
 import React from 'react';
-import { Button } from '@/components/antd';
+
 import colors from '@/theme/colors';
 import { useTranslation } from '@/i18n/client';
+
+import { Button } from '../../../components/antd';
 
 const Page: React.FC = () => {
   const { t } = useTranslation('auth-page');

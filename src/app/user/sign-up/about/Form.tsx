@@ -7,8 +7,8 @@ import { useRouter } from 'next/navigation';
 import { format, parseISO } from 'date-fns';
 
 import { useTranslation } from '@/i18n/client';
-import StepController from '@/app/components/auth/StepController';
-import { BirthInput } from '@/app/auth/sign-up/about/BirthInput';
+import StepController from '@/app/components/sign-up/StepController';
+import { BirthInput } from '@/app/user/sign-up/about/BirthInput';
 import { useUpdateMeMutation } from '@/api';
 
 type FieldType = Record<'name' | 'nameKana' | 'tel' | 'email' | 'postalCode' | 'year' | 'month' | 'day', string> & {

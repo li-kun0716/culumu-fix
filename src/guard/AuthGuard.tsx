@@ -1,12 +1,11 @@
 'use client';
 
-import { Key, getLocalStorageItem } from '@/utils/localStorage';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useEffect, useState } from 'react';
 
-type AuthGuardProps = {
-  children: ReactNode;
-};
+import { Key, getLocalStorageItem } from '@/utils/localStorage';
+
+type AuthGuardProps = { children: ReactNode };
 
 export default function AuthGuard({ children }: AuthGuardProps) {
   const router = useRouter();
@@ -21,7 +20,7 @@ export default function AuthGuard({ children }: AuthGuardProps) {
     }
 
     setView(children);
-  }, [authorization, children]);
+  }, [authorization, children, router]);
 
   return <>{view}</>;
 }

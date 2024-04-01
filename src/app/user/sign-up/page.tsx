@@ -3,9 +3,11 @@
 import React from 'react';
 import { Flex, Typography, Image } from 'antd';
 import { useRouter } from 'next/navigation';
-import { Button } from '@/components/antd';
+
 import colors from '@/theme/colors';
 import { useTranslation } from '@/i18n/client';
+
+import { Button } from '../../components/antd';
 
 const Page: React.FC = () => {
   const { t } = useTranslation('auth-page');
@@ -31,7 +33,7 @@ const Page: React.FC = () => {
       align="center"
       style={{
         overflow: 'hidden',
-        backgroundImage: 'url(/images/auth-top-icon.png),url(/images/auth-bottom-icon.png)',
+        backgroundImage: 'url(/images/sign-up-top-icon.png),url(/images/sign-up-bottom-icon.png)',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'right -68px, left bottom',
         padding: '40px 24px',

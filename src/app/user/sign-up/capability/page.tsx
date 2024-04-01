@@ -3,11 +3,12 @@
 import { Typography, Form, Input, Checkbox, App } from 'antd';
 import { useRouter } from 'next/navigation';
 import React, { useCallback } from 'react';
+
 import colors from '@/theme/colors';
 import { useTranslation } from '@/i18n/client';
-import FlowStepBar from '@/app/components/auth/FlowStepBar';
-import StepController from '@/app/components/auth/StepController';
-import InputBadge from '@/app/components/auth/InputBadge';
+import FlowStepBar from '@/app/components/sign-up/FlowStepBar';
+import StepController from '@/app/components/sign-up/StepController';
+import InputBadge from '@/app/components/sign-up/InputBadge';
 import { useSetUserSurveyMutation } from '@/api';
 
 type FieldType = {

@@ -3,9 +3,10 @@
 import React from 'react';
 import { Flex } from 'antd';
 
-import { Button } from '@/components/antd';
 import colors from '@/theme/colors';
 import { useTranslation } from '@/i18n/client';
+
+import { Button } from '../antd';
 
 type PropsType = {
   loading: boolean;

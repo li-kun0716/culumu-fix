@@ -3,10 +3,12 @@
 import React, { useCallback, useState } from 'react';
 import { Flex, Typography, Input, App } from 'antd';
 import { useRouter } from 'next/navigation';
+
 import { useTranslation } from '@/i18n/client';
 import colors from '@/theme/colors';
-import { Button } from '@/components/antd';
 import { useSetUserBioMutation } from '@/api';
+
+import { Button } from '../../../components/antd';
 
 const Page: React.FC = () => {
   const { t } = useTranslation('auth-page');

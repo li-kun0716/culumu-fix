@@ -3,12 +3,13 @@
 import { Typography, Form, Select, Input, App } from 'antd';
 import { useRouter } from 'next/navigation';
 import React, { Fragment, useCallback } from 'react';
+
 import colors from '@/theme/colors';
 import { useTranslation } from '@/i18n/client';
-import FlowStepBar from '@/app/components/auth/FlowStepBar';
-import StepController from '@/app/components/auth/StepController';
+import FlowStepBar from '@/app/components/sign-up/FlowStepBar';
+import StepController from '@/app/components/sign-up/StepController';
 import { occupationList, managerialPositionList } from '@/utils/common';
-import InputBadge from '@/app/components/auth/InputBadge';
+import InputBadge from '@/app/components/sign-up/InputBadge';
 import { OccupationInput, useSetUserOccupationsMutation } from '@/api';
 
 type Input = {

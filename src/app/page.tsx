@@ -7,7 +7,7 @@ const Home: React.FC = () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace('/me');
+    router.replace('/user/me');
   }, [router]);
 
   return null;

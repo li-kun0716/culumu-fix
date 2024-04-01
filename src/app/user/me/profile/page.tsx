@@ -5,7 +5,7 @@ import { Form, Button, Flex, FormInstance, message } from 'antd';
 import Image from 'next/image';
 import { parseISO, format } from 'date-fns';
 
-import Loading from '@/components/Loading';
+import Loading from '@/app/components/Loading';
 import { useTranslation } from '@/i18n/client';
 import { useGetUserInfoQuery, useUpdateUserInfoMutation } from '@/api';
 

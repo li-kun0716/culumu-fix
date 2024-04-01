@@ -46,7 +46,7 @@ export const Form: React.FC = () => {
       postalCode: values.postalCode
     }).then(() => {
       message.success(t('common:updateSuccess'));
-      router.push('/auth/sign-up/occupation');
+      router.push('/user/sign-up/occupation');
     });
   };
 
@@ -102,8 +102,8 @@ export const Form: React.FC = () => {
         label={t('signUp.about.tel')}
         name="tel"
         rules={[
-          { required: true, message: t('common:rule.required') }
-          // { pattern: /^\d{1,4}[ \-]?\d{1,4}[ \-]?\d{4}$/, message: t('common:rule.halfWidthNumber') }
+          { required: true, message: t('common:rule.required') },
+          { pattern: /^\d+$/, message: t('common:rule.halfWidthNumber') }
         ]}
       >
         <Input placeholder="12345678900" style={{ height: '47px' }} />
@@ -132,7 +132,7 @@ export const Form: React.FC = () => {
       >
         <Input placeholder="1234567" style={{ height: '47px' }} />
       </AntdForm.Item>
-      <StepController loading={loading} onReturn={() => router.replace('/auth/sign-up')} onNext={() => form.submit()} />
+      <StepController loading={loading} onReturn={() => router.replace('/user/sign-up')} onNext={() => form.submit()} />
     </StyledForm>
   );
 };

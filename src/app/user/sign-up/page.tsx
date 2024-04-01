@@ -107,7 +107,7 @@ const Page: React.FC = () => {
             fontSize: '16px',
             fontWeight: 600
           }}
-          onClick={() => router.push('/auth/sign-up/about')}
+          onClick={() => router.push('/user/sign-up/about')}
         >
           登録を開始する
         </Button>

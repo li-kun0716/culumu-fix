@@ -26,7 +26,7 @@ const Page: React.FC = () => {
       bio
     }).then(() => {
       message.success(t('common:updateSuccess'));
-      router.push('/auth/sign-up/introduce-success');
+      router.push('/user/sign-up/introduce-success');
     });
   }, [router, bio, setUserBio]);
 

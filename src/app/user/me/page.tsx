@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { Flex, Typography, List, Button } from 'antd';
 import Link from 'next/link';
-import { router } from 'next/client';
+import { useRouter } from 'next/navigation';
 
 import { useTranslation } from '@/i18n/client';
 import colors from '@/theme/colors';
@@ -19,10 +19,11 @@ export default function Page() {
 
 const Manager: React.FC = () => {
   const { t } = useTranslation();
+  const router = useRouter();
   const { Text } = Typography;
 
   const navList = [
-    { key: 'profile', icon: '/images/Person.svg', title: t('myPage.title'), link: '/me/profile' },
+    { key: 'profile', icon: '/images/Person.svg', title: t('myPage.title'), link: '/user/me/profile' },
     { key: 'terms', icon: '/images/CheckList.svg', title: t('common:termsOfUse') },
     {
       key: 'privacy-policy',

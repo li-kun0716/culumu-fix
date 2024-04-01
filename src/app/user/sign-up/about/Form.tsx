@@ -46,9 +46,11 @@ export const Form: React.FC = () => {
       postalCode: values.postalCode
     }).then(() => {
       message.success(t('common:updateSuccess'));
-      router.push('/auth/sign-up/occupation');
+      router.push('/user/sign-up/occupation');
     });
   };
+
+  console.log('loading .... : ', loading);
 
   return (
     <StyledForm
@@ -132,7 +134,7 @@ export const Form: React.FC = () => {
       >
         <Input placeholder="1234567" style={{ height: '47px' }} />
       </AntdForm.Item>
-      <StepController loading={loading} onReturn={() => router.replace('/auth/sign-up')} onNext={() => form.submit()} />
+      <StepController loading={loading} onReturn={() => router.replace('/user/sign-up')} onNext={() => form.submit()} />
     </StyledForm>
   );
 };

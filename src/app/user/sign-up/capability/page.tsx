@@ -30,7 +30,7 @@ const Page: React.FC = () => {
     (values: FieldType) => {
       setUserSurvey({ discussionTopics: values.talkAbout ?? '', potentialReferrals: values.introduction }).then(() => {
         message.success(t('common:updateSuccess'));
-        router.replace('/auth/sign-up/success');
+        router.replace('/user/sign-up/success');
       });
     },
     [router, setUserSurvey]
@@ -124,7 +124,7 @@ const Page: React.FC = () => {
       </Form>
       <StepController
         loading={loading}
-        onReturn={() => router.replace('/auth/sign-up/occupation')}
+        onReturn={() => router.replace('/user/sign-up/occupation')}
         onNext={() => form.submit()}
       />
     </div>

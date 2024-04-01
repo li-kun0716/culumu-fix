@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { Spin } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
 
 import { removeLocalStorageItem, setLocalStorageItem } from '@/utils/localStorage';
 import { Key } from '@/utils/sessionStorage';
+import { Button } from '@/app/components/antd';
+import Loading from '@/app/components/Loading';
 
 const Page: React.FC = () => {
   const [state, setState] = useState<string>();
@@ -45,21 +45,16 @@ const Page: React.FC = () => {
   }, [generateToken]);
 
   if (!state) {
-    return (
-      <Spin
-        indicator={
-          <LoadingOutlined
-            style={{ fontSize: 24 }}
-            spin
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          />
-        }
-      />
-    );
+    return <Loading />;
   }
 
-  return <a href={authURL}>LINE LOGIN</a>;
+  return (
+    <div className="container flex justify-center items-center" style={{ width: '100%', height: '100vh' }}>
+      <Button type="link">
+        <a href={authURL}>LINE LOGIN</a>
+      </Button>
+    </div>
+  );
 };
 
 // eslint-disable-next-line import/no-unused-modules

@@ -54,7 +54,7 @@ const Page: React.FC = () => {
       >
         <Button
           type="outline"
-          onClick={() => router.push('/auth/sign-up/introduce')}
+          onClick={() => router.push('/user/sign-up/introduce')}
           style={{
             height: '64px',
             width: '100%',

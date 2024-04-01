@@ -1,5 +1,5 @@
 const API_URL = {
-  LOGIN: '/sign-up/line_login',
+  LOGIN: '/auth/line-login',
   USER_ME: '/user/me',
   USER_PROFILE: '/user/profile',
   OCCUPATION: '/user/occupation',

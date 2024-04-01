@@ -59,6 +59,7 @@ const StepController: React.FC<PropsType> = ({ onReturn, onNext, loading }) => {
         }}
         onClick={onNext}
         loading={loading}
+        disabled={loading}
       >
         {t('common:next')}
       </Button>

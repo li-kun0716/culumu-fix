@@ -8,6 +8,7 @@ const signUp = {
   topSecondText: '企業のインタビューやワークショップにあなた自身が参加します。',
   bottomSecondTitle: '人を紹介する',
   bottomSecondText: '企業のインタビューやワークショップに参加してくれる友人・知人を紹介します。',
+  startSignup: '登録を開始する',
   about: {
     basicInfo: '基本情報',
     title: 'あなたについて入力しましょう',

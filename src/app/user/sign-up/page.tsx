@@ -109,7 +109,7 @@ const Page: React.FC = () => {
           }}
           onClick={() => router.push('/user/sign-up/about')}
         >
-          登録を開始する
+          {t('auth-page:signUp.startSignup')}
         </Button>
       </Flex>
     </Flex>

@@ -56,7 +56,7 @@ const Page: React.FC = () => {
       occupations: inputs
     }).then(() => {
       message.success(t('common:updateSuccess'));
-      router.push('/auth/sign-up/capability');
+      router.push('/user/sign-up/capability');
     });
   }, [router, setUserOccupations, showOccupationInput, showPositionInput]);
 
@@ -170,7 +170,7 @@ const Page: React.FC = () => {
       </Form>
       <StepController
         loading={loading}
-        onReturn={() => router.replace('/auth/sign-up/about')}
+        onReturn={() => router.replace('/user/sign-up/about')}
         onNext={() => form.submit()}
       />
     </div>

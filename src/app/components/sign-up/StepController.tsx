@@ -17,6 +17,8 @@ type PropsType = {
 const StepController: React.FC<PropsType> = ({ onReturn, onNext, loading }) => {
   const { t } = useTranslation();
 
+  console.log('loading ... : ', loading);
+
   return (
     <Flex
       style={{
@@ -59,6 +61,7 @@ const StepController: React.FC<PropsType> = ({ onReturn, onNext, loading }) => {
         }}
         onClick={onNext}
         loading={loading}
+        disabled={loading}
       >
         {t('common:next')}
       </Button>

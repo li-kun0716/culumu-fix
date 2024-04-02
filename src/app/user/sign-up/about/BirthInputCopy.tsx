@@ -5,7 +5,6 @@ import { getDaysInMonth } from 'date-fns';
 import { monthOptions, yearOptions } from '@/utils/common';
 import { useTranslation } from '@/i18n/client';
 import { useUserContext } from '@/app/hooks/useUserContext';
-import { ActionTypes } from '@/app/hooks/userUser';
 
 export const BirthInput: React.FC<{ onChange: (date: Date) => void }> = ({ onChange }) => {
   const { t } = useTranslation('auth-page');
@@ -14,33 +13,30 @@ export const BirthInput: React.FC<{ onChange: (date: Date) => void }> = ({ onCha
   const [day, setDay] = useState<number>();
   const [dayOptions, setDayOptions] = useState<{ label: string; value: string }[]>([]);
   const [selectDayDisabled, setSelectDayDisabled] = useState(true);
-  const { state, setState } = useUserContext();
+  const { state } = useUserContext();
 
   const handleYearSelected = useCallback(
     (val: number) => {
       month && day && onChange(new Date(val, month, day));
-      setState({ type: ActionTypes.SetUserProfile, payload: { ...state.profile, year: val.toString() } });
       setYear(val);
     },
-    [month, day, onChange, setState, state.profile]
+    [month, day, onChange]
   );
 
   const handleMonthSelected = useCallback(
     (val: number) => {
       year && day && onChange(new Date(year, val, day));
-      setState({ type: ActionTypes.SetUserProfile, payload: { ...state.profile, month: val.toString() } });
       setMonth(val);
     },
-    [year, day, onChange, setState, state.profile]
+    [year, day, onChange]
   );
 
   const handleDaySelected = useCallback(
     (val: number) => {
       year && month && onChange(new Date(year, month, val));
-      setState({ type: ActionTypes.SetUserProfile, payload: { ...state.profile, day: val.toString() } });
       setDay(val);
     },
-    [year, month, onChange, setState, state.profile]
+    [year, month, onChange]
   );
 
   useEffect(() => {
@@ -92,14 +88,41 @@ export const BirthInput: React.FC<{ onChange: (date: Date) => void }> = ({ onCha
   return (
     <Flex gap={8} justify="space-between">
       <Flex align="center" gap={4}>
+        {/*<Select placeholder="2000" defaultValue={year} style={{ width: 91, height: 48 }} onSelect={handleYearSelected}>*/}
+        {/*  {yearOptions().map((year) => (*/}
+        {/*    <Select.Option value={year.label} key={year.value}>*/}
+        {/*      {year.value}*/}
+        {/*    </Select.Option>*/}
+        {/*  ))}*/}
+        {/*</Select>*/}
         <DateSelect options={yearOptions()} placeholder="2000" defaultValue={year} onSelect={handleYearSelected} />
         <Typography.Text>{t('common:year')}</Typography.Text>
       </Flex>
       <Flex align="center" gap={4}>
+        {/*<Select placeholder="1" defaultValue={month} style={{ width: 91, height: 48 }} onSelect={handleMonthSelected}>*/}
+        {/*  {monthOptions().map((month) => (*/}
+        {/*    <Select.Option value={month.label} key={month.value}>*/}
+        {/*      {month.value}*/}
+        {/*    </Select.Option>*/}
+        {/*  ))}*/}
+        {/*</Select>*/}
         <DateSelect options={monthOptions()} placeholder="1" defaultValue={month} onSelect={handleMonthSelected} />
         <Typography.Text>{t('common:month')}</Typography.Text>
       </Flex>
       <Flex align="center" gap={4}>
+        {/*<Select*/}
+        {/*  disabled={selectDayDisabled}*/}
+        {/*  placeholder="1"*/}
+        {/*  defaultValue={day}*/}
+        {/*  style={{ width: 91, height: 48 }}*/}
+        {/*  onSelect={handleDaySelected}*/}
+        {/*>*/}
+        {/*  {dayOptions.map((day) => (*/}
+        {/*    <Select.Option value={day.label} key={day.value}>*/}
+        {/*      {day.value}*/}
+        {/*    </Select.Option>*/}
+        {/*  ))}*/}
+        {/*</Select>*/}
         <DateSelect
           options={dayOptions}
           placeholder="1"

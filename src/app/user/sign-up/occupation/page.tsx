@@ -11,6 +11,7 @@ import StepController from '@/app/components/sign-up/StepController';
 import { occupationList, managerialPositionList } from '@/utils/common';
 import InputBadge from '@/app/components/sign-up/InputBadge';
 import { OccupationInput, useSetUserOccupationsMutation } from '@/api';
+import { ActionTypes } from '@/app/hooks/userUser';
 
 type Input = {
   name: string;
@@ -35,12 +36,17 @@ const Page: React.FC = () => {
     return occupation?.length && list.includes(occupation[idx]?.name);
   };
 
-  const showOccupationInput = (idx: number) =>
-    occupation?.length && occupationList[occupationList.length - 1] === occupation[idx]?.name;
+  const showOccupationInput = useCallback(
+    (idx: number) => occupation?.length && occupationList[occupationList.length - 1] === occupation[idx]?.name,
+    [occupation]
+  );
 
-  const showPositionInput = (idx: number) =>
-    managerialPositionList?.length &&
-    managerialPositionList[managerialPositionList.length - 1] === occupation[idx]?.position;
+  const showPositionInput = useCallback(
+    (idx: number) =>
+      managerialPositionList?.length &&
+      managerialPositionList[managerialPositionList.length - 1] === occupation[idx]?.position,
+    [occupation]
+  );
 
   const handleSubmit = useCallback(() => {
     const inputs: OccupationInput[] = form.getFieldsValue().items.map((item: Input, idx: number) => {

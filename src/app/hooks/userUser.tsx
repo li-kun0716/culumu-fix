@@ -64,7 +64,7 @@ export const useUser = () => {
       case ActionTypes.InitUser:
         return { ...prevState, ...action.payload };
       case ActionTypes.SetUserProfile:
-        return { ...prevState, profile: action.payload };
+        return { ...prevState, profile: { ...prevState.profile, ...action.payload } };
       case ActionTypes.SetUserOccupations:
         return { ...prevState, occupations: action.payload };
       case ActionTypes.SetUserSurvey:

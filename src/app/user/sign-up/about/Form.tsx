@@ -34,8 +34,6 @@ export const Form: React.FC = () => {
   const { state, setState } = useUserContext();
   const [form] = AntdForm.useForm<FieldType>();
 
-  console.log('state (user): ', state);
-
   const { updateMe, loading } = useUpdateMeMutation();
 
   const handleSubmit = (values: FieldType) => {
@@ -59,11 +57,12 @@ export const Form: React.FC = () => {
   useEffect(() => {
     form.setFieldValue('name', state.profile.name);
     form.setFieldValue('nameKana', state.profile.nameKana);
-    console.log('state profile: ', state.profile);
-    form.setFieldValue(
-      'birth',
-      new Date(Number(state.profile.year), Number(state.profile.month), Number(state.profile.day))
-    );
+    if (state.profile.year && state.profile.month && state.profile.day) {
+      form.setFieldValue(
+        'birth',
+        new Date(Number(state.profile.year), Number(state.profile.month), Number(state.profile.day))
+      );
+    }
     form.setFieldValue('gender', state.profile.gender);
     form.setFieldValue('tel', state.profile.tel);
     form.setFieldValue('postalCode', state.profile.postalCode);
@@ -106,12 +105,7 @@ export const Form: React.FC = () => {
         initialValue={state.profile.birth}
         rules={[{ required: true, message: t('common:rule.required') }]}
       >
-        <BirthInput
-          initYear={Number(state.profile.year)}
-          initMonth={Number(state.profile.month)}
-          initDay={Number(state.profile.day)}
-          onChange={(date) => form.setFieldValue('birth', date)}
-        />
+        <BirthInput onChange={(date) => form.setFieldValue('birth', date)} />
       </AntdForm.Item>
       <AntdForm.Item<FieldType>
         label={t('signUp.about.gender')}

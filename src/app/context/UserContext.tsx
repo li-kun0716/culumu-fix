@@ -12,9 +12,11 @@ export const UserContext = createContext<UserContextType | null>(null);
 
 export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { state, dispatch } = useUser();
-  const { userInfo } = useGetUserInfoQuery();
+  const { userInfo, isLoading } = useGetUserInfoQuery();
 
   useEffect(() => {
+    if (isLoading) return;
+
     dispatch({
       type: ActionTypes.InitUser,
       payload: {
@@ -38,7 +40,11 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
         bio: userInfo?.bio
       }
     });
-  }, [dispatch, userInfo]);
+  }, [dispatch, isLoading, userInfo]);
+
+  if (isLoading) {
+    return <UserContext.Provider value={{ state, setState: dispatch }}>{null}</UserContext.Provider>;
+  }
 
   return <UserContext.Provider value={{ state, setState: dispatch }}>{children}</UserContext.Provider>;
 };

@@ -5,11 +5,16 @@ import { getDaysInMonth } from 'date-fns';
 import { monthOptions, yearOptions } from '@/utils/common';
 import { useTranslation } from '@/i18n/client';
 
-export const BirthInput: React.FC<{ onChange: (date: Date) => void }> = ({ onChange }) => {
+export const BirthInput: React.FC<{
+  initYear?: number;
+  initMonth?: number;
+  initDay?: number;
+  onChange: (date: Date) => void;
+}> = ({ initYear, initMonth, initDay, onChange }) => {
   const { t } = useTranslation('auth-page');
-  const [year, setYear] = useState<number>();
-  const [month, setMonth] = useState<number>();
-  const [day, setDay] = useState<number>();
+  const [year, setYear] = useState(initYear);
+  const [month, setMonth] = useState(initMonth);
+  const [day, setDay] = useState(initDay);
   const [dayOptions, setDayOptions] = useState<{ label: string; value: string }[]>([]);
   const [selectDayDisabled, setSelectDayDisabled] = useState(true);
 
@@ -53,10 +58,17 @@ export const BirthInput: React.FC<{ onChange: (date: Date) => void }> = ({ onCha
     }
   }, [year, month]);
 
+  // useEffect(() => {
+  //   setYear(initYear ?? 2000);
+  //   setMonth(initMonth ?? 1);
+  //   setDay(initDay ?? 1);
+  // }, [initDay, initMonth, initYear]);
+  // console.log('year: ', year, 'month:', month, 'day: ', day);
+
   return (
     <Flex gap={8} justify="space-between">
       <Flex align="center" gap={4}>
-        <Select placeholder="2000" style={{ width: 91, height: 48 }} onSelect={handleYearSelected}>
+        <Select placeholder="2000" defaultValue={year} style={{ width: 91, height: 48 }} onSelect={handleYearSelected}>
           {yearOptions().map((year) => (
             <Select.Option value={year.label} key={year.value}>
               {year.value}
@@ -66,7 +78,7 @@ export const BirthInput: React.FC<{ onChange: (date: Date) => void }> = ({ onCha
         <Typography.Text>{t('common:year')}</Typography.Text>
       </Flex>
       <Flex align="center" gap={4}>
-        <Select placeholder="1" style={{ width: 91, height: 48 }} onSelect={handleMonthSelected}>
+        <Select placeholder="1" defaultValue={month} style={{ width: 91, height: 48 }} onSelect={handleMonthSelected}>
           {monthOptions().map((month) => (
             <Select.Option value={month.label} key={month.value}>
               {month.value}
@@ -79,6 +91,7 @@ export const BirthInput: React.FC<{ onChange: (date: Date) => void }> = ({ onCha
         <Select
           disabled={selectDayDisabled}
           placeholder="1"
+          defaultValue={day}
           style={{ width: 91, height: 48 }}
           onSelect={handleDaySelected}
         >

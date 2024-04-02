@@ -52,13 +52,11 @@ const Page: React.FC = () => {
         position: showPositionInput(idx) ? item.positionInput : item.position
       };
     });
-    setUserOccupations({
-      occupations: inputs
-    }).then(() => {
+    setUserOccupations({ occupations: inputs }).then(() => {
       message.success(t('common:updateSuccess'));
       router.push('/user/sign-up/capability');
     });
-  }, [router, setUserOccupations, showOccupationInput, showPositionInput]);
+  }, [form, message, router, setUserOccupations, showOccupationInput, showPositionInput, t]);
 
   const Label: React.FC<{ title: string }> = ({ title }) => (
     <Fragment>

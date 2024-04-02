@@ -7,8 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useTranslation } from '@/i18n/client';
 import colors from '@/theme/colors';
 import { useSetUserBioMutation } from '@/api';
-
-import { Button } from '../../../components/antd';
+import { Button } from '@/app/components/antd';
 
 const Page: React.FC = () => {
   const { t } = useTranslation('auth-page');
@@ -22,13 +21,12 @@ const Page: React.FC = () => {
 
   const submit = useCallback(() => {
     if (!bio) return;
-    setUserBio({
-      bio
-    }).then(() => {
+
+    setUserBio({ bio }).then(() => {
       message.success(t('common:updateSuccess'));
       router.push('/user/sign-up/introduce-success');
     });
-  }, [router, bio, setUserBio]);
+  }, [bio, setUserBio, message, t, router]);
 
   return (
     <Flex vertical justify="center" align="center" style={{ padding: '0 20px' }}>

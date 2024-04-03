@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form as AntdForm, Input, Typography, Select, App } from 'antd';
 import styled from 'styled-components';
 import { useRouter } from 'next/navigation';
@@ -12,9 +12,10 @@ import { BirthInput } from '@/app/user/sign-up/about/BirthInput';
 import { useUpdateMeMutation } from '@/api';
 import { useUserContext } from '@/app/hooks/useUserContext';
 import { ActionTypes } from '@/app/hooks/userUser';
+import colors from '@/theme/colors';
 
 type FieldType = Record<'name' | 'nameKana' | 'tel' | 'email' | 'postalCode' | 'year' | 'month' | 'day', string> & {
-  gender: 'male' | 'female';
+  gender: 'male' | 'female' | 'other' | 'noAnswer';
   birth?: Date;
 };
 
@@ -33,7 +34,6 @@ export const Form: React.FC = () => {
   const { message } = App.useApp();
   const { state, setState } = useUserContext();
   const [form] = AntdForm.useForm<FieldType>();
-
   const { updateMe, loading } = useUpdateMeMutation();
 
   const handleSubmit = (values: FieldType) => {
@@ -114,8 +114,10 @@ export const Form: React.FC = () => {
         rules={[{ required: true, message: t('common:rule.required') }]}
       >
         <Select placeholder={t('common:select')} style={{ height: '48px' }}>
-          <Select.Option value="female">女性</Select.Option>
-          <Select.Option value="male">男性</Select.Option>
+          <Select.Option value="female">{t('common:gender.male')}</Select.Option>
+          <Select.Option value="male">{t('common:gender.female')}</Select.Option>
+          <Select.Option value="other">{t('common:gender.other')}</Select.Option>
+          <Select.Option value="noAnswer">{t('common:gender.noAnswer')}</Select.Option>
         </Select>
       </AntdForm.Item>
       <Typography.Text style={{ fontSize: '19px', fontWeight: '600', textAlign: 'left', marginTop: '22px' }}>
@@ -151,14 +153,38 @@ export const Form: React.FC = () => {
         {t('signUp.about.address')}
       </Typography.Text>
       <AntdForm.Item<FieldType>
-        label={t('signUp.about.zipCode')}
+        label={
+          <div>
+            {t('signUp.about.zipCode')}
+            <Typography.Text
+              style={{
+                width: '100%',
+                display: 'block',
+                fontSize: '11px',
+                fontWeight: '300',
+                textAlign: 'left',
+                color: colors.gray[700],
+                marginBottom: '8px'
+              }}
+            >
+              {t('signUp.about.zipCodeTip')}
+            </Typography.Text>
+          </div>
+        }
         name="postalCode"
         initialValue={state.profile.postalCode}
         rules={[{ required: true, message: t('common:rule.required') }]}
       >
         <Input placeholder="1234567" style={{ height: '47px' }} />
       </AntdForm.Item>
-      <StepController loading={loading} onReturn={() => router.replace('/user/sign-up')} onNext={() => form.submit()} />
+      <StepController
+        loading={loading}
+        onReturn={() => {
+          setState({ type: ActionTypes.SetUserProfile, payload: form.getFieldsValue() });
+          router.replace('/user/sign-up');
+        }}
+        onNext={() => form.submit()}
+      />
     </StyledForm>
   );
 };

@@ -173,7 +173,6 @@ export function BasicInformation({
       form.setFieldsValue({
         day: 1
       });
-      console.log(values);
     }
   };
   useImperativeHandle(basRef, () => {

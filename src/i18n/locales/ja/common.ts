@@ -21,5 +21,11 @@ export default {
     fullWidthKatakana: '全角カタカナで入力してください。',
     halfWidthNumber: '半角数字のみで入力してください。',
     halfWidthAlphanumeric: '半角英数字のみで入力してください。'
+  },
+  gender: {
+    male: '男性',
+    female: '女性',
+    other: 'そのた',
+    noAnswer: '答えたくない'
   }
 };

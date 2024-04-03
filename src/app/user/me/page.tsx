@@ -15,8 +15,6 @@ export default function Page() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log('path user/me state: ', state.profile);
-
     if (!state.profile.name || state.profile.name == '') router.replace('/user/sign-up');
   }, [router, state.profile, state.profile.name]);
 

@@ -33,8 +33,8 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
         },
         occupations: userInfo?.occupations ?? [{ occupationType: '', name: '' }],
         survey: {
-          talkAbout: userInfo?.discussionTopics,
-          introduction: userInfo?.potentialReferrals ?? '',
+          discussionTopics: userInfo?.discussionTopics,
+          potentialReferrals: userInfo?.potentialReferrals ?? '',
           isAccepted: false
         },
         bio: userInfo?.bio

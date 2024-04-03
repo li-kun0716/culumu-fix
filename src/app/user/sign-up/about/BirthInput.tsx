@@ -60,8 +60,6 @@ export const BirthInput: React.FC<{ onChange: (date: Date) => void }> = ({ onCha
   }, [year, month]);
 
   useEffect(() => {
-    console.log('state profile year: ', state.profile);
-
     if (state.profile.year) setYear(Number(state.profile.year));
     if (state.profile.month) setMonth(Number(state.profile.month));
     if (state.profile.day) setDay(Number(state.profile.day));

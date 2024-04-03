@@ -48,7 +48,6 @@ const myInfo = {
   },
   select: {
     placeHolder: '選択する',
-
     genderSelect: [
       {
         label: '男性',
@@ -57,6 +56,14 @@ const myInfo = {
       {
         label: '女性',
         value: 'female'
+      },
+      {
+        label: 'そのた',
+        value: 'other'
+      },
+      {
+        label: '答えたくない',
+        value: 'noAnswer'
       }
     ],
     occupationSelect: [

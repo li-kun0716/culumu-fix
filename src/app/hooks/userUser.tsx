@@ -10,7 +10,7 @@ export enum ActionTypes {
 
 export type User = {
   profile: Record<'name' | 'nameKana' | 'tel' | 'email' | 'postalCode' | 'year' | 'month' | 'day', string> & {
-    gender: 'male' | 'female';
+    gender: 'male' | 'female' | 'other' | 'noAnswer';
     birth?: Date;
   };
   occupations: {
@@ -20,7 +20,7 @@ export type User = {
     positionType?: string;
     position?: string;
   }[];
-  survey: { talkAbout?: string; introduction: string; isAccepted: boolean };
+  survey: { discussionTopics?: string; potentialReferrals: string; isAccepted: boolean };
   bio: string | undefined;
 };
 
@@ -54,7 +54,7 @@ const initialState: StateType = {
     postalCode: ''
   },
   occupations: [{ occupationType: '', name: '' }],
-  survey: { introduction: '', isAccepted: false },
+  survey: { potentialReferrals: '', isAccepted: false },
   bio: ''
 };
 

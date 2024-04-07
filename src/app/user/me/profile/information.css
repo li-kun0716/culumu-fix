@@ -11,3 +11,7 @@
 .ant-select-status-error .ant-select-selector {
   background-color: rgba(190, 1, 35, 0.16) !important;
 }
+
+.profile-modal .ant-modal > div .ant-modal-content .ant-modal-body .ant-modal-confirm-paragraph {
+  max-width: 100%;
+}

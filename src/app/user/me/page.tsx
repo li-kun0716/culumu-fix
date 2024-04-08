@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { Flex, Typography, List, Button } from 'antd';
 import Link from 'next/link';
@@ -8,8 +8,16 @@ import { useRouter } from 'next/navigation';
 
 import { useTranslation } from '@/i18n/client';
 import colors from '@/theme/colors';
+import { useUserContext } from '@/app/hooks/useUserContext';
 
 export default function Page() {
+  const { state } = useUserContext();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!state.isRegistered) router.replace('/user/sign-up');
+  }, [router, state.isRegistered]);
+
   return (
     <div style={{ backgroundColor: '#FBFAF8', minHeight: '100vh', position: 'relative' }}>
       <Manager />

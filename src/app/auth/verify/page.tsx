@@ -42,7 +42,7 @@ const Verify: React.FC = () => {
       .then((r) => {
         setLocalStorageItem(Key.authorization, r.data.credential);
         messageApi.open({ type: 'success', content: 'logined' });
-        router.replace('/');
+        router.replace('/user/me');
       })
       .catch(() => {
         messageApi.open({ type: 'error', content: 'login error' });

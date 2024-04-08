@@ -2,7 +2,7 @@
 
 import { Typography, Form, Select, Input, App } from 'antd';
 import { useRouter } from 'next/navigation';
-import React, { Fragment, useCallback } from 'react';
+import React, { Fragment, useCallback, useEffect } from 'react';
 
 import colors from '@/theme/colors';
 import { useTranslation } from '@/i18n/client';
@@ -11,6 +11,8 @@ import StepController from '@/app/components/sign-up/StepController';
 import { occupationList, managerialPositionList } from '@/utils/common';
 import InputBadge from '@/app/components/sign-up/InputBadge';
 import { OccupationInput, useSetUserOccupationsMutation } from '@/api';
+import { useUserContext } from '@/app/hooks/useUserContext';
+import { ActionTypes } from '@/app/hooks/userUser';
 
 type Input = {
   name: string;
@@ -30,19 +32,27 @@ const Page: React.FC = () => {
   const { Option } = Select;
   const occupation = Form.useWatch('items', form);
 
+  const { state, setState } = useUserContext();
+
   const showAdditionalFields = (idx: number) => {
     const list = occupationList.filter((occupation, index) => [0, 1, 2, 3, 6, 10].includes(index));
     return occupation?.length && list.includes(occupation[idx]?.name);
   };
 
-  const showOccupationInput = (idx: number) =>
-    occupation?.length && occupationList[occupationList.length - 1] === occupation[idx]?.name;
+  const showOccupationInput = useCallback(
+    (idx: number) => occupation?.length && occupationList[occupationList.length - 1] === occupation[idx]?.name,
+    [occupation]
+  );
 
-  const showPositionInput = (idx: number) =>
-    managerialPositionList?.length &&
-    managerialPositionList[managerialPositionList.length - 1] === occupation[idx]?.position;
+  const showPositionInput = useCallback(
+    (idx: number) =>
+      managerialPositionList?.length &&
+      managerialPositionList[managerialPositionList.length - 1] === occupation[idx]?.position,
+    [occupation]
+  );
 
   const handleSubmit = useCallback(() => {
+    setState({ type: ActionTypes.SetUserOccupations, payload: form.getFieldsValue().items });
     const inputs: OccupationInput[] = form.getFieldsValue().items.map((item: Input, idx: number) => {
       return {
         occupationType: showOccupationInput(idx) ? 'other' : 'general',
@@ -52,13 +62,18 @@ const Page: React.FC = () => {
         position: showPositionInput(idx) ? item.positionInput : item.position
       };
     });
-    setUserOccupations({
-      occupations: inputs
-    }).then(() => {
+
+    setUserOccupations({ occupations: inputs }).then(() => {
       message.success(t('common:updateSuccess'));
       router.push('/user/sign-up/capability');
     });
-  }, [router, setUserOccupations, showOccupationInput, showPositionInput]);
+  }, [form, message, router, setUserOccupations, showOccupationInput, showPositionInput, t, setState]);
+
+  useEffect(() => {
+    const items = state.occupations;
+
+    form.setFieldsValue({ items });
+  }, [form, state.occupations]);
 
   const Label: React.FC<{ title: string }> = ({ title }) => (
     <Fragment>
@@ -170,7 +185,10 @@ const Page: React.FC = () => {
       </Form>
       <StepController
         loading={loading}
-        onReturn={() => router.replace('/user/sign-up/about')}
+        onReturn={() => {
+          setState({ type: ActionTypes.SetUserOccupations, payload: form.getFieldsValue().items });
+          router.replace('/user/sign-up/about');
+        }}
         onNext={() => form.submit()}
       />
     </div>

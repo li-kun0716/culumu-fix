@@ -2,11 +2,12 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import snakecaseKeys from 'snakecase-keys';
 import camelcaseKeys from 'camelcase-keys';
 
-import { getLocalStorageItem, Key } from '@/utils/localStorage';
+import { getLocalStorageItem, Key, removeLocalStorageItem } from '@/utils/localStorage';
+import { isClient } from '@/utils/isClient';
 
 const API_METHOD = { GET: 'get', POST: 'post', PUT: 'put', PATCH: 'patch', DELETE: 'delete' };
 
-type ErrorResponse = { code: string; message?: string; details: string };
+export type ErrorResponse = { code: string; message?: string; details: string };
 
 const baseConfig = {
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -41,6 +42,10 @@ axiosInstance.interceptors.response.use(
   },
   (e) => {
     const { code, message, details } = e.response.data;
+    if (isClient()) {
+      removeLocalStorageItem(Key.authorization);
+      window.location.href = window.location.origin + '/auth/login';
+    }
     return Promise.reject<ErrorResponse>({ code: code ?? e.code, message, details });
   }
 );

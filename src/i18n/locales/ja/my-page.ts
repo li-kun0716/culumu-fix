@@ -29,8 +29,7 @@ const myInfo = {
     required: 'こちらは必須項目になります。',
     fullWidth: '全角カタカナで入力してください。',
     singleByteNum: '半角数字のみで入力してください。',
-    singleByteEN: '半角英数字のみで入力してください。',
-    noContact: 'xハイフン無しで入力してください'
+    singleByteEN: '半角英数字のみで入力してください。'
   },
   input: {
     fullNamePlaceHolder: '山田太郎',
@@ -48,7 +47,6 @@ const myInfo = {
   },
   select: {
     placeHolder: '選択する',
-
     genderSelect: [
       {
         label: '男性',
@@ -57,6 +55,14 @@ const myInfo = {
       {
         label: '女性',
         value: 'female'
+      },
+      {
+        label: 'そのた',
+        value: 'other'
+      },
+      {
+        label: '答えたくない',
+        value: 'secret'
       }
     ],
     occupationSelect: [

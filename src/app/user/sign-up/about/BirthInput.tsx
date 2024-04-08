@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Flex, Select, Typography } from 'antd';
-import { getDaysInMonth } from 'date-fns';
+import { getDate, getDaysInMonth, getMonth, getYear } from 'date-fns';
 
 import { monthOptions, yearOptions } from '@/utils/common';
 import { useTranslation } from '@/i18n/client';
+import { useUserContext } from '@/app/hooks/useUserContext';
 
 export const BirthInput: React.FC<{ onChange: (date: Date) => void }> = ({ onChange }) => {
   const { t } = useTranslation('auth-page');
@@ -12,6 +13,7 @@ export const BirthInput: React.FC<{ onChange: (date: Date) => void }> = ({ onCha
   const [day, setDay] = useState<number>();
   const [dayOptions, setDayOptions] = useState<{ label: string; value: string }[]>([]);
   const [selectDayDisabled, setSelectDayDisabled] = useState(true);
+  const { state } = useUserContext();
 
   const handleYearSelected = useCallback(
     (val: number) => {
@@ -53,41 +55,56 @@ export const BirthInput: React.FC<{ onChange: (date: Date) => void }> = ({ onCha
     }
   }, [year, month]);
 
+  useEffect(() => {
+    const year = getYear(new Date(state.profile.birth ?? ''));
+    const month = getMonth(new Date(state.profile.birth ?? ''));
+    const day = getDate(new Date(state.profile.birth ?? ''));
+
+    if (year) setYear(Number(year));
+    if (month) setMonth(Number(month));
+    if (day) setDay(Number(day));
+  }, [state.profile.birth]);
+
+  const DateSelect: React.FC<{
+    options: { label: string; value: string }[];
+    placeholder: string;
+    defaultValue?: number;
+    onSelect: (val: number) => void;
+    disabled?: boolean;
+  }> = ({ options, placeholder, defaultValue, onSelect, disabled }) => (
+    <Select
+      placeholder={placeholder}
+      defaultValue={defaultValue}
+      style={{ width: 91, height: 48 }}
+      onSelect={onSelect}
+      disabled={disabled}
+    >
+      {options.map((item) => (
+        <Select.Option value={item.label} key={item.value}>
+          {item.value}
+        </Select.Option>
+      ))}
+    </Select>
+  );
+
   return (
     <Flex gap={8} justify="space-between">
       <Flex align="center" gap={4}>
-        <Select placeholder="2000" style={{ width: 91, height: 48 }} onSelect={handleYearSelected}>
-          {yearOptions().map((year) => (
-            <Select.Option value={year.label} key={year.value}>
-              {year.value}
-            </Select.Option>
-          ))}
-        </Select>
+        <DateSelect options={yearOptions()} placeholder="2000" defaultValue={year} onSelect={handleYearSelected} />
         <Typography.Text>{t('common:year')}</Typography.Text>
       </Flex>
       <Flex align="center" gap={4}>
-        <Select placeholder="1" style={{ width: 91, height: 48 }} onSelect={handleMonthSelected}>
-          {monthOptions().map((month) => (
-            <Select.Option value={month.label} key={month.value}>
-              {month.value}
-            </Select.Option>
-          ))}
-        </Select>
+        <DateSelect options={monthOptions()} placeholder="1" defaultValue={month} onSelect={handleMonthSelected} />
         <Typography.Text>{t('common:month')}</Typography.Text>
       </Flex>
       <Flex align="center" gap={4}>
-        <Select
-          disabled={selectDayDisabled}
+        <DateSelect
+          options={dayOptions}
           placeholder="1"
-          style={{ width: 91, height: 48 }}
+          defaultValue={day}
           onSelect={handleDaySelected}
-        >
-          {dayOptions.map((day) => (
-            <Select.Option value={day.label} key={day.value}>
-              {day.value}
-            </Select.Option>
-          ))}
-        </Select>
+          disabled={selectDayDisabled}
+        />
         <Typography.Text>{t('common:day')}</Typography.Text>
       </Flex>
     </Flex>

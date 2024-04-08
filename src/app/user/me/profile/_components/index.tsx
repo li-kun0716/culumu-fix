@@ -58,18 +58,7 @@ export function AnyIcon() {
   );
 }
 export function SessionTitle({ title }: { title: string }) {
-  return (
-    <p
-      style={{
-        fontSize: '19px',
-        fontWeight: 600,
-        letterSpacing: '0.57px',
-        marginBottom: '20px'
-      }}
-    >
-      {title}
-    </p>
-  );
+  return <p style={{ fontSize: '19px', fontWeight: 600, letterSpacing: '0.57px', marginBottom: '20px' }}>{title}</p>;
 }
 
 export function Occupation({ index, occupation }: { index: number; occupation: Occupation }) {
@@ -96,14 +85,7 @@ export function Occupation({ index, occupation }: { index: number; occupation: O
           label={
             <div style={{ marginBottom: '10px' }}>
               <Label>{t('myPage.myInfo.occupation') + (index === 0 ? '' : index + 1)}</Label>
-              <p
-                style={{
-                  fontSize: '11px',
-                  color: '#616161',
-                  fontWeight: 300,
-                  letterSpacing: '0.33px'
-                }}
-              >
+              <p style={{ fontSize: '11px', color: '#616161', fontWeight: 300, letterSpacing: '0.33px' }}>
                 {t('myPage.myInfo.occupationAttention')}
               </p>
             </div>
@@ -191,7 +173,6 @@ export function BasicInformation({
       form.setFieldsValue({
         day: 1
       });
-      console.log(values);
     }
   };
   useImperativeHandle(basRef, () => {
@@ -329,22 +310,13 @@ export function Place({ userInfo }: { userInfo: UserInfo }) {
           rules={[
             {
               required: true,
-              validator: checkInput(
-                `${t('myPage.myInfo.validation.noContact')}。\n${t('myPage.myInfo.validation.required')}`
-              )
+              message: t('myPage.myInfo.validation.required')
             }
           ]}
           label={
             <div>
               <Label>{t('myPage.myInfo.postalCode')}</Label>
-              <p
-                style={{
-                  color: '#616161',
-                  fontSize: '11px',
-                  fontWeight: '300',
-                  letterSpacing: '0.33px'
-                }}
-              >
+              <p style={{ color: '#616161', fontSize: '11px', fontWeight: '300', letterSpacing: '0.33px' }}>
                 {t('myPage.myInfo.postalCodeAttention')}
               </p>
             </div>

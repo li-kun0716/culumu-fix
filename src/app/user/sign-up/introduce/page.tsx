@@ -1,34 +1,46 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
-import { Flex, Typography, Input, App } from 'antd';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Flex, Typography, Input, App, Form } from 'antd';
 import { useRouter } from 'next/navigation';
 
 import { useTranslation } from '@/i18n/client';
 import colors from '@/theme/colors';
 import { useSetUserBioMutation } from '@/api';
+import { Button } from '@/app/components/antd';
+import { useUserContext } from '@/app/hooks/useUserContext';
+import { ActionTypes } from '@/app/hooks/userUser';
 
-import { Button } from '../../../components/antd';
+type FieldType = {
+  bio?: string;
+};
 
 const Page: React.FC = () => {
   const { t } = useTranslation('auth-page');
   const { TextArea } = Input;
   const router = useRouter();
-  const [bio, setBio] = useState('');
   const { setUserBio, loading } = useSetUserBioMutation();
   const { message } = App.useApp();
+  const [form] = Form.useForm();
 
   const buttonStyle = { height: '64px', fontSize: '16px', fontWeight: 600 };
 
-  const submit = useCallback(() => {
-    if (!bio) return;
-    setUserBio({
-      bio
-    }).then(() => {
-      message.success(t('common:updateSuccess'));
-      router.push('/user/sign-up/introduce-success');
-    });
-  }, [router, bio, setUserBio]);
+  const { state, setState } = useUserContext();
+
+  const handleSubmit = useCallback(
+    (values: FieldType) => {
+      setState({ type: ActionTypes.SetUserBio, payload: form.getFieldsValue() });
+      setUserBio({ bio: values.bio }).then(() => {
+        message.success(t('common:updateSuccess'));
+        router.push('/user/sign-up/introduce-success');
+      });
+    },
+    [setUserBio, message, t, router]
+  );
+
+  useEffect(() => {
+    form.setFieldValue('bio', state.bio);
+  }, [form, state.bio]);
 
   return (
     <Flex vertical justify="center" align="center" style={{ padding: '0 20px' }}>
@@ -38,41 +50,46 @@ const Page: React.FC = () => {
       <Typography.Text style={{ whiteSpace: 'pre-wrap', textAlign: 'center', fontSize: '16px' }}>
         {t('signUp.introduce.description')}
       </Typography.Text>
-      <div style={{ margin: '100px 0', width: '100%' }}>
-        <TextArea
-          rows={6}
-          placeholder={t('signUp.introduce.tip')}
-          style={{ padding: '12px 16px' }}
-          maxLength={500}
-          onChange={(e) => setBio(e.target.value)}
-        />
-      </div>
-      <Flex
-        style={{
-          position: 'fixed',
-          bottom: 0,
-          width: '100%',
-          borderTop: '1px solid #D9D9D9',
-          padding: '20px',
-          boxSizing: 'border-box',
-          backgroundColor: colors.white
-        }}
-      >
-        <Button
-          type="outline"
-          style={{ ...buttonStyle, width: '35%', color: colors.accent[800], marginRight: '20px', borderWidth: '2px' }}
+      <Form form={form} onFinish={handleSubmit} requiredMark={false} scrollToFirstError style={{ width: '100%' }}>
+        <div style={{ margin: '100px 0', width: '100%' }}>
+          <Form.Item<FieldType> name="bio" rules={[{ required: false }]} style={{ marginBottom: '0px' }}>
+            <TextArea
+              rows={6}
+              placeholder={t('signUp.introduce.tip')}
+              style={{ padding: '12px 16px', fontSize: 12 }}
+              maxLength={500}
+            />
+          </Form.Item>
+        </div>
+        <Flex
+          style={{
+            position: 'fixed',
+            bottom: 0,
+            left: 0,
+            width: '100%',
+            borderTop: '1px solid #D9D9D9',
+            padding: '20px',
+            boxSizing: 'border-box',
+            backgroundColor: colors.white
+          }}
         >
-          {t('common:skip')}
-        </Button>
-        <Button
-          type="outline"
-          onClick={submit}
-          loading={loading}
-          style={{ ...buttonStyle, width: '65%', backgroundColor: colors.accent[800], color: colors.white }}
-        >
-          {t('signUp.complete')}
-        </Button>
-      </Flex>
+          <Button
+            type="outline"
+            style={{ ...buttonStyle, width: '35%', color: colors.accent[800], marginRight: '20px', borderWidth: '2px' }}
+            onClick={() => router.push('/user/sign-up/introduce-success')}
+          >
+            {t('common:skip')}
+          </Button>
+          <Button
+            type="outline"
+            onClick={() => form.submit()}
+            loading={loading}
+            style={{ ...buttonStyle, width: '65%', backgroundColor: colors.accent[800], color: colors.white }}
+          >
+            {t('signUp.complete')}
+          </Button>
+        </Flex>
+      </Form>
     </Flex>
   );
 };

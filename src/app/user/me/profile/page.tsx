@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Form, Button, Flex, FormInstance, message } from 'antd';
+import { Form, Button, Flex, FormInstance, message, App, Typography } from 'antd';
 import Image from 'next/image';
 import { parseISO, format } from 'date-fns';
+import { useRouter } from 'next/navigation';
 
 import Loading from '@/app/components/Loading';
 import { useTranslation } from '@/i18n/client';
@@ -25,6 +26,9 @@ export default function Page() {
   const [occupations, setOccupations] = useState<Array<Occupation>>([]);
   const { userInfo, refetch } = useGetUserInfoQuery();
   const { updateUserInfo } = useUpdateUserInfoMutation();
+  const { modal } = App.useApp();
+  const { Text } = Typography;
+  const router = useRouter();
 
   const basRef = useRef<{ computedDays: (changeValues: FieldType, values: FieldType, form: FormInstance) => void }>(
     null
@@ -75,7 +79,50 @@ export default function Page() {
     };
     updateUserInfo(uploadData)
       .then(() => {
-        message.success(t('myPage.myInfo.updateSuccess'));
+        modal.confirm({
+          icon: <></>,
+          title: (
+            <Text
+              strong
+              style={{
+                fontSize: '22px',
+                lineHeight: '33px',
+                padding: '0 12px',
+                letterSpacing: '0.66px',
+                textAlign: 'center',
+                display: 'inline-block'
+              }}
+            >
+              {t('setupPage.text')}
+            </Text>
+          ),
+          footer: (_, { OkBtn }) => (
+            <Flex style={{ padding: '20px' }}>
+              <OkBtn />
+            </Flex>
+          ),
+          centered: true,
+          okText: t('setupPage.button'),
+          onOk: () => router.push('/user/me'),
+          okButtonProps: {
+            style: {
+              fontWeight: 600,
+              fontSize: '16px',
+              width: '100%',
+              height: '64px',
+              borderRadius: '10px',
+              backgroundColor: '#E76B00',
+              color: '#fff'
+            }
+          },
+          content: (
+            <Flex justify="center">
+              <Image src="/images/Group627725.png" width={140} height={169} alt="icon" />
+            </Flex>
+          ),
+          wrapClassName: 'profile-modal',
+          width: 300
+        });
         refetch();
       })
       .catch(() => {
@@ -106,7 +153,13 @@ export default function Page() {
           {t('myPage.myInfo.title')}
         </h1>
       </Flex>
-      <Form requiredMark={false} form={form} onValuesChange={formHandleChange} onFinish={submitHandle}>
+      <Form
+        requiredMark={false}
+        form={form}
+        onValuesChange={formHandleChange}
+        onFinish={submitHandle}
+        scrollToFirstError
+      >
         <main style={{ padding: '24px 20px 32px 20px' }}>
           <BasicInformation basRef={basRef} userInfo={userInfo} />
           <Place userInfo={userInfo} />

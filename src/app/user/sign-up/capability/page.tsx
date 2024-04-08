@@ -1,8 +1,8 @@
 'use client';
 
-import { Typography, Form, Input, Checkbox, App } from 'antd';
+import { Typography, Form, Input, Checkbox, App, Flex } from 'antd';
 import { useRouter } from 'next/navigation';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import colors from '@/theme/colors';
 import { useTranslation } from '@/i18n/client';
@@ -10,10 +10,12 @@ import FlowStepBar from '@/app/components/sign-up/FlowStepBar';
 import StepController from '@/app/components/sign-up/StepController';
 import InputBadge from '@/app/components/sign-up/InputBadge';
 import { useSetUserSurveyMutation } from '@/api';
+import { useUserContext } from '@/app/hooks/useUserContext';
+import { ActionTypes } from '@/app/hooks/userUser';
 
 type FieldType = {
-  talkAbout?: string;
-  introduction: string;
+  discussionTopics?: string;
+  potentialReferrals: string;
   isAccepted: boolean;
 };
 
@@ -26,15 +28,25 @@ const Page: React.FC = () => {
 
   const [form] = Form.useForm();
 
+  const { state, setState } = useUserContext();
+
   const handleSubmit = useCallback(
     (values: FieldType) => {
-      setUserSurvey({ discussionTopics: values.talkAbout ?? '', potentialReferrals: values.introduction }).then(() => {
+      setState({ type: ActionTypes.SetUserSurvey, payload: form.getFieldsValue() });
+      setUserSurvey({
+        discussionTopics: values.discussionTopics ?? '',
+        potentialReferrals: values.potentialReferrals
+      }).then(() => {
         message.success(t('common:updateSuccess'));
-        router.replace('/user/sign-up/success');
+        router.push('/user/sign-up/success');
       });
     },
     [router, setUserSurvey]
   );
+
+  useEffect(() => {
+    form.setFieldsValue(state.survey);
+  }, [form, state.survey]);
 
   return (
     <div style={{ padding: '32px 24px 144px' }}>
@@ -49,6 +61,8 @@ const Page: React.FC = () => {
         style={{ paddingTop: '40px', display: 'flex', flexDirection: 'column', gap: '18px' }}
         form={form}
         onFinish={handleSubmit}
+        requiredMark={false}
+        scrollToFirstError
       >
         <Typography.Text style={{ fontSize: '19px', fontWeight: '600' }}>
           {t('signUp.capability.subTitle')}
@@ -60,7 +74,7 @@ const Page: React.FC = () => {
               <InputBadge />
             </>
           }
-          name="talkAbout"
+          name="discussionTopics"
           rules={[{ required: false }]}
           style={{ marginBottom: '0px' }}
         >
@@ -72,36 +86,39 @@ const Page: React.FC = () => {
           />
         </Form.Item>
         <Form.Item<FieldType>
-          label={t('signUp.capability.introduceTo')}
-          name="introduction"
+          label={
+            <div>
+              {t('signUp.capability.introduceTo')}
+              <Typography.Text
+                style={{
+                  width: '100%',
+                  display: 'block',
+                  fontSize: '11px',
+                  fontWeight: '300',
+                  textAlign: 'left',
+                  color: colors.gray[700],
+                  marginBottom: '8px'
+                }}
+              >
+                {t('signUp.capability.introduceToTip')}
+              </Typography.Text>
+            </div>
+          }
+          name="potentialReferrals"
           rules={[{ required: true, message: t('common:rule.required') }]}
           style={{ marginBottom: '0px' }}
         >
-          <div>
-            <Typography.Text
-              style={{
-                width: '100%',
-                display: 'block',
-                fontSize: '11px',
-                fontWeight: '300',
-                textAlign: 'left',
-                color: colors.gray[700],
-                marginBottom: '8px'
-              }}
-            >
-              {t('signUp.capability.introduceToTip')}
-            </Typography.Text>
-            <Input.TextArea
-              placeholder={t('signUp.capability.introduceToPlaceholder')}
-              autoSize
-              style={{ whiteSpace: 'pre-wrap', padding: '12px 16px', fontSize: 12 }}
-              maxLength={500}
-            />
-          </div>
+          <Input.TextArea
+            placeholder={t('signUp.capability.introduceToPlaceholder')}
+            autoSize
+            style={{ whiteSpace: 'pre-wrap', padding: '12px 16px', fontSize: 12 }}
+            maxLength={500}
+          />
         </Form.Item>
         <Form.Item
           name="isAccepted"
           valuePropName="checked"
+          style={{ marginTop: 46 }}
           rules={[
             { required: true, message: '' },
             ({}) => ({
@@ -114,17 +131,21 @@ const Page: React.FC = () => {
             })
           ]}
         >
-          <div>
-            <Checkbox />
-            <Typography.Link style={{ marginLeft: 6 }}>{t('common:termsOfUse')}</Typography.Link>・
-            <Typography.Link>{t('common:privacyPolicy')}</Typography.Link>
-            {t('signUp.capability.agreeTo')}
-          </div>
+          <Checkbox>
+            <Flex style={{ fontSize: 12 }} align="center">
+              <Typography.Link>{t('common:termsOfUse')}</Typography.Link>・
+              <Typography.Link>{t('common:privacyPolicy')}</Typography.Link>
+              {t('signUp.capability.agreeTo')}
+            </Flex>
+          </Checkbox>
         </Form.Item>
       </Form>
       <StepController
         loading={loading}
-        onReturn={() => router.replace('/user/sign-up/occupation')}
+        onReturn={() => {
+          setState({ type: ActionTypes.SetUserSurvey, payload: form.getFieldsValue() });
+          router.replace('/user/sign-up/occupation');
+        }}
         onNext={() => form.submit()}
       />
     </div>

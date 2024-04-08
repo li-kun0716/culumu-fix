@@ -25,6 +25,22 @@ const Page: React.FC = () => {
           padding: '11px 15px'
         }}
       >
+        <Button
+          type="outline"
+          onClick={() => router.push('/user/me')}
+          style={{
+            height: '64px',
+            width: '100%',
+            fontSize: '16px',
+            fontWeight: 600,
+            backgroundColor: colors.accent[800],
+            color: colors.white
+          }}
+        >
+          {t('signUp.introduceSuccess.returnToLine')}
+        </Button>
+      </Flex>
+    </>
         <div style={{ position: 'absolute', right: 20, top: 0 }} />
       </Tooltip>
       <Typography.Title style={{ fontSize: '22px', margin: '80px 0 16px' }}>

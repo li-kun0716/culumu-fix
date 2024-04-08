@@ -14,7 +14,7 @@ const Page: React.FC = () => {
     <Flex vertical justify="center" align="center">
       <Tooltip
         placement="bottomRight"
-        title={'タップで画面を閉じる'}
+        title={t('signUp.introduceSuccess.close')}
         defaultOpen={true}
         color={colors.white}
         overlayInnerStyle={{

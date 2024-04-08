@@ -32,7 +32,8 @@ const signUp = {
   introduceSuccess: {
     title: '自己紹介入力が完了しました！',
     description: '案件の依頼はLINEで届きます。\nご依頼までお待ちください',
-    tips: 'この画面を閉じるには\n右上の✕をタップしてください。'
+    tips: 'この画面を閉じるには\n右上の✕をタップしてください。',
+    close: 'タップで画面を閉じる'
   },
   complete: '登録を完了する',
   capability: {

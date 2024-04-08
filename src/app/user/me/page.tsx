@@ -15,8 +15,8 @@ export default function Page() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!state.profile.name || state.profile.name == '') router.replace('/user/sign-up');
-  }, [router, state.profile, state.profile.name]);
+    if (!state.isRegistered) router.replace('/user/sign-up');
+  }, [router, state.isRegistered]);
 
   return (
     <div style={{ backgroundColor: '#FBFAF8', minHeight: '100vh', position: 'relative' }}>

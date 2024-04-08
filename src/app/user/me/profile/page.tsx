@@ -153,7 +153,13 @@ export default function Page() {
           {t('myPage.myInfo.title')}
         </h1>
       </Flex>
-      <Form requiredMark={false} form={form} onValuesChange={formHandleChange} onFinish={submitHandle}>
+      <Form
+        requiredMark={false}
+        form={form}
+        onValuesChange={formHandleChange}
+        onFinish={submitHandle}
+        scrollToFirstError
+      >
         <main style={{ padding: '24px 20px 32px 20px' }}>
           <BasicInformation basRef={basRef} userInfo={userInfo} />
           <Place userInfo={userInfo} />

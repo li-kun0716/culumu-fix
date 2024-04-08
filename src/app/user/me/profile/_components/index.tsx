@@ -310,9 +310,7 @@ export function Place({ userInfo }: { userInfo: UserInfo }) {
           rules={[
             {
               required: true,
-              validator: checkInput(
-                `${t('myPage.myInfo.validation.noContact')}。\n${t('myPage.myInfo.validation.required')}`
-              )
+              message: t('myPage.myInfo.validation.required')
             }
           ]}
           label={

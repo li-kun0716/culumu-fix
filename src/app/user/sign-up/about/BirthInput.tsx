@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Flex, Select, Typography } from 'antd';
-import { getDaysInMonth } from 'date-fns';
+import { getDate, getDaysInMonth, getMonth, getYear } from 'date-fns';
 
 import { monthOptions, yearOptions } from '@/utils/common';
 import { useTranslation } from '@/i18n/client';
 import { useUserContext } from '@/app/hooks/useUserContext';
-import { ActionTypes } from '@/app/hooks/userUser';
 
 export const BirthInput: React.FC<{ onChange: (date: Date) => void }> = ({ onChange }) => {
   const { t } = useTranslation('auth-page');
@@ -14,33 +13,30 @@ export const BirthInput: React.FC<{ onChange: (date: Date) => void }> = ({ onCha
   const [day, setDay] = useState<number>();
   const [dayOptions, setDayOptions] = useState<{ label: string; value: string }[]>([]);
   const [selectDayDisabled, setSelectDayDisabled] = useState(true);
-  const { state, setState } = useUserContext();
+  const { state } = useUserContext();
 
   const handleYearSelected = useCallback(
     (val: number) => {
       month && day && onChange(new Date(val, month, day));
-      setState({ type: ActionTypes.SetUserProfile, payload: { ...state.profile, year: val.toString() } });
       setYear(val);
     },
-    [month, day, onChange, setState, state.profile]
+    [month, day, onChange]
   );
 
   const handleMonthSelected = useCallback(
     (val: number) => {
       year && day && onChange(new Date(year, val, day));
-      setState({ type: ActionTypes.SetUserProfile, payload: { ...state.profile, month: val.toString() } });
       setMonth(val);
     },
-    [year, day, onChange, setState, state.profile]
+    [year, day, onChange]
   );
 
   const handleDaySelected = useCallback(
     (val: number) => {
       year && month && onChange(new Date(year, month, val));
-      setState({ type: ActionTypes.SetUserProfile, payload: { ...state.profile, day: val.toString() } });
       setDay(val);
     },
-    [year, month, onChange, setState, state.profile]
+    [year, month, onChange]
   );
 
   useEffect(() => {
@@ -60,10 +56,14 @@ export const BirthInput: React.FC<{ onChange: (date: Date) => void }> = ({ onCha
   }, [year, month]);
 
   useEffect(() => {
-    if (state.profile.year) setYear(Number(state.profile.year));
-    if (state.profile.month) setMonth(Number(state.profile.month));
-    if (state.profile.day) setDay(Number(state.profile.day));
-  }, [state.profile, state.profile.day, state.profile.month, state.profile.year]);
+    const year = getYear(new Date(state.profile.birth ?? ''));
+    const month = getMonth(new Date(state.profile.birth ?? ''));
+    const day = getDate(new Date(state.profile.birth ?? ''));
+
+    if (year) setYear(Number(year));
+    if (month) setMonth(Number(month));
+    if (day) setDay(Number(day));
+  }, [state.profile.birth]);
 
   const DateSelect: React.FC<{
     options: { label: string; value: string }[];

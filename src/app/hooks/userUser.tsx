@@ -9,8 +9,8 @@ export enum ActionTypes {
 }
 
 export type User = {
-  profile: Record<'name' | 'nameKana' | 'tel' | 'email' | 'postalCode' | 'year' | 'month' | 'day', string> & {
-    gender: 'male' | 'female' | 'other' | 'noAnswer';
+  profile: Record<'name' | 'nameKana' | 'tel' | 'email' | 'postalCode', string> & {
+    gender: 'male' | 'female' | 'other' | 'secret';
     birth?: Date;
   };
   occupations: {
@@ -22,6 +22,7 @@ export type User = {
   }[];
   survey: { discussionTopics?: string; potentialReferrals: string; isAccepted: boolean };
   bio: string | undefined;
+  isRegistered: boolean;
 };
 
 type ActionPayloadType = {
@@ -48,14 +49,12 @@ const initialState: StateType = {
     gender: 'male',
     tel: '',
     birth: undefined,
-    year: '',
-    month: '',
-    day: '',
     postalCode: ''
   },
   occupations: [{ occupationType: '', name: '' }],
   survey: { potentialReferrals: '', isAccepted: false },
-  bio: ''
+  bio: '',
+  isRegistered: false
 };
 
 export const useUser = () => {

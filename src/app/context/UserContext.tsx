@@ -27,9 +27,7 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
           email: userInfo?.email ?? '',
           postalCode: userInfo?.postalCode ?? '',
           gender: userInfo?.gender ?? 'male',
-          year: new Date(userInfo?.birthday ?? '2000-01-01').getFullYear().toString(),
-          month: new Date(userInfo?.birthday ?? '2000-01-01').getMonth() + 1 + '',
-          day: new Date(userInfo?.birthday ?? '2000-01-01').getDay().toString()
+          birth: new Date(userInfo?.birthday ?? '')
         },
         occupations: userInfo?.occupations ?? [{ occupationType: '', name: '' }],
         survey: {
@@ -37,7 +35,8 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
           potentialReferrals: userInfo?.potentialReferrals ?? '',
           isAccepted: false
         },
-        bio: userInfo?.bio
+        bio: userInfo?.bio,
+        isRegistered: userInfo?.isRegistered
       }
     });
   }, [dispatch, isLoading, userInfo]);

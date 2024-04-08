@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Form as AntdForm, Input, Typography, Select, App } from 'antd';
 import styled from 'styled-components';
 import { useRouter } from 'next/navigation';
@@ -14,8 +14,8 @@ import { useUserContext } from '@/app/hooks/useUserContext';
 import { ActionTypes } from '@/app/hooks/userUser';
 import colors from '@/theme/colors';
 
-type FieldType = Record<'name' | 'nameKana' | 'tel' | 'email' | 'postalCode' | 'year' | 'month' | 'day', string> & {
-  gender: 'male' | 'female' | 'other' | 'noAnswer';
+type FieldType = Record<'name' | 'nameKana' | 'tel' | 'email' | 'postalCode', string> & {
+  gender: 'male' | 'female' | 'other' | 'secret';
   birth?: Date;
 };
 
@@ -38,6 +38,7 @@ export const Form: React.FC = () => {
 
   const handleSubmit = (values: FieldType) => {
     setState({ type: ActionTypes.SetUserProfile, payload: values });
+
     updateMe({
       name: values.name,
       nameKana: values.nameKana,
@@ -55,18 +56,7 @@ export const Form: React.FC = () => {
   };
 
   useEffect(() => {
-    form.setFieldValue('name', state.profile.name);
-    form.setFieldValue('nameKana', state.profile.nameKana);
-    if (state.profile.year && state.profile.month && state.profile.day) {
-      form.setFieldValue(
-        'birth',
-        new Date(Number(state.profile.year), Number(state.profile.month), Number(state.profile.day))
-      );
-    }
-    form.setFieldValue('gender', state.profile.gender);
-    form.setFieldValue('tel', state.profile.tel);
-    form.setFieldValue('postalCode', state.profile.postalCode);
-    form.setFieldValue('email', state.profile.email);
+    form.setFieldsValue(state.profile);
   }, [form, state.profile]);
 
   return (
@@ -75,6 +65,7 @@ export const Form: React.FC = () => {
       style={{ paddingTop: '40px', display: 'flex', flexDirection: 'column', gap: '18px' }}
       form={form}
       onFinish={() => handleSubmit(form.getFieldsValue())}
+      scrollToFirstError
     >
       <Typography.Text style={{ fontSize: '19px', fontWeight: '600', textAlign: 'left' }}>
         {t('signUp.about.basicInfo')}
@@ -105,7 +96,11 @@ export const Form: React.FC = () => {
         initialValue={state.profile.birth}
         rules={[{ required: true, message: t('common:rule.required') }]}
       >
-        <BirthInput onChange={(date) => form.setFieldValue('birth', date)} />
+        <BirthInput
+          onChange={(date) => {
+            form.setFieldValue('birth', date);
+          }}
+        />
       </AntdForm.Item>
       <AntdForm.Item<FieldType>
         label={t('signUp.about.gender')}
@@ -117,7 +112,7 @@ export const Form: React.FC = () => {
           <Select.Option value="female">{t('common:gender.male')}</Select.Option>
           <Select.Option value="male">{t('common:gender.female')}</Select.Option>
           <Select.Option value="other">{t('common:gender.other')}</Select.Option>
-          <Select.Option value="noAnswer">{t('common:gender.noAnswer')}</Select.Option>
+          <Select.Option value="secret">{t('common:gender.secret')}</Select.Option>
         </Select>
       </AntdForm.Item>
       <Typography.Text style={{ fontSize: '19px', fontWeight: '600', textAlign: 'left', marginTop: '22px' }}>

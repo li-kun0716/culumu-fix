@@ -29,8 +29,7 @@ const myInfo = {
     required: 'こちらは必須項目になります。',
     fullWidth: '全角カタカナで入力してください。',
     singleByteNum: '半角数字のみで入力してください。',
-    singleByteEN: '半角英数字のみで入力してください。',
-    noContact: 'xハイフン無しで入力してください'
+    singleByteEN: '半角英数字のみで入力してください。'
   },
   input: {
     fullNamePlaceHolder: '山田太郎',
@@ -63,7 +62,7 @@ const myInfo = {
       },
       {
         label: '答えたくない',
-        value: 'noAnswer'
+        value: 'secret'
       }
     ],
     occupationSelect: [

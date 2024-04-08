@@ -26,6 +26,6 @@ export default {
     male: '男性',
     female: '女性',
     other: 'そのた',
-    noAnswer: '答えたくない'
+    secret: '答えたくない'
   }
 };

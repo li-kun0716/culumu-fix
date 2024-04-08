@@ -33,7 +33,7 @@ const Page: React.FC = () => {
       align="center"
       style={{
         overflow: 'hidden',
-        backgroundImage: 'url(/images/sign-up-top-icon.png),url(/images/sign-up-bottom-icon.png)',
+        backgroundImage: 'url(/images/auth-top-icon.png),url(/images/auth-bottom-icon.png)',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'right -68px, left bottom',
         padding: '40px 24px',

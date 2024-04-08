@@ -1,16 +1,16 @@
 interface UserInfo {
-  name: string
+  name: string;
   nameKana: string;
   email: string;
   birthday: string;
-  gender: "male" | "female",
+  gender: 'male' | 'female';
   phone: string;
   postalCode: string;
   discussionTopics: string;
   potentialReferrals: string;
   bio: string;
   occupations: Array<Occupation>;
-
+  isRegistered: boolean;
 }
 
 interface Occupation {
@@ -20,5 +20,3 @@ interface Occupation {
   positionType: string;
   position: string;
 }
-
-

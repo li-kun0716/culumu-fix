@@ -1,9 +1,7 @@
 'use client';
 
 import { Flex, Typography, Image, Tooltip } from 'antd';
-import { useRouter } from 'next/navigation';
 import React from 'react';
-import styled from 'styled-components';
 
 import { useTranslation } from '@/i18n/client';
 

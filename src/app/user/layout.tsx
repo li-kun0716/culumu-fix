@@ -9,9 +9,11 @@ import { UserContextProvider } from '@/app/context/UserContext';
 export default function layout({ children }: { children: React.ReactNode }) {
   return (
     <AppQueryClientProvider>
-      <UserContextProvider>
-        <AuthGuard>{children}</AuthGuard>
-      </UserContextProvider>
+      {/* <UserContextProvider> */}
+      {/* <AuthGuard> */}
+      {children}
+      {/* </AuthGuard> */}
+      {/* </UserContextProvider> */}
     </AppQueryClientProvider>
   );
 }

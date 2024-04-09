@@ -65,135 +65,123 @@ export function SessionTitle({ title }: { title: string }) {
 export function Occupations({ occupations }: { occupations: Array<Occupation> }) {
   const { t } = useTranslation();
   const occupationSelectList = t('myPage.myInfo.select.occupationSelect', { returnObjects: true });
-  const positionSelectList = t('myPage.myInfo.select.positionSelect', { returnObjects: true });
+  const postSelectList = t('myPage.myInfo.select.postSelect', { returnObjects: true });
   const specialOccupationSelect = t('myPage.myInfo.select.specialList', { returnObjects: true }) as Array<string>;
-  const [occupationList, setOccupationList] = useState<Array<Occupation>>([]);
-  const occupationWatcher = Form.useWatch('occupations');
-  const handleSelectChange = (value: string, index: number, key: 'occupation' | 'position') => {
-    const newOccupationList = [...occupationList];
-    const type = key === 'occupation' ? 'occupationType' : 'positionType';
-    const name = key === 'occupation' ? 'name' : 'position';
-    if (value === 'other') {
-      newOccupationList[index][type] = 'other';
-      newOccupationList[index][name] = '';
-    } else {
-      newOccupationList[index][type] = 'general';
-      newOccupationList[index][name] = value;
-    }
-    setOccupationList(newOccupationList);
-  };
-  const handleInputChange = (value: string, index: number, key: 'occupation' | 'position') => {
-    const newOccupationList = [...occupationList];
-    const name = key === 'occupation' ? 'name' : 'position';
-    newOccupationList[index][name] = value;
-    setOccupationList(newOccupationList);
-  };
 
-  useEffect(() => {
-    if (occupations) setOccupationList(occupations);
-  }, [occupations]);
+  const occupationWatcher = Form.useWatch('occupations');
+  console.log(occupationWatcher, 'watcher', occupationSelectList);
   // const showOccupationInput=(index)=>{
 
   // }
-  const getNameValue = (occupation: Occupation) => (occupation.occupationType === 'other' ? 'other' : occupation.name);
-  const nameInputIsShow = (occupation: Occupation) => occupation.occupationType === 'other';
-  const additionalFieldsIsShow = (occupation: Occupation) => specialOccupationSelect.includes(occupation.name);
-  const getPositionValue = (occupation: Occupation) =>
-    occupation.positionType === 'other' ? 'other' : occupation.position;
-  const positionInputIsShow = (occupation: Occupation) => occupation.positionType === 'other';
-  console.log(occupationList);
+
   return (
     <>
-      <section>
-        {occupationList.map((item, index) => (
-          <div key={index}>
-            <Form.Item
-              name={`name${index}`}
-              rules={[{ required: true, message: t('myPage.myInfo.validation.required') }]}
-              label={
-                <div style={{ marginBottom: '10px' }}>
-                  <Label>{t('myPage.myInfo.occupation') + (index === 0 ? '' : index + 1)}</Label>
-                  <p style={{ fontSize: '11px', color: '#616161', fontWeight: 300, letterSpacing: '0.33px' }}>
-                    {t('myPage.myInfo.occupationAttention')}
-                  </p>
-                </div>
-              }
-              initialValue={getNameValue(item)}
-            >
-              <Select
-                options={occupationSelectList}
-                style={{ height: '47px' }}
-                placeholder={t('myPage.myInfo.select.placeHolder')}
-                onChange={(value) => handleSelectChange(value, index, 'occupation')}
-              />
-            </Form.Item>
-            {nameInputIsShow(item) && (
-              <Form.Item name={`nameInput${index}`} initialValue={item.name} rules={[{ required: true }]}>
-                <Input
-                  placeholder={t('myPage.myInfo.input.otherPlaceHolder')}
-                  style={inputStyle}
-                  onChange={(e) => handleInputChange(e.target.value, index, 'occupation')}
+      {/*
+        <div>
+              <Form.Item
+                name={`occupationName${index}`}
+                rules={[{ required: true, message: t('myPage.myInfo.validation.required') }]}
+                label={
+                  <div style={{ marginBottom: '10px' }}>
+                    <Label>{t('myPage.myInfo.occupation') + (index === 0 ? '' : index + 1)}</Label>
+                    <p style={{ fontSize: '11px', color: '#616161', fontWeight: 300, letterSpacing: '0.33px' }}>
+                      {t('myPage.myInfo.occupationAttention')}
+                    </p>
+                  </div>
+                }
+                initialValue={occupation.name}
+              >
+                <Select
+                  options={occupationSelectList}
+                  style={{ height: '47px' }}
+                  placeholder={t('myPage.myInfo.select.placeHolder')}
+                  onChange={(value) => setOccupationSelect(value)}
                 />
               </Form.Item>
-            )}
-
-            {additionalFieldsIsShow(item) && (
-              <>
-                <Form.Item
-                  name={`organization${index}`}
-                  label={
-                    <Flex gap={8} align="center">
-                      <Label>{t('myPage.myInfo.organizationName')}</Label>
-                      <AnyIcon />
-                    </Flex>
-                  }
-                  initialValue={item.organization}
-                >
-                  <Input
-                    style={inputStyle}
-                    placeholder={t('myPage.myInfo.input.organizationNamePlaceHolder')}
-                    maxLength={100}
-                  />
+              {occSelect === 'other' && (
+                <Form.Item name={`otherOccupationName${index}`} rules={[{ required: true }]}>
+                  <Input placeholder={t('myPage.myInfo.input.otherPlaceHolder')} style={inputStyle} />
                 </Form.Item>
-                <Form.Item
-                  name={`position${index}`}
-                  label={
-                    <Flex gap={8} align="center">
-                      <Label>{t('myPage.myInfo.post')}</Label>
-                      <AnyIcon />
-                    </Flex>
-                  }
-                  initialValue={getPositionValue(item)}
-                >
-                  <Select
-                    options={positionSelectList}
-                    style={{ height: '47px' }}
-                    placeholder={t('myPage.myInfo.select.placeHolder')}
-                    onSelect={(value) => handleSelectChange(value, index, 'position')}
-                  ></Select>
-                </Form.Item>
-                {positionInputIsShow(item) && (
-                  <Form.Item initialValue={item.position} rules={[{ required: true }]} name={`positionInput${index}`}>
+              )}
+              {specialOccupationSelect.indexOf(occSelect) > -1 && (
+                <>
+                  <Form.Item
+                    name={`organizationName${index}`}
+                    label={
+                      <Flex gap={8} align="center">
+                        <Label>{t('myPage.myInfo.organizationName')}</Label>
+                        <AnyIcon />
+                      </Flex>
+                    }
+                    initialValue={occupation.organization}
+                  >
                     <Input
-                      placeholder={t('myPage.myInfo.input.otherPlaceHolder')}
                       style={inputStyle}
-                      onChange={(e) => handleInputChangee(e.target.value, index, 'position')}
+                      placeholder={t('myPage.myInfo.input.organizationNamePlaceHolder')}
+                      maxLength={100}
                     />
                   </Form.Item>
-                )}
-              </>
-            )}
-          </div>
-        ))}
+                  <Form.Item
+                    name={`positionName${index}`}
+                    label={
+                      <Flex gap={8} align="center">
+                        <Label>{t('myPage.myInfo.post')}</Label>
+                        <AnyIcon />
+                      </Flex>
+                    }
+                    initialValue={occupation.position}
+                  >
+                    <Select
+                      options={postSelectList}
+                      style={{ height: '47px' }}
+                      placeholder={t('myPage.myInfo.select.placeHolder')}
+                      onChange={(value) => setPostSelect(value)}
+                    ></Select>
+                  </Form.Item>
+                  {postSelect === 'other' && (
+                    <Form.Item rules={[{ required: true }]} name={`otherPositionName`}>
+                      <Input placeholder={t('myPage.myInfo.input.otherPlaceHolder')} style={inputStyle} />
+                    </Form.Item>
+                  )}
+                </>
+              )}
+            </div>
+      */}
+      <section>
+        <Form.List name={'occupations'} initialValue={occupations}>
+          {(fields, { add, remove }) => (
+            <>
+              {fields.map((filed, index, data) => (
+                <div key={filed.key}>
+                  <Form.Item
+                    name={[filed.name, 'name']}
+                    rules={[{ required: true, message: t('myPage.myInfo.validation.required') }]}
+                    label={
+                      <div style={{ marginBottom: '10px' }}>
+                        <Label>{t('myPage.myInfo.occupation') + (index === 0 ? '' : index + 1)}</Label>
+                        <p style={{ fontSize: '11px', color: '#616161', fontWeight: 300, letterSpacing: '0.33px' }}>
+                          {t('myPage.myInfo.occupationAttention')}
+                        </p>
+                      </div>
+                    }
+                  >
+                    <Select
+                      options={occupationSelectList}
+                      style={{ height: '47px' }}
+                      placeholder={t('myPage.myInfo.select.placeHolder')}
+                    />
+                  </Form.Item>
+                  <Form.Item name={[filed.name, 'position']} rules={[{ required: true }]}>
+                    <Input placeholder={t('myPage.myInfo.input.otherPlaceHolder')} style={inputStyle} />
+                  </Form.Item>
+                </div>
+              ))}
+            </>
+          )}
+        </Form.List>
       </section>
       <section>
-        <Flex
-          align="center"
-          justify="center"
-          gap={2}
-          style={{ margin: '20px 0 40px 0' }}
-          onClick={() => setOccupationList([...occupationList, {} as Occupation])}
-        >
+        <Flex align="center" justify="center" gap={2} style={{ margin: '20px 0 40px 0' }}>
           <Image src="/images/Add.svg" width={13.3} height={13.3} alt="add" />
           <span
             style={{

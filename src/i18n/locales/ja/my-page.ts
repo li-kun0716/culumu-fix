@@ -127,7 +127,7 @@ const myInfo = {
         value: 'other'
       }
     ],
-    postSelect: [
+    positionSelect: [
       {
         label: '経営者・代表',
         value: '経営者・代表'

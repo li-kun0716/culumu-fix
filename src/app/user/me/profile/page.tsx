@@ -5,13 +5,12 @@ import { Form, Button, Flex, FormInstance, message, App, Typography } from 'antd
 import Image from 'next/image';
 import { parseISO, format } from 'date-fns';
 import { useRouter } from 'next/navigation';
-
 import Loading from '@/app/components/Loading';
 import { useTranslation } from '@/i18n/client';
 import { useGetUserInfoQuery, useUpdateUserInfoMutation } from '@/api';
 
 import './information.css';
-import { BasInfoAndIntro, BasicInformation, Contact, Occupation, Paragraph, Place } from './_components';
+import { BasInfoAndIntro, BasicInformation, Contact, Occupations, Paragraph, Place } from './_components';
 
 export type FieldType = UserInfo & {
   year: number;
@@ -20,11 +19,33 @@ export type FieldType = UserInfo & {
   [key: string]: number | string;
 };
 
+const userInfo: UserInfo = {
+  name: 'test',
+  nameKana: 'test',
+  email: 'test@test.com',
+  birthday: '2023-01-01T00:00:00.000Z',
+  phone: '09012345678',
+  gender: 'male',
+  postalCode: '1234567',
+  discussionTopics: 'hello Topics',
+  potentialReferrals: 'hello referrals',
+  bio: 'hello bio',
+  occupations: [
+    {
+      name: '会社員',
+      occupationType: 'genera',
+      organization: 'organization-test',
+      position: 'position-test',
+      positionType: 'other'
+    }
+  ],
+  isRegistered: true
+};
+
 export default function Page() {
   const { t } = useTranslation();
   const [form] = Form.useForm<FieldType>();
-  const [occupations, setOccupations] = useState<Array<Occupation>>([]);
-  const { userInfo, refetch } = useGetUserInfoQuery();
+  // const { userInfo, refetch } = useGetUserInfoQuery();
   const { updateUserInfo } = useUpdateUserInfoMutation();
   const { modal } = App.useApp();
   const { Text } = Typography;
@@ -130,15 +151,9 @@ export default function Page() {
       });
   };
 
-  useEffect(() => {
-    if (userInfo && userInfo.occupations) {
-      setOccupations(userInfo.occupations);
-    }
-  }, [userInfo]);
-
-  if (!userInfo) {
-    return <Loading />;
-  }
+  // if (!userInfo) {
+  //   return <Loading />;
+  // }
 
   return (
     <div className="information" style={{ backgroundColor: '#FBFAF8', position: 'relative', paddingBottom: '100px' }}>
@@ -165,31 +180,9 @@ export default function Page() {
           <Place userInfo={userInfo} />
           <Contact userInfo={userInfo} />
           <Paragraph />
-          {occupations.map((item, index) => (
-            <Occupation index={index} key={item.name + index} occupation={item} />
-          ))}
-          <section>
-            <Flex
-              align="center"
-              justify="center"
-              gap={2}
-              style={{ margin: '20px 0 40px 0' }}
-              onClick={() => setOccupations((prev) => [...prev, {} as Occupation])}
-            >
-              <Image src="/images/Add.svg" width={13.3} height={13.3} alt="add" />
-              <span
-                style={{
-                  fontSize: '14px',
-                  fontWeight: '300',
-                  lineHeight: '21px',
-                  letterSpacing: '0.42px',
-                  color: '#ED7B01'
-                }}
-              >
-                {t('myPage.myInfo.add')}
-              </span>
-            </Flex>
-          </section>
+
+          <Occupations occupations={userInfo.occupations} />
+
           <BasInfoAndIntro userInfo={userInfo} />
         </main>
         <footer
